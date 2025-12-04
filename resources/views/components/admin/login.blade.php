@@ -61,7 +61,7 @@
 </div>
 
 <div id="registrasi-form-container" class="hidden">
-  <x-registrasi />
+  <x-pengunjung.registrasi />
 </div>
 
 <script>

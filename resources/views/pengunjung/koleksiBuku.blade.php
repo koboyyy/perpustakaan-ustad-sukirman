@@ -1,25 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Koleksi Buku</title>
-  <script src="https://kit.fontawesome.com/23275395bd.js" crossorigin="anonymous"></script>
-  @vite('resources/css/app.css')
-
-</head>
-
-<body class="light font-dm-sans bg-gradient-to-br from-[#f6edff] via-white to-[#ede9fe]">
-  <x-pengunjung::navbar-home></x-pengunjung::navbar-home>
-
-  <section class="container mx-auto">
+<x-pengunjung.layout-pengunjung>
+  <section class="container mx-auto font-dm-sans">
     {{-- Hero --}}
     <div class="py-16 px-2 md:px-0 mb-10 relative z-10">
       <div class="mx-auto max-w-3xl text-center">
         <h1
-          class="font-poppins text-4xl sm:text-5xl xl:text-6xl font-extrabold bg-gradient-to-r from-purple-700 via-purple-500 to-purple-700 bg-clip-text text-transparent leading-tight drop-shadow-xl mb-4 tracking-tight">
+          class="text-4xl sm:text-5xl xl:text-6xl font-extrabold bg-gradient-to-r from-purple-700 via-purple-500 to-purple-700 bg-clip-text text-transparent leading-tight drop-shadow-xl mb-4 tracking-tight">
           Daftar Lengkap Buku Digital <br>
           <span class="text-purple-400">Perpustakaan Ustad Sukirman</span>
         </h1>
@@ -89,11 +74,4 @@
       </div>
     </div>
   </section>
-
-  {{-- Footer --}}
-  <x-pengunjung::footer></x-pengunjung::footer>
-
-  @vite('resources/js/koleksiBuku.js')
-</body>
-
-</html>
+</x-pengunjung.layout-pengunjung>

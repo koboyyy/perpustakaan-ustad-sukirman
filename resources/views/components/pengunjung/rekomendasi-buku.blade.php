@@ -1,6 +1,5 @@
 {{-- Rekomendasi Buku --}}
-<section class="container mx-auto">
-
+<div class="container mx-auto">
   <x-pengunjung::sub-title title="Rekomendasi Buku" subtitle="Temukan Bacaan Favorit Anda" />
 
   <div class="flex justify-center items-center mb-8">
@@ -28,9 +27,11 @@
 
         <div class="overflow-hidden rounded-t-2xl h-[270px] flex items-stretch bg-purple-100">
           <img
-            class="book w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105 z-0"
+            class="buku w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105 z-0"
             style="transition: filter 300ms, opacity 300ms;" src="">
         </div>
+
+        <button onclick="test()" class="hover:bg-black hover:text-white">Klik</button>
 
         <div class="absolute top-3 left-3 z-10">
           <span
@@ -46,46 +47,5 @@
         </div>
       </div>
     @endfor
-
   </div>
-
-  <style>
-    /* Pastikan transisi filter & opacity diutamakan agar class Tailwind tidak bentrok */
-    .book {
-      transition: filter 300ms, opacity 300ms;
-    }
-  </style>
-
-  <script>
-    // Menambah efek grayscale pada cover card lain saat salah satu card di-hover
-    document.addEventListener('DOMContentLoaded', function() {
-      const wrapper = document.getElementById('rekomendasi-cards-wrapper');
-      if (!wrapper) return;
-      const cards = wrapper.querySelectorAll('.rekomendasi-card');
-
-      cards.forEach((card) => {
-        card.addEventListener('mouseenter', function() {
-          cards.forEach((otherCard) => {
-            if (otherCard !== card) {
-              const img = otherCard.querySelector('.book');
-              if (img) {
-                img.classList.add('grayscale', 'opacity-60');
-                // Pastikan juga ada transition!
-                img.style.transition = 'filter 300ms, opacity 300ms';
-              }
-            }
-          });
-        });
-        card.addEventListener('mouseleave', function() {
-          cards.forEach((otherCard) => {
-            const img = otherCard.querySelector('.book');
-            if (img) {
-              img.classList.remove('grayscale', 'opacity-60');
-              img.style.transition = 'filter 300ms, opacity 300ms';
-            }
-          });
-        });
-      });
-    });
-  </script>
-</section>
+</div>

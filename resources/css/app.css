@@ -111,3 +111,17 @@ footer.light {
 footer.dark {
   background-color: black;
 }
+
+.group-box:hover .box {
+  background-color: pink;
+}
+
+.group-box .box:hover {
+  background-color: pink;
+}
+
+.book {
+  transition:
+    filter 300ms,
+    opacity 300ms;
+}
