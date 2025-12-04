@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000');
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+  --font-sans:
+    'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+
+  --font-poppins: 'Poppins', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-dm-sans: 'DM sans', sans;
+}
+
+#navbar.light {
+  background-color: white;
+  box-shadow: gray 0px 0px 10px;
+}
+
+#navbar.dark {
+  background-color: transparent;
+}
+
+a {
+  position: relative;
+  width: fit-content;
+  transition: all 400ms;
+  transition: all 300ms;
+}
+
+.link-dark::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: white;
+  transition: all 300ms;
+}
+
+.link-dark.select::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  transition: all 300ms;
+}
+
+.link-light::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: rgb(0, 0, 0);
+  transition: all 300ms;
+}
+
+.link-light.select::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: rgb(0, 0, 0);
+  transition: all 300ms;
+}
+
+a:hover::before {
+  width: 100%;
+}
+
+.light {
+  background-color: rgb(249, 249, 249);
+  color: black;
+}
+
+.dark {
+  background-color: rgb(19, 19, 19);
+  color: white;
+}
+
+#pencarian {
+  transition: all 400ms;
+}
+
+#pencarian.light {
+  background-color: white;
+}
+
+#pencarian.dark {
+  background-color: #1d1d1d;
+}
+
+footer.light {
+  background-color: transparent;
+}
+
+footer.dark {
+  background-color: black;
+}
