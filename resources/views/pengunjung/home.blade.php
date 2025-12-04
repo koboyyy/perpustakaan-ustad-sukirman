@@ -27,7 +27,7 @@
   <script src="https://kit.fontawesome.com/23275395bd.js" crossorigin="anonymous"></script>
 </head>
 
-<body class="light">
+<body class="light bg-gradient-to-br from-[#f6edff] via-white to-[#ede9fe]">
 
   {{-- Header --}}
   <section>
@@ -36,11 +36,14 @@
     <x-pengunjung::header-home></x-pengunjung::header-home>
   </section>
 
-  <x-pengunjung::rekomendasi-buku></x-pengunjung::rekomendasi-buku>
+  {{-- Konten Utama Home --}}
+  <section class="space-y-30 py-20">
+    <x-pengunjung::rekomendasi-buku></x-pengunjung::rekomendasi-buku>
 
-  <x-pengunjung::box-layanan></x-pengunjung::box-layanan>
+    <x-pengunjung::box-layanan></x-pengunjung::box-layanan>
 
-  <x-pengunjung::buku-terbaru></x-pengunjung::buku-terbaru>
+    <x-pengunjung::buku-terbaru></x-pengunjung::buku-terbaru>
+  </section>
 
   <x-pengunjung::footer></x-pengunjung::footer>
 
@@ -53,10 +56,9 @@
       const data = await respon.url;
 
       try {
-        console.log(data);
-        if (index > 1) {
-          img.src = data;
-        }
+
+        img.src = data;
+
       } catch (err) {
         console.log('error: ' + err);
       }

@@ -11,61 +11,58 @@
 
 </head>
 
-<body class="light font-dm-sans">
-  {{-- <section id="navbar"
-    class="text-[16px] font-bold h-20 flex items-center justify-between gap-10 px-[50px] light">
-
-    <div class="flex gap-10 items-center">
-
-      <img src="img/logo.png" alt="logo" class="w-12">
-
-      <a href="/">BERANDA</a>
-      <a href="/koleksi-buku" class="select">KOLEKSI BUKU</a>
-      <a href="/about">ABOUT</a>
-    </div>
-
-    <button id="btn-theme" onclick="setTheme()">White Mode</button>
-  </section> --}}
-
+<body class="light font-dm-sans bg-gradient-to-br from-[#f6edff] via-white to-[#ede9fe]">
   <x-pengunjung::navbar-home></x-pengunjung::navbar-home>
 
   <section class="container mx-auto">
     {{-- Hero --}}
-    <div class="py-15">
-      <div class="text-[70px] font-medium w-200 leading-[75px] mb-5">
-        Daftar lengkap buku digital dari perpustakaan Ustad Sukirman
-      </div>
-      <div class="text-[20px] leading-[29px]">
-        Jelajahi koleksi buku yang ada di perpustakaan digital Ustad Sukirman.
+    <div class="py-16 px-2 md:px-0 mb-10 relative z-10">
+      <div class="mx-auto max-w-3xl text-center">
+        <h1
+          class="font-poppins text-4xl sm:text-5xl xl:text-6xl font-extrabold bg-gradient-to-r from-purple-700 via-purple-500 to-purple-700 bg-clip-text text-transparent leading-tight drop-shadow-xl mb-4 tracking-tight">
+          Daftar Lengkap Buku Digital <br>
+          <span class="text-purple-400">Perpustakaan Ustad Sukirman</span>
+        </h1>
+        <p class="text-lg sm:text-xl text-purple-900/80 font-medium mb-0 mt-2">
+          Jelajahi koleksi buku terbaik yang ada di <span
+            class="font-semibold text-purple-700">Perpustakaan Digital Ustad Sukirman</span>.
+        </p>
       </div>
     </div>
 
     {{-- Main Content --}}
     <div class="flex gap-5">
       {{-- Kategori --}}
-      <div class="text-[16px] w-80">
-        <div class="font-semibold mb-4">KATEGORI</div>
-        <div id="kategori" class="flex flex-col"></div>
+      <div
+        class="w-80 rounded-2xl bg-gradient-to-br from-purple-100 via-purple-50 to-purple-200 shadow-lg p-6">
+        <div
+          class="font-bold text-purple-800 text-[18px] mb-4 tracking-wide flex items-center gap-2">
+          <i class="fa-solid fa-layer-group text-purple-500"></i>
+          KATEGORI
+        </div>
+        <div id="kategori" class="flex flex-col gap-2">
+          {{-- Kategori list dinamis diisi JS --}}
+          {{-- contoh struktur kategori-item
+          <button class="kategori-item text-left px-4 py-2 rounded-lg bg-white/60 hover:bg-purple-200 hover:text-purple-900 text-purple-700 font-medium transition shadow-sm ring-1 ring-purple-200/40 focus:ring-2 focus:outline-none">Novel</button>
+          --}}
+        </div>
       </div>
 
       {{-- Koleksi Buku --}}
       <div class="w-full">
         {{-- Navbar --}}
         <div class="flex justify-between w-full items-start mb-7">
-          {{-- Tab
-          <div class="flex gap-7 font-semibold items-center">
-            <a href="" class="select">SEMUA</a>
-            <a href="">BEBAS</a>
-            <a href="">PREMIUM</a>
-          </div> --}}
 
           {{-- Pencarian --}}
           <div class="flex gap-7 items-center w-full">
-            <form action="" class="flex w-full">
-              <input type="text" name="pencarian" placeholder="Cari buku.." id="pencarian"
-                class="light py-[14px] pl-[20px] pr-[50px] w-full" />
-              <button class="bg-[#485872] py-[10px] px-[19px] text-white"><i
-                  class="fa-solid fa-magnifying-glass"></i></button>
+            <form action=""
+              class="flex w-full bg-white/30 rounded-3xl shadow-lg p-1 pl-4 backdrop-blur-sm ring-1 ring-purple-200/50 focus-within:ring-2 focus-within:ring-purple-400 transition">
+              <input type="text" name="pencarian" placeholder="Cari buku..." id="pencarian"
+                class="bg-transparent flex-1 py-3 px-2 text-purple-800 placeholder-purple-400 focus:outline-none text-md rounded-l-3xl" />
+              <button
+                class="bg-gradient-to-tr from-purple-700 to-purple-500 text-white font-semibold px-6 py-2 rounded-3xl shadow hover:from-purple-800 hover:to-purple-600 transition-all">
+                <i class="fa-solid fa-magnifying-glass mr-2"></i>Cari
+              </button>
             </form>
           </div>
         </div>
@@ -73,9 +70,9 @@
         {{-- Koleksi Buku --}}
         <div class="grid grid-cols-6 gap-4 w-full">
           @for ($index = 0; $index < 20; $index++)
-            <div class="w-full">
+            <div class="w-full rounded-2xl overflow-hidden">
               <div
-                class="bg-gradient-to-br from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% h-[250px] w-full">
+                class="bg-gradient-to-br from-purple-300 via-purple-100 to-purple-200 h-[250px] w-full">
                 <img class="buku w-full h-full" alt="buku">
               </div>
 

@@ -1,7 +1,13 @@
-<div class="w-full">
+<div class="w-full space-y-4">
   {{-- Title --}}
-  <div class="text-[16px] font-semibold mb-4 text-purple-700"><i class="fa-solid fa-user-group"></i>
+  <div class="text-[16px] font-semibold text-purple-700"><i class="fa-solid fa-user-group"></i>
     Data Keanggotaan
+  </div>
+
+  <div class="flex justify-between flex-wrap gap-4">
+    <x-admin.pencarian />
+    <x-admin.add-data type="Anggota" />
+    {{-- Pencarian --}}
   </div>
 
   <div
@@ -27,13 +33,6 @@
           <option value="100">100</option>
         </select>
         <div>entries</div>
-      </div>
-
-      <div class="flex justify-between flex-wrap gap-4">
-        <x-admin.add-data type="Anggota" />
-
-        {{-- Pencarian --}}
-        <x-admin.pencarian />
       </div>
 
       {{-- Table --}}

@@ -1,7 +1,12 @@
-<div class="w-full">
+<div class="w-full space-y-4">
   {{-- Title --}}
-  <div class="text-[16px] font-semibold mb-4 text-purple-700"><i class="fa-solid fa-book"></i>
+  <div class="text-[16px] font-semibold text-purple-700"><i class="fa-solid fa-book"></i>
     Data-data Buku</div>
+
+  <div class="flex justify-between flex-wrap gap-4">
+    <x-admin.pencarian />
+    <x-admin.add-data type="Anggota" />
+  </div>
 
   <div
     class="w-full bg-white rounded-2xl shadow-[0px_4px_4px_0px_rgba(103,53,187,0.15)] overflow-hidden">
@@ -25,13 +30,6 @@
           <option value="100">100</option>
         </select>
         <div>entries</div>
-      </div>
-
-      <div class="flex justify-between flex-wrap gap-4">
-        {{-- Tambah Buku --}}
-        <x-admin.add-data type="Buku" />
-
-        <x-admin.pencarian />
       </div>
 
       {{-- Table --}}

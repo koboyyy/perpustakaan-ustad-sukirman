@@ -39,6 +39,10 @@
           <x-admin::databuku></x-admin::databuku>
         @elseif($menu === 'keanggotaan')
           <x-admin::keanggotaan></x-admin::keanggotaan>
+        @elseif ($menu === 'peminjaman')
+          <x-admin::peminjaman></x-admin::peminjaman>
+        @elseif ($menu === 'pengembalian')
+          <x-admin::pengembalian></x-admin::pengembalian>
         @else
           <x-admin::analitik></x-admin::analitik>
         @endif
@@ -51,7 +55,7 @@
 
       {{-- <x-pengunjung::footer></x-pengunjung::footer> --}}
 
-      <div class="h-[64px] w-full block"></div>
+      <div class="h-[64px] w-full lg:hidden block"></div>
     </div>
   </section>
 
@@ -77,6 +81,8 @@
             }]
           },
           options: {
+            responsive: true,
+            // maintainAspectRatio: false,
             scales: {
               y: {
                 beginAtZero: true
@@ -95,11 +101,13 @@
               label: 'Trend Pertumbuhan',
               data: [50, 65, 80, 95, 110, 130],
               borderWidth: 2,
-              borderColor: '#45CE4B',
+              borderColor: 'oklch(62.7% 0.265 303.9)',
               tension: 0.3
             }]
           },
           options: {
+            responsive: true,
+            // maintainAspectRatio: false,
             scales: {
               y: {
                 beginAtZero: true
@@ -118,7 +126,7 @@
         } catch (err) {
           console.log('error: ' + err)
         }
-      }) m
+      })
 
       topPemustaka.forEach(async (img, index, srcImg) => {
         const respon = await fetch(srcRandomImg)

@@ -31,5 +31,29 @@
       <i class="fa-solid fa-user-group text-xl"></i>
       {{-- <span class="text-xs font-medium mt-1">Anggota</span> --}}
     </a>
+
+    {{-- Peminjaman Menu --}}
+    <a href="?menu=peminjaman"
+      class="flex flex-col items-center justify-center gap-1 rounded-xl transition-all duration-200 min-w-8 min-h-8 max-w-12 max-h-12
+            {{ $active === 'peminjaman' ? 'bg-white bg-opacity-70 text-purple-700 shadow-md' : 'text-white hover:bg-[rgb(255,255,255)] hover:bg-opacity-40 hover:text-purple-900' }}"
+      style="box-sizing:border-box; width:64px; height:64px;">
+      <i class="fa-solid fa-arrow-right-arrow-left text-xl"></i>
+      {{-- <span class="text-xs font-medium mt-1">Peminjaman</span> --}}
+    </a>
+
+    {{-- Pengembalian Menu --}}
+    <a href="?menu=pengembalian"
+      class="flex flex-col items-center justify-center gap-1 rounded-xl transition-all duration-200 min-w-8 min-h-8 max-w-12 max-h-12
+            {{ $active === 'pengembalian' ? 'bg-white bg-opacity-70 text-purple-700 shadow-md' : 'text-white hover:bg-[rgb(255,255,255)] hover:bg-opacity-40 hover:text-purple-900' }}"
+      style="box-sizing:border-box; width:64px; height:64px;">
+      <i class="fa-solid fa-rotate-left text-xl"></i>
+      {{-- <span class="text-xs font-medium mt-1">Pengembalian</span> --}}
+    </a>
   </nav>
 </div>
+
+@once
+  @push('scripts')
+    <script src="//unpkg.com/alpinejs" defer></script>
+  @endpush
+@endonce
