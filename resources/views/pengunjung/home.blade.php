@@ -40,8 +40,6 @@
 
   <x-pengunjung::box-layanan></x-pengunjung::box-layanan>
 
-  <x-pengunjung::visi-misi></x-pengunjung::visi-misi>
-
   <x-pengunjung::buku-terbaru></x-pengunjung::buku-terbaru>
 
   <x-pengunjung::footer></x-pengunjung::footer>

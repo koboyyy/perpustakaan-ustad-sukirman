@@ -1,4 +1,4 @@
-<footer class="bg-[#34344A] text-[#5B7C99] py-15 px-15 mt-20 light">
+<footer class="bg-[#34344A] text-[#5B7C99] py-15 px-15 mt-20">
   <div class="flex justify-between">
     <div class="flex flex-col justify-between items-start">
       <div class="flex gap-20">

@@ -20,31 +20,38 @@
 
 <body class="bg-[rgb(249,249,249)] font-poppins text-[16px]">
 
-  <x-pengunjung::header></x-pengunjung::header>
+  <x-admin::header></x-admin::header>
 
   {{-- Container --}}
-  <section class="flex">
+  <section class="flex flex-col lg:flex-row">
 
-    <x-admin::sidebar :active="$menu"></x-admin::sidebar>
+    <x-admin::sidebar class="w-full lg:w-auto" :active="$menu"></x-admin::sidebar>
 
     {{-- Main Konten --}}
-    <div class="px-[24px] py-[30px] w-full">
-      <div class="w-full min-h-[calc(100vh-88px)]">
+    <div class="w-full">
+      <div
+        class="w-full px-4 py-6 min-h-[calc(100vh-88px)] sm:px-6 sm:py-8 md:px-8 md:py-10 lg:px-[24px] lg:py-[30px]">
 
         {{-- Tampilkan komponen sesuai menu yang dipilih --}}
         @if ($menu === 'analitik')
-          <x-admin::content-analitik></x-admin::content-analitik>
+          <x-admin::analitik></x-admin::analitik>
         @elseif($menu === 'databuku')
-          <x-admin::content-databuku></x-admin::content-databuku>
+          <x-admin::databuku></x-admin::databuku>
         @elseif($menu === 'keanggotaan')
-          <x-admin::content-keanggotaan></x-admin::content-keanggotaan>
+          <x-admin::keanggotaan></x-admin::keanggotaan>
         @else
-          <x-admin::content-analitik></x-admin::content-analitik>
+          <x-admin::analitik></x-admin::analitik>
         @endif
 
       </div>
 
-      <x-pengunjung::footer></x-pengunjung::footer>
+      <div class="text-[#34344A] text-xs sm:text-sm bg-white text-center px-2 py-2">
+        <div>@Perpustakaan Ustad Sukirman 2025</div>
+      </div>
+
+      {{-- <x-pengunjung::footer></x-pengunjung::footer> --}}
+
+      <div class="h-[64px] w-full block"></div>
     </div>
   </section>
 
@@ -66,7 +73,7 @@
               label: 'Trend Peminjaman',
               data: [12, 19, 8, 15, 22, 18],
               borderWidth: 1,
-              backgroundColor: '#F07C29'
+              backgroundColor: 'oklch(62.7% 0.265 303.9)'
             }]
           },
           options: {
@@ -111,7 +118,7 @@
         } catch (err) {
           console.log('error: ' + err)
         }
-      })
+      }) m
 
       topPemustaka.forEach(async (img, index, srcImg) => {
         const respon = await fetch(srcRandomImg)

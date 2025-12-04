@@ -10,20 +10,20 @@
   </div>
 
   <nav class="px-10  flex justify-between items-center ">
-    <div class="flex gap-10 items-center">
+    <div class="w-100  flex gap-10 items-center">
       <img src="img/logo.png" alt="logo" class="w-12">
     </div>
 
-    <nav class="h-20 text-[16px] flex items-center gap-7 md:flex">
+    <nav class=" h-20 text-[16px] flex items-center gap-7 md:flex">
       <div class="relative group">
         <a class="transition-all duration-400 block font-bold " href="/">HOME</a>
       </div>
 
       <div class="relative group">
         <a class="transition-all duration-400 block font-bold" href="/profil">PROFIL
-          <i class="fa-solid fa-chevron-down inline text-xs ml-1"></i>
+          {{-- <i class="fa-solid fa-chevron-down inline text-xs ml-1"></i> --}}
         </a>
-        <div id="dropdown-menu"
+        {{-- <div id="dropdown-menu"
           class="absolute left-0 top-[110%] rounded-md w-56 flex flex-col gap-1 bg-white dark:bg-gray-800 px-4 py-3 shadow-lg opacity-0 pointer-events-none -translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0">
           <a class="rounded-md px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-black dark:text-white"
             href="/profil#tim">Tentang
@@ -33,7 +33,7 @@
             Misi</a>
           <a class="rounded-md px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-black dark:text-white"
             href="/profil#struktur">Struktur Organisasi</a>
-        </div>
+        </div> --}}
       </div>
 
       <div class="relative group">
@@ -42,11 +42,43 @@
       </div>
     </nav>
 
-    <div class="flex gap-5 items-center">
+    <div class="w-100  flex gap-5 items-center justify-end">
       <button id="btn-theme" onclick="setTheme()"
         class="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 text-white font-semibold shadow-md hover:from-purple-600 hover:to-purple-800 transition-colors duration-300">
         <i class="fa-solid fa-moon mr-2"></i>Theme
       </button>
+
+      <div>
+        <button id="btn-login"
+          class="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 text-white font-semibold shadow-md hover:from-purple-600 hover:to-purple-800 transition-colors duration-300">
+          <i class="fa-solid fa-sign-in-alt mr-2"></i>Login
+        </button>
+
+        <div id="login-modal"
+          class="fixed inset-0 z-[9999] flex items-center justify-center bg-[rgb(0,0,0,0.5)] bg-opacity-40 hidden">
+          <div class="relative w-fit">
+            <x-admin.login />
+          </div>
+        </div>
+
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            const btnLogin = document.getElementById('btn-login');
+            const loginModal = document.getElementById('login-modal');
+
+            btnLogin.addEventListener('click', function() {
+              loginModal.classList.remove('hidden');
+            });
+
+            // Close modal when clicking the overlay (outside the form)
+            loginModal.addEventListener('click', function(e) {
+              if (e.target === loginModal) {
+                loginModal.classList.add('hidden');
+              }
+            });
+          });
+        </script>
+      </div>
     </div>
 
     <!-- Tombol nav garis tiga -->

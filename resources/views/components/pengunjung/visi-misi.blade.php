@@ -1,4 +1,4 @@
-<div class="mt-20">
+<div>
   <x-pengunjung::sub-title title="Visi dan Misi"
     subtitle="Membangun masyarakat yang berpengetahuan luas dan berbudaya melalui akses informasi yang mudah dan terjangkau" />
 
