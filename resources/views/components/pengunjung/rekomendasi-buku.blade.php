@@ -18,20 +18,18 @@
   </div>
 
   <div id="rekomendasi-cards-wrapper"
-    class="grid grid-cols-2 gap-2 lg:flex lg:gap-6 flex-wrap justify-center py-1 px-5 scrollbar-hide"
+    class="grid grid-cols-2 gap-0 lg:flex lg:gap-2 justify-center py-1 px-5 lg:px-0 scrollbar-hide"
     style="scrollbar-width: none;">
 
     @for ($i = 1; $i < 10; $i++)
       <div
-        class="rekomendasi-card max-w-[250px] lg:min-w-[250px] relative flex flex-col rounded-2xl shadow-lg bg-gradient-to-br from-purple-50/80 to-white transition-transform hover:-translate-y-2 hover:shadow-2xl duration-200 border border-purple-100 group">
+        class="rekomendasi-card max-w-[200px] lg:min-w-[200px] max-h-[370px] relative flex flex-col rounded-2xl shadow-lg bg-gradient-to-br from-purple-50/80 to-white transition-transform hover:-translate-y-2 hover:shadow-2xl duration-200 border border-purple-100 group">
 
         <div class="overflow-hidden rounded-t-2xl h-[270px] flex items-stretch bg-purple-100">
           <img
             class="buku w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105 z-0"
             style="transition: filter 300ms, opacity 300ms;" src="">
         </div>
-
-        <button onclick="test()" class="hover:bg-black hover:text-white">Klik</button>
 
         <div class="absolute top-3 left-3 z-10">
           <span

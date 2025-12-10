@@ -4,8 +4,7 @@
     <img class="w-full h-full object-cover absolute inset-0 brightness-85 opacity-30"
       src="img/perpustakaan2.webp" alt="Perpustakaan" loading="lazy">
     <!-- Overlay gradasi tema -->
-    <div
-      class="absolute inset-0 bg-gradient-to-br from-purple-800 via-purple-500/60 to-purple-900 opacity-75">
+    <div class="absolute inset-0 bg-gradient-to-br from-[#9BA4B5] via-[#394867] to-[#F1F6F9]">
     </div>
     <!-- Efek Blur Bulat -->
     <div class="absolute -top-12 -left-20 w-72 h-72 bg-purple-400 opacity-30 rounded-full blur-3xl">

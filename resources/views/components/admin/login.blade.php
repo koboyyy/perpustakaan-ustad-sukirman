@@ -4,17 +4,18 @@
     class="py-5 w-full text-center bg-gradient-to-r from-[#7b2ff2] to-[#f357a8] text-white text-[20px] font-bold tracking-wide">
     Login
   </div>
-  <form action="" method="post" class="p-7 space-y-6">
+  <form method="POST" action="{{ route('login') }}" class="p-7 space-y-6">
+    @csrf
     {{-- Pilih Login Sebagai --}}
     <div class="flex flex-col gap-2">
       <label for="role" class="font-semibold text-gray-700">Login Sebagai</label>
       <div class="flex gap-4">
         <label class="flex items-center gap-2 cursor-pointer">
-          <input type="radio" name="role" value="admin" class="accent-purple-600" checked>
+          <input type="radio" name="role" value="admin" class="accent-purple-600" {{ old('role', 'admin') == 'admin' ? 'checked' : '' }}>
           <span class="text-gray-700">Admin</span>
         </label>
         <label class="flex items-center gap-2 cursor-pointer">
-          <input type="radio" name="role" value="pengunjung" class="accent-amber-500">
+          <input type="radio" name="role" value="pengunjung" class="accent-amber-500" {{ old('role') == 'pengunjung' ? 'checked' : '' }}>
           <span class="text-gray-700">Pengunjung</span>
         </label>
       </div>
@@ -27,7 +28,11 @@
       <input type="text" id="name" name="name" autocomplete="username"
         placeholder="Masukkan nama pengguna"
         class="border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
+        value="{{ old('name') }}"
         required>
+      @error('name')
+        <span class="text-red-500 text-[13px]">{{ $message }}</span>
+      @enderror
     </div>
 
     <div class="flex flex-col gap-2">
@@ -37,14 +42,17 @@
         placeholder="Masukkan password"
         class="border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
         required>
+      @error('password')
+        <span class="text-red-500 text-[13px]">{{ $message }}</span>
+      @enderror
     </div>
 
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-2">
-        <input type="checkbox" name="ingat-saya" id="ingat-saya" class="accent-purple-600 rounded">
+        <input type="checkbox" name="remember" id="ingat-saya" class="accent-purple-600 rounded" {{ old('remember') ? 'checked' : '' }}>
         <label for="ingat-saya" class="text-gray-600 cursor-pointer select-none">Ingat Saya</label>
       </div>
-      <a href="#" class="text-[13px] text-purple-600 hover:underline font-medium">Lupa
+      <a href="{{ route('password.request') }}" class="text-[13px] text-purple-600 hover:underline font-medium">Lupa
         Password?</a>
     </div>
 

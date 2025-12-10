@@ -1,4 +1,4 @@
-<x-pengunjung.layout-pengunjung>
+<x-pengunjung.layout-pengunjung title="Homepage">
   {{-- Hero --}}
   <x-pengunjung.header-home></x-pengunjung.header-home>
 

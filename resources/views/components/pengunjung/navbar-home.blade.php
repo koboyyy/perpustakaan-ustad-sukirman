@@ -1,15 +1,15 @@
 <!-- Spacer to push content after fixed navbar -->
-<div class="h-20 w-full"></div>
+<div class="h-[60px] w-full"></div>
 
 <div id="navbar" class="bg-white fixed left-0 top-0 w-full z-50 font-dm-sans light shadow">
   <div
-    class="w-full h-2 bg-gradient-to-r 
-    from-purple-400 
-    via-purple-600 
-    to-purple-800">
+    class="w-full h-1 bg-gradient-to-r 
+    from-purple-[#9BA4B5] 
+    via-purple-[#394867] 
+    to-purple-[#F1F6F9]">
   </div>
 
-  <nav class="relative px-4 md:px-10 flex items-center h-20">
+  <nav class="relative px-4 md:px-10 flex items-center h-[60px]">
 
     <!-- Left: Logo -->
     <a href="/" class="flex items-center gap-3 min-w-fit z-20">

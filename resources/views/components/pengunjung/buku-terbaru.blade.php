@@ -67,7 +67,7 @@
       </div>
     </div>
     <div class="flex justify-center mt-12">
-      <a href="#"
+      <a href="/koleksi-buku"
         class="inline-block font-semibold bg-gradient-to-r from-purple-600 to-purple-400 text-white px-8 py-3 rounded-full shadow hover:scale-105 hover:from-purple-700 hover:to-purple-500 transition-all duration-300 text-lg">
         Lihat Semua Buku
         <i class="fa-solid fa-arrow-right ml-2"></i>

@@ -61,7 +61,7 @@ a {
   left: 50%;
   width: 0;
   height: 2px;
-  background-color: rgb(162, 0, 255);
+  background-color: #212a3e;
   transition: all 300ms;
   transform: translateX(-50%);
 }
@@ -73,7 +73,7 @@ a {
   left: 50%;
   width: 100%;
   height: 2px;
-  background-color: rgb(162, 0, 255);
+  background-color: #212a3e;
   transition: all 300ms;
   transform: translateX(-50%);
 }
@@ -113,11 +113,13 @@ footer.dark {
 }
 
 .group-box:hover .box {
-  background-color: pink;
+  background-color: #394867;
+  color: #f1f6f9;
 }
 
 .group-box .box:hover {
-  background-color: pink;
+  background-color: #394867;
+  color: #f1f6f9;
 }
 
 .book {
