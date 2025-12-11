@@ -13,7 +13,7 @@
   </div>
 
   <div
-    class="w-full bg-[#F1F6F9] rounded-2xl overflow-hidden shadow-[0px_4px_4px_0px_rgba(57,72,103,0.15)]">
+    class="w-full bg-white rounded-2xl overflow-hidden shadow-[0px_4px_4px_0px_rgba(57,72,103,0.15)]">
 
     {{-- Title --}}
     <div

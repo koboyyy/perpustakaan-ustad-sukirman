@@ -18,7 +18,7 @@
     rel="stylesheet">
 </head>
 
-<body class="light bg-gradient-to-br from-[#F1F6F9] via-[#9BA4B5] to-[#394867]/40">
+<body class="light bg-[#F1F6F9]">
   <x-pengunjung::navbar-home></x-pengunjung::navbar-home>
 
   {{ $slot }}
