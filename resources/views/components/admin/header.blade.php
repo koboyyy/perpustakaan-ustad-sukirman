@@ -1,6 +1,6 @@
 <section class="col-span-7 z-100 sticky top-0">
   <div
-    class="bg-[#F1F6F9] h-[69px] shadow-[0px_4px_4px_0px_rgba(57,72,103,0.08)] w-full flex justify-between items-center pl-[10px] pr-[10px] sm:pl-[19px] sm:pr-[24px] z-1 relative z-100">
+    class="bg-white h-[69px] shadow-[0px_4px_4px_0px_rgba(57,72,103,0.08)] w-full flex justify-between items-center pl-[10px] pr-[10px] sm:pl-[19px] sm:pr-[24px] z-1 relative z-100">
 
     <div class="flex just gap-[10px] items-center">
 

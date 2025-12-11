@@ -1,0 +1,1 @@
+document.querySelectorAll("tr td");document.querySelectorAll("tr").forEach(e=>{e.addEventListener("mouseenter",function(){this.classList.add("bg-purple-100")}),e.addEventListener("mouseleave",function(){this.classList.remove("bg-purple-100")})});
