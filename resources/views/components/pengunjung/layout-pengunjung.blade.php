@@ -21,7 +21,9 @@
 <body class="light bg-[#F1F6F9]">
   <x-pengunjung::navbar-home></x-pengunjung::navbar-home>
 
-  {{ $slot }}
+  <div class="min-h-[100vh] w-full">
+    {{ $slot }}
+  </div>
 
   <x-pengunjung.footer></x-pengunjung.footer>
 

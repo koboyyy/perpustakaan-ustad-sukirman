@@ -1,30 +1,37 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
 
 class LoginController extends Controller
 {
+    public function index()
+    {
+        return view('login');
+    }
+
+
     public function login(Request $request)
     {
         // Validasi input
         $request->validate([
-            'role' => 'required',
             'name' => 'required',
             'password' => 'required',
         ]);
 
         // Ambil user berdasarkan name dan role
         $user = User::where('name', $request->name)
-            ->where('role', $request->role)
             ->first();
 
         // Jika user tidak ditemukan
         if (!$user) {
             return back()->withErrors([
-                'name' => 'Nama pengguna atau role tidak sesuai.'
+                'name' => 'Nama pengguna tidak sesuai'
             ])->withInput();
         }
 
@@ -40,10 +47,10 @@ class LoginController extends Controller
 
         // Redirect sesuai role
         if ($user->role === 'admin') {
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('dashboard');
+        } elseif ($user->role === 'pengunjung') {
+            return redirect()->route('pengunjung.home');
         }
-
-        return redirect()->route('pengunjung.dashboard');
     }
 }
 

@@ -5,7 +5,7 @@
   </div>
   <form method="POST" action="{{ route('login') }}" class="p-7 space-y-6">
     @csrf
-    {{-- Pilih Login Sebagai --}}
+    {{-- Pilih Login Sebagai
     <div class="flex flex-col gap-2">
       <label for="role" class="font-semibold text-[#394867]">Login Sebagai</label>
       <div class="flex gap-4">
@@ -20,7 +20,7 @@
           <span class="text-[#212A3E]">Pengunjung</span>
         </label>
       </div>
-    </div>
+    </div> --}}
 
     <div class="flex flex-col gap-2">
       <label for="name"

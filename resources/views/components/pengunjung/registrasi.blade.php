@@ -5,7 +5,7 @@
   </div>
   <form action="" method="post" class="p-7 space-y-6">
     {{-- Pilih Register Sebagai --}}
-    <div class="flex flex-col gap-2">
+    {{-- <div class="flex flex-col gap-2">
       <label for="role" class="font-semibold text-gray-700">Daftar Sebagai</label>
       <div class="flex gap-4">
         <label class="flex items-center gap-2 cursor-pointer">
@@ -17,7 +17,7 @@
           <span class="text-gray-700">Admin</span>
         </label>
       </div>
-    </div>
+    </div> --}}
 
     <div class="flex flex-col gap-2">
       <label for="nama"

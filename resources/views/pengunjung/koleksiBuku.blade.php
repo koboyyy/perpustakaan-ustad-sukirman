@@ -51,26 +51,24 @@
 
         {{-- Koleksi Buku --}}
         <div class="grid grid-cols-2 gap-4 w-full">
-          @for ($index = 0; $index < 10; $index++)
-            <div class="bg-white p-4 rounded-3xl w-full shadow-lg">
-              <div class="w-full rounded-2xl overflow-hidden flex gap-4">
-                <div
-                  class="bg-gradient-to-br from-[#9BA4B5] via-[#F1F6F9] to-[#394867]/40 h-[250px] w-[200px] rounded-xl overflow-hidden">
-                  <img class="buku w-full h-full" alt="buku">
-                </div>
+          @foreach ($dataBuku as $db)
+            <div class="w-full rounded-2xl overflow-hidden flex gap-4">
+              <div
+                class="bg-gradient-to-br from-[#9BA4B5] via-[#F1F6F9] to-[#394867]/40 h-[250px] w-[200px] rounded-xl overflow-hidden">
+                <img class="buku w-full h-full" alt="buku">
+              </div>
 
-                <div class="mt-3">
-                  <div class="text-lg font-semibold truncate text-[#394867]">Judul</div>
-                  <div class="text-base italic text-[#212A3E]/80 truncate">Pengarang</div>
-                  <div class="text-sm text-[#9BA4B5] truncate">Penerbit</div>
-                  <div class="text-sm text-[#9BA4B5] truncate">Tahun Terbit</div>
-                  <div class="text-sm text-[#9BA4B5] truncate">Eksemplar</div>
+              <div class="mt-3">
+                <div class="text-lg font-semibold truncate text-[#394867]">{{ $db['judul'] }}</div>
+                <div class="text-base italic text-[#212A3E]/80 truncate">{{ $db['pengarang'] }}
                 </div>
+                <div class="text-sm text-[#9BA4B5] truncate">{{ $db['penerbit'] }}</div>
+                <div class="text-sm text-[#9BA4B5] truncate">{{ $db['tahunTerbit'] }}</div>
+                <div class="text-sm text-[#9BA4B5] truncate">{{ $db['eksemplar'] }}</div>
               </div>
             </div>
-          @endfor
+          @endforeach
         </div>
       </div>
-    </div>
   </section>
 </x-pengunjung.layout-pengunjung>

@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Buku;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+
+class PengunjungController extends Controller
+{
+    public function home()
+    {
+        return view('pengunjung.home');
+    }
+
+    public function koleksiBuku()
+    {
+        return view('pengunjung.koleksiBuku', [
+            'dataBuku' => Buku::all()
+        ]);
+    }
+
+    public function profil()
+    {
+        return view('pengunjung.profil');
+    }
+}
