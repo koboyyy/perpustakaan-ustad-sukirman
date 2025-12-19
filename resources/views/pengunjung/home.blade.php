@@ -4,7 +4,7 @@
 
   {{-- Konten Utama --}}
   <div class="space-y-30 py-20">
-    <x-pengunjung.rekomendasi-buku></x-pengunjung.rekomendasi-buku>
+    {{-- <x-pengunjung.rekomendasi-buku :books="$books" /> --}}
 
     <x-pengunjung.box-layanan></x-pengunjung.box-layanan>
 

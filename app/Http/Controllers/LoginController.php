@@ -15,42 +15,59 @@ class LoginController extends Controller
         return view('login');
     }
 
-
-    public function login(Request $request)
+    public function store(Request $request)
     {
         // Validasi input
-        $request->validate([
-            'name' => 'required',
-            'password' => 'required',
+        $credentials = $request->validate([
+            'username' => ['required', 'string'],
+            'password' => ['required', 'string'],
+        ], [
+            'username.required' => 'Nama pengguna wajib diisi.',
+            'password.required' => 'Password wajib diisi.',
         ]);
 
-        // Ambil user berdasarkan name dan role
-        $user = User::where('name', $request->name)
-            ->first();
+        // Ambil user berdasarkan username
+        $user = User::where('username', $credentials['username'])->first();
 
         // Jika user tidak ditemukan
         if (!$user) {
             return back()->withErrors([
-                'name' => 'Nama pengguna tidak sesuai'
+                'username' => 'Nama pengguna tidak sesuai.'
             ])->withInput();
         }
 
         // Cek password
-        if (!Hash::check($request->password, $user->password)) {
+        if (!Hash::check($credentials['password'], $user->password)) {
             return back()->withErrors([
                 'password' => 'Password salah.'
             ])->withInput();
         }
 
-        // Login user
-        Auth::login($user, $request->remember);
+        // Cek status aktif, misal kolom 'is_active' true
+        if (isset($user->is_active) && !$user->is_active) {
+            return back()->withErrors([
+                'username' => 'Akun Anda belum aktif. Silakan hubungi admin.'
+            ])->withInput();
+        }
+
+        // Fitur remember me
+        $remember = $request->boolean('remember');
+        Auth::login($user, $remember);
+
+        // Pastikan data role valid
+        $role = $user->role ?? null;
 
         // Redirect sesuai role
-        if ($user->role === 'admin') {
-            return redirect()->route('dashboard');
-        } elseif ($user->role === 'pengunjung') {
-            return redirect()->route('pengunjung.home');
+        switch ($role) {
+            case 'admin':
+                return redirect()->route('dashboard');
+            case 'anggota':
+                return redirect()->route('home');
+            default:
+                Auth::logout();
+                return back()->withErrors([
+                    'username' => 'Role pengguna tidak dikenali.'
+                ])->withInput();
         }
     }
 }
-

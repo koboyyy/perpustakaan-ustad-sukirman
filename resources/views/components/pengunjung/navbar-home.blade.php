@@ -1,32 +1,30 @@
-<!-- Spacer to push content after fixed navbar -->
+<!-- Spacer for fixed navbar -->
+
 <div class="h-[60px] w-full"></div>
 
-<div id="navbar" class="bg-[#F1F6F9] fixed left-0 top-0 w-full z-50 font-dm-sans light shadow">
-  <div class="w-full h-1 bg-gradient-to-r 
-    from-[#212A3E] 
-    via-[#394867] 
-    to-[#9BA4B5]">
-  </div>
+<div id="navbar" class="bg-[#F1F6F9] fixed left-0 top-0 w-full z-50 font-dm-sans shadow">
+  <div class="w-full h-1 bg-gradient-to-r from-[#212A3E] via-[#394867] to-[#9BA4B5]"></div>
 
   <nav class="relative px-4 md:px-10 flex items-center h-[60px]">
 
     <!-- Left: Logo -->
-    <a href="/" class="flex items-center gap-3 min-w-fit z-20">
+    <a href="{{ route('home') }}" class="flex items-center gap-3 min-w-fit z-20">
       <img src="{{ asset('img/logo.png') }}" alt="logo"
         class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg shadow-md p-1">
       <span
         class="font-poppins font-bold text-[17px] leading-5 text-[#212A3E] hidden sm:inline-block">
         PERPUSTAKAAN<br>
-        <span class="font-medium text-[13px] text-[#394867] block -mt-0.5">USTAD SUKIRMAN <span
-            class="text-[#9BA4B5]">DESA WONOSARI</span></span>
+        <span class="font-medium text-[13px] text-[#394867] block -mt-0.5">
+          USTAD SUKIRMAN <span class="text-[#9BA4B5]">DESA WONOSARI</span>
+        </span>
       </span>
     </a>
 
-    <!-- Center: Menu utama Desktop (benar-benar di tengah)-->
+    <!-- Center: Menu utama Desktop -->
     <div
       class="hidden md:flex absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 gap-8 items-center text-[16px] h-full z-10">
       <a class="transition-all duration-300 font-bold py-2 px-2 hover:text-[#394867]"
-        href="/">HOME</a>
+        href="{{ route('home') }}">HOME</a>
       <a class="transition-all duration-300 font-bold py-2 px-2 hover:text-[#394867]"
         href="/profil">PROFIL</a>
       <a class="transition-all duration-300 font-bold py-2 px-2 hover:text-[#394867]"
@@ -36,27 +34,35 @@
     <!-- Right: Tombol Theme & Login -->
     <div class="flex items-center gap-3 md:gap-5 ml-auto z-20">
       <button id="btn-theme" onclick="setTheme()"
-        class="hidden sm:flex px-4 py-2 rounded-lg bg-[#394867] text-[#F1F6F9] font-semibold shadow-md hover:bg-[#212A3E] transition-colors duration-300">
+        class="hidden sm:flex px-4 py-2 rounded-lg bg-[#394867] text-[#F1F6F9] font-semibold shadow-md hover:bg-[#212A3E] transition-colors duration-300"
+        type="button">
         <i class="fa-solid fa-moon mr-2"></i>
         <span class="hidden sm:inline">Theme</span>
       </button>
-      <div>
-        <button id="btn-login"
-          class="px-4 py-2 rounded-lg bg-[#394867] text-[#F1F6F9] font-semibold shadow-md hover:bg-[#212A3E] transition-colors duration-300 flex items-center gap-1">
-          <i class="fa-solid fa-sign-in-alt mr-2"></i>
-          <span class=" xs:inline">Login</span>
-        </button>
-        <div id="login-modal"
-          class="fixed inset-0 z-[9999] flex items-center justify-center bg-[rgb(0,0,0,0.5)] bg-opacity-40 backdrop-blur-sm hidden">
-          <div class="relative w-fit">
-            <x-admin.login />
-          </div>
+      @guest
+        <div>
+          <a id="btn-login" href="{{ route('viewLogin') }}"
+            class="px-4 py-2 rounded-lg bg-[#394867] text-[#F1F6F9] font-semibold shadow-md hover:bg-[#212A3E] transition-colors duration-300 flex items-center gap-1">
+            <i class="fa-solid fa-sign-in-alt mr-2"></i>
+            <span class="xs:inline">Login</span>
+          </a>
         </div>
-      </div>
+      @endguest
+
+      @auth
+        <form method="POST" action="{{ route('logout') }}" class="inline-block">
+          @csrf
+          <button type="submit"
+            class="px-4 py-2 rounded-lg bg-[#394867] text-[#F1F6F9] font-semibold shadow-md hover:bg-[#212A3E] transition-colors duration-300 flex items-center gap-1 ml-3">
+            <i class="fa-solid fa-sign-out-alt mr-2"></i>
+            <span class="xs:inline">Logout</span>
+          </button>
+        </form>
+      @endauth
       <!-- Hamburger menu mobile -->
       <button id="hamburger-btn"
         class="md:hidden ml-2 flex items-center justify-center p-2 text-[#394867] hover:bg-[#F1F6F9] rounded transition focus:outline-none"
-        aria-label="Buka menu" aria-expanded="false">
+        aria-label="Buka menu" aria-expanded="false" type="button">
         <svg class="block h-8 w-8" id="hamburger-icon" fill="none" viewBox="0 0 24 24"
           stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -73,14 +79,14 @@
     <!-- Menu Mobile: offcanvas -->
     <div id="mobile-menu"
       class="fixed top-0 left-0 w-full h-full z-[999] bg-white bg-opacity-95 backdrop-blur-xl transform -translate-x-full transition-transform duration-300 md:hidden flex flex-col"
-      aria-modal="true" tabindex="-1">
+      aria-modal="true" tabindex="-1" style="display: none;">
       <div class="flex items-center justify-between px-6 py-5 border-b border-[#9BA4B5] shadow-sm">
-        <a href="/" class="flex items-center gap-3 min-w-fit">
-          <img src="img/logo.png" alt="logo" class="w-10 h-10 object-contain">
+        <a href="{{ route('home') }}" class="flex items-center gap-3 min-w-fit">
+          <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-10 h-10 object-contain">
         </a>
         <button id="close-mobile-menu"
           class="rounded p-2 text-[#394867] hover:bg-[#F1F6F9] transition focus:outline-none"
-          aria-label="Tutup menu">
+          aria-label="Tutup menu" type="button">
           <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M6 18L18 6M6 6l12 12" />
@@ -88,24 +94,27 @@
         </button>
       </div>
       <div class="flex flex-col gap-2 px-8 pt-8 text-base font-medium">
-        <a href="/" class="py-3 text-[#212A3E] hover:text-[#394867] transition">Home</a>
+        <a href="{{ route('home') }}"
+          class="py-3 text-[#212A3E] hover:text-[#394867] transition">Home</a>
         <a href="/profil" class="py-3 text-[#212A3E] hover:text-[#394867] transition">Profil</a>
         <a href="/koleksi-buku" class="py-3 text-[#212A3E] hover:text-[#394867] transition">Koleksi
           Buku</a>
         <button id="mobile-theme"
-          class="mt-3 px-4 py-2 rounded-lg bg-[#394867] text-[#F1F6F9] font-semibold shadow">
+          class="mt-3 px-4 py-2 rounded-lg bg-[#394867] text-[#F1F6F9] font-semibold shadow"
+          type="button">
           <i class="fa-solid fa-moon mr-2"></i>Theme
         </button>
-        <button id="mobile-login"
-          class="mt-3 px-4 py-2 rounded-lg bg-[#394867] text-[#F1F6F9] font-semibold shadow">
-          <i class="fa-solid fa-sign-in-alt mr-2"></i>Login
-        </button>
+        @guest
+          <a id="mobile-login" href="{{ route('viewLogin') }}"
+            class="mt-3 px-4 py-2 rounded-lg bg-[#394867] text-[#F1F6F9] font-semibold shadow flex items-center gap-1">
+            <i class="fa-solid fa-sign-in-alt mr-2"></i>Login
+          </a>
+        @endguest
       </div>
     </div>
   </nav>
 
   <script>
-    // Navbar Mobile
     document.addEventListener('DOMContentLoaded', function() {
       const hamburgerBtn = document.getElementById('hamburger-btn');
       const mobileMenu = document.getElementById('mobile-menu');
@@ -113,14 +122,15 @@
       const hamburgerIcon = document.getElementById('hamburger-icon');
       const closeIcon = document.getElementById('close-icon');
 
+      // Show/Hide mobile menu
       function openMobileMenu() {
         mobileMenu.classList.remove('-translate-x-full');
         mobileMenu.classList.add('translate-x-0');
         hamburgerIcon.classList.add('hidden');
         closeIcon.classList.remove('hidden');
-        // Accessibility
         hamburgerBtn.setAttribute('aria-expanded', 'true');
         document.body.classList.add('overflow-hidden');
+        mobileMenu.style.display = "flex";
       }
 
       function closeMenu() {
@@ -130,64 +140,45 @@
         closeIcon.classList.add('hidden');
         hamburgerBtn.setAttribute('aria-expanded', 'false');
         document.body.classList.remove('overflow-hidden');
+        // Hide after transition
+        setTimeout(function() {
+          mobileMenu.style.display = "none";
+        }, 300);
       }
 
-      hamburgerBtn.addEventListener('click', openMobileMenu);
+      hamburgerBtn.addEventListener('click', function() {
+        // Only open if not already open
+        if (mobileMenu.classList.contains('-translate-x-full')) {
+          openMobileMenu();
+        }
+      });
       if (closeMobileMenu) {
         closeMobileMenu.addEventListener('click', closeMenu);
       }
-      // Close on overlay click
+
+      // Overlay click to close
       mobileMenu.addEventListener('click', function(e) {
         if (e.target === mobileMenu) {
           closeMenu();
         }
       });
-      // Close on ESC
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') closeMenu();
-      });
-      // Move focus to mobile menu on open for better accessibility
 
-      // Mobile theme button
+      // Escape key to close
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          if (!mobileMenu.classList.contains('-translate-x-full')) {
+            closeMenu();
+          }
+        }
+      });
+
+      // Theme button in mobile menu
       const mobileTheme = document.getElementById('mobile-theme');
       if (mobileTheme) {
         mobileTheme.onclick = function() {
           setTheme();
         };
       }
-      // Mobile login button
-      const mobileLogin = document.getElementById('mobile-login');
-      if (mobileLogin) {
-        mobileLogin.onclick = function() {
-          document.getElementById('login-modal').classList.remove('hidden');
-          closeMenu();
-        };
-      }
-    });
-
-    // Login Modal on desktop
-    document.addEventListener('DOMContentLoaded', function() {
-      const btnLogin = document.getElementById('btn-login');
-      const loginModal = document.getElementById('login-modal');
-      if (btnLogin) {
-        btnLogin.addEventListener('click', function() {
-          loginModal.classList.remove('hidden');
-        });
-      }
-      // Close modal when clicking the overlay
-      loginModal.addEventListener('click', function(e) {
-        if (e.target === loginModal) {
-          loginModal.classList.add('hidden');
-        }
-      });
-      // ESC also closes modal
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-          if (!loginModal.classList.contains('hidden')) {
-            loginModal.classList.add('hidden');
-          }
-        }
-      });
     });
   </script>
 </div>

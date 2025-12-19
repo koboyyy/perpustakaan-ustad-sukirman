@@ -13,13 +13,15 @@ return new class extends Migration {
         Schema::create('buku', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
+            $table->string('kategori', 100);
             $table->string('pengarang');
             $table->string('penerbit');
             $table->year('tahun_terbit');
+            $table->integer('eksemplar')->unsigned();
             $table->string('sumber');
-            $table->integer('eksemplar');
             $table->date('tanggal_terima');
             $table->text('sinopsis');
+            $table->string('cover')->nullable();
             $table->timestamps();
         });
     }
@@ -29,8 +31,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        // Ini adalah tempat untuk membatalkan (rollback) perubahan pada migration, 
-        // biasanya dengan menghapus tabel yang sudah dibuat pada metode up().
         Schema::dropIfExists('buku');
     }
 };

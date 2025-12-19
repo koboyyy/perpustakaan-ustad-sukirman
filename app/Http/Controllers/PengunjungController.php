@@ -10,7 +10,10 @@ class PengunjungController extends Controller
 {
     public function home()
     {
-        return view('pengunjung.home');
+        return view('pengunjung.home', [
+            'books' => Buku::all()
+        ]);
+
     }
 
     public function koleksiBuku()

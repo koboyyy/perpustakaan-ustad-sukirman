@@ -45,7 +45,7 @@
     </p>
 
     <!-- Search Bar -->
-    <form action="/"
+    <form action=""
       class="w-full max-w-lg flex gap-2 bg-white/50 rounded-3xl shadow-2xl p-1 pl-4 backdrop-blur-sm ring-1 ring-[#9BA4B5]/50 focus-within:ring-2 focus-within:ring-[#394867] transition xl:mx-auto">
       <input
         class="bg-transparent flex-1 py-2 px-2 text-[#212A3E] placeholder-[#9BA4B5] focus:outline-none text-md rounded-l-3xl"

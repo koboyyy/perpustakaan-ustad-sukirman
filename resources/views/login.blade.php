@@ -14,14 +14,14 @@
        <form method="POST" action="{{ route('login') }}" class="p-7 space-y-6">
          @csrf
          <div class="flex flex-col gap-2">
-           <label for="name"
+           <label for="username"
              class="font-semibold text-[#394867] after:content-['*'] after:text-red-500 after:ml-1">Nama
              Pengguna:</label>
-           <input type="text" id="name" name="name" autocomplete="username"
+           <input type="text" id="name" name="username" autocomplete="username"
              placeholder="Masukkan nama pengguna"
              class="border border-[#9BA4B5] focus:border-[#394867] focus:ring-2 focus:ring-[#9BA4B5] transition rounded-lg px-3 py-2 outline-none w-full shadow-sm text-[#212A3E]"
-             value="{{ old('name') }}" required>
-           @error('name')
+             value="{{ old('username') }}" required>
+           @error('username')
              <span class="text-red-500 text-[13px]">{{ $message }}</span>
            @enderror
          </div>
@@ -38,13 +38,13 @@
            @enderror
          </div>
 
-         <div class="flex items-center justify-between">
-           <div class="flex items-center gap-2">
+         <div class="flex items-center justify-end">
+           {{-- <div class="flex items-center gap-2">
              <input type="checkbox" name="remember" id="ingat-saya" class="accent-[#394867] rounded"
                {{ old('remember') ? 'checked' : '' }}>
              <label for="ingat-saya" class="text-[#212A3E] cursor-pointer select-none">Ingat
                Saya</label>
-           </div>
+           </div> --}}
            <a href="{{ route('password.request') }}"
              class="text-[13px] text-[#394867] hover:underline font-medium">Lupa
              Password?</a>
@@ -58,21 +58,9 @@
        <div
          class="bg-[#F1F6F9] p-4 text-center text-[13px] text-[#9BA4B5] border-t border-[#9BA4B5]">
          Belum punya akun?
-         <a href="#" onclick="showRegistrasiForm(event)"
-           class="text-[#394867] hover:underline font-semibold" id="btn-daftar">Daftar</a>
+         <a href="{{ route('viewRegister') }}" class="text-[#394867] hover:underline font-semibold"
+           id="btn-daftar">Daftar</a>
        </div>
-     </div>
-
-     <div id="registrasi-form-container" class="hidden">
-       <x-pengunjung.registrasi />
      </div>
    </div>
  </div>
-
- <script>
-   function showRegistrasiForm(e) {
-     e.preventDefault();
-     document.getElementById('login-form-container').classList.add('hidden');
-     document.getElementById('registrasi-form-container').classList.remove('hidden');
-   }
- </script>
