@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Transaksi;
 use Illuminate\Database\Seeder;
+use Database\Seeders\BukuSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder
@@ -18,11 +17,8 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        Transaksi::create([
-            "id_anggota" => 1,
-            "id_buku" => 1,
-            "tanggal_pinjam" => "2025-09-01",
-            "tanggal_jatuh_tempo" => "2025-12-01",
+        $this->call([
+            BukuSeeder::class
         ]);
     }
 }
