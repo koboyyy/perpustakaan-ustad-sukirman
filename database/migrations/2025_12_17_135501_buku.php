@@ -10,17 +10,16 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('buku', function (Blueprint $table) {
+        Schema::create('tbl_buku', function (Blueprint $table) {
             $table->id();
-            $table->string('judul');
-            $table->string('kategori', 100);
-            $table->string('pengarang');
-            $table->string('penerbit');
-            $table->year('tahun_terbit');
+            $table->string('judul_buku');
+            $table->foreignId('id_penerbit');
+            $table->foreignId('id_rak');
+            $table->foreignid('id_sumber');
+            $table->foreignId('id_kategori');
             $table->integer('eksemplar')->unsigned();
-            $table->string('sumber');
             $table->date('tanggal_terima');
-            $table->text('sinopsis');
+            $table->text('sinopsis')->nullable();
             $table->string('cover')->nullable();
             $table->timestamps();
         });

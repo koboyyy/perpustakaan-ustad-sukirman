@@ -9,7 +9,10 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PengunjungController;
 
 // Rute Dashboard Admin
+Route::post('/dashboard', [AnggotaController::class, '__invoke'])->name('dashboard');
 Route::get('/dashboard', [AnggotaController::class, '__invoke'])->name('dashboard');
+
+Route::get('/hasPages', [BukuController::class, 'hasPages'])->name('hasPages');
 
 // Menu Home
 Route::get('/', [PengunjungController::class, 'Home'])->name('home');
@@ -44,3 +47,15 @@ Route::post('/register', [RegisterController::class, 'store'])->name('register')
 // ========
 Route::post('/buku', [BukuController::class, 'store'])->name('tambahBuku');
 Route::delete('/admin/buku/{id}', [BukuController::class, 'destroy'])->name('buku.destroy');
+
+Route::get('/get-penerbit', function () {
+  $buku_buku = Buku::all()->map(function ($buku) {
+    return [
+      'id' => $buku->id,
+      'judul' => $buku->judul_buku,
+      'penerbit' => $buku->penerbit->nama_penerbit
+    ];
+  });
+
+  return $buku_buku;
+});

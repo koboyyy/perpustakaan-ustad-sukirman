@@ -59,6 +59,17 @@
           </button>
         </form>
       @endauth
+
+      @auth
+        <form method="POST" action="{{ route('dashboard') }}" class="inline-block">
+          @csrf
+          <button type="submit"
+            class="px-4 py-2 rounded-lg bg-[#394867] text-[#F1F6F9] font-semibold shadow-md hover:bg-[#212A3E] transition-colors duration-300 flex items-center gap-1 ml-3">
+            <i class="fa-solid fa-sign-out-alt mr-2"></i>
+            <span class="xs:inline">Dashboard</span>
+          </button>
+        </form>
+      @endauth
       <!-- Hamburger menu mobile -->
       <button id="hamburger-btn"
         class="md:hidden ml-2 flex items-center justify-center p-2 text-[#394867] hover:bg-[#F1F6F9] rounded transition focus:outline-none"

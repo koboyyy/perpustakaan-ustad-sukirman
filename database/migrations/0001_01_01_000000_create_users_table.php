@@ -10,8 +10,8 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
+        Schema::create('tbl_anggota', function (Blueprint $table) {
+            $table->id('id');
             $table->string('nama_lengkap');
             $table->string('email')->unique();
             $table->string('username')->unique();

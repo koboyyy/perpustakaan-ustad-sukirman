@@ -22,7 +22,7 @@ class BukuController extends Controller
                 'gambar' => $buku->cover ?? null,
                 'judul' => $buku->judul,
                 'pengarang' => $buku->pengarang,
-                'penerbit' => $buku->penerbit,
+                'penerbit' => $buku->penerbit->nama_penerbit,
                 'tahunTerbit' => $buku->tahun_terbit,
                 'isbn' => $buku->isbn ?? '-',
                 'eksemplar' => $buku->eksemplar,
@@ -240,4 +240,30 @@ class BukuController extends Controller
                 ->with('error', 'Terjadi kesalahan saat memperbarui buku: ' . $e->getMessage());
         }
     }
+
+    // public function hasPages()
+    // {
+    //     $jumlah = request('select', 10); // default tampilkan 10 jika tidak ada parameter select
+
+    //     $dataBuku = Buku::limit($jumlah)->get()->map(function ($buku) {
+    //         return [
+    //             'id' => $buku->id,
+    //             'gambar' => $buku->cover ?? null,
+    //             'judul' => $buku->judul,
+    //             'pengarang' => $buku->pengarang,
+    //             'penerbit' => $buku->penerbit,
+    //             'tahunTerbit' => $buku->tahun_terbit,
+    //             'isbn' => $buku->isbn ?? '-',
+    //             'eksemplar' => $buku->eksemplar,
+    //             'rak' => $buku->rak ?? '-',
+    //             'kategori' => $buku->kategori,
+    //             'sumber' => $buku->sumber,
+    //             'tanggalTerima' => $buku->tanggal_terima,
+    //         ];
+    //     });
+
+    //     return response()->json([
+    //         'dataBuku' => $dataBuku
+    //     ]);
+    // }
 }
