@@ -11,25 +11,25 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('tbl_anggota', function (Blueprint $table) {
-            $table->id('id');
+            $table->id();
+            $table->string('nik')->unique();
             $table->string('nama_lengkap');
-            $table->string('email')->unique();
-            $table->string('username')->unique();
+            $table->string('email', 191)->unique();
             $table->string('password');
+            $table->string('no_hp');
+            $table->text('alamat');
+            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
             $table->date('tanggal_lahir');
-            $table->string('no_hp')->unique();
-            $table->string('alamat');
-            $table->string('provinsi');
-            $table->string('kabupaten');
-            $table->string('kota');
-            $table->string('role')->default('anggota'); // tambah kolom role dengan default 'anggota'
-            $table->rememberToken();
             $table->timestamps();
+
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('anggotas');
     }
 };

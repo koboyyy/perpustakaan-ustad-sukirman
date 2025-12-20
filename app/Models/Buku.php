@@ -41,4 +41,17 @@ class Buku extends Model
     {
         return $this->belongsTo(Kategori::class, 'id_kategori');
     }
+
+    // foreign key id_buku yang ada di tabel peminjaman dan detail pengarang dapat di gunakan untuk menghubungkan id buku dengan detail peminajam
+    public function detail_peminjaman()
+    {
+        return $this->hasMany(DetailPeminjaman::class, 'id_buku');
+    }
+
+    public function detail_pengarang()
+    {
+        return $this->hasMany(DetailPengarang::class, 'id_buku');
+    }
 }
+
+
