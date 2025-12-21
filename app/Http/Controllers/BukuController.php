@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Buku;
-use Illuminate\Database\QueryException;
 use Exception;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Rak;
+use App\Models\Buku;
+use App\Models\Sumber;
+use App\Models\Kategori;
 
+use App\Models\Penerbit;
 use App\Models\Pengarang;
+use Illuminate\Http\Request;
 use App\Models\DetailPengarang;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Storage;
 
 class BukuController extends Controller
 {
@@ -121,21 +125,6 @@ class BukuController extends Controller
                     ->with('error', 'Sumber tidak ditemukan di database.');
             }
 
-            // $cekBuku = [
-            //     'judul_buku' => $validatedData['judul'],
-            //     'kategori_id' => $kategori->id,
-            //     'penerbit_id' => $penerbit->id,
-            //     'tahun_terbit' => $validatedData['tahun_terbit'],
-            //     'eksemplar' => $validatedData['eksemplar'],
-            //     'rak_id' => $rak ? $rak->id : null,
-            //     'sumber_id' => $sumber->id,
-            //     'tanggal_terima' => $validatedData['tanggal_terima'],
-            //     'sinopsis' => $validatedData['sinopsis'],
-            //     'cover' => $validatedData['cover'] ?? null,
-            // ]
-
-            // dd($cekBuku);
-
             // Cek duplikasi judul dan pengarang
             $exists = Buku::where('judul_buku', $validatedData['judul'])
                 ->where('id_penerbit', $penerbit->id)
@@ -200,7 +189,7 @@ class BukuController extends Controller
 
     public function update(Request $request, $id)
     {
-        $buku = \App\Models\Buku::findOrFail($id);
+        $buku = Buku::findOrFail($id);
 
         // Validasi input (ISBN dihapus)
         $validatedData = $request->validate([
@@ -300,7 +289,7 @@ class BukuController extends Controller
                 ->all();
         }
 
-        \DB::beginTransaction();
+        // DB::beginTransaction();
         try {
             // Update field utama Buku
             $dataUpdate = array_filter($dataUpdate, function ($v) {
@@ -326,14 +315,14 @@ class BukuController extends Controller
                 DetailPengarang::where('id_buku', $buku->id)->delete();
             }
 
-            \DB::commit();
+            // \DB::commit();
 
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json(['success' => true, 'message' => 'Buku berhasil diperbarui.']);
             }
             return back()->with('success', 'Data buku berhasil diperbarui.');
         } catch (\Exception $e) {
-            \DB::rollBack();
+            // \DB::rollBack();
             $pesan = config('app.debug')
                 ? 'Gagal memperbarui buku: ' . $e->getMessage()
                 : 'Gagal memperbarui buku. Silakan coba lagi atau hubungi admin.';
@@ -406,8 +395,24 @@ class BukuController extends Controller
      */
     public function edit($id)
     {
-        $buku = Buku::with(['kategori', 'sumber', 'penerbit', 'rak', 'detail_pengarang.pengarang'])->findOrFail($id);
-        return view('components.edit-buku', compact('buku'));
+        // Alternatif versi singkat, standar Laravel:
+        $buku = \App\Models\Buku::with([
+            'kategori',
+            'sumber',
+            'penerbit',
+            'rak',
+            'detail_pengarang.pengarang'
+        ])->findOrFail($id);
+
+        // Kembalikan view Blade untuk form edit, kirim variabel $buku
+        return view('components.edit-buku', [
+            'buku' => $buku,
+            'dataKategori' => Kategori::all(),
+            'dataPengarang' => Pengarang::all(),
+            'dataPenerbit' => Penerbit::all(),
+            'dataSumber' => Sumber::all(),
+            'dataRak' => Rak::all()
+        ]);
     }
 
     /**

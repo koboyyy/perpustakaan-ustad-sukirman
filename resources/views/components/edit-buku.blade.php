@@ -22,29 +22,50 @@
   <!-- Pengarang -->
   <div>
     <label for="pengarang" class="block text-sm font-semibold mb-1 text-[#394867]">Pengarang</label>
-    <input type="text" id="pengarang" name="pengarang" class="w-full border px-3 py-2 rounded"
-      value="{{ old(
-          'pengarang',
-          isset($buku->detail_pengarang) && count($buku->detail_pengarang)
-              ? implode(
-                  ', ',
-                  $buku->detail_pengarang->map(function ($dp) {
-                          return isset($dp->pengarang) ? $dp->pengarang->nama_pengarang : null;
-                      })->filter()->all(),
-              )
-              : '',
-      ) }}"
-      required>
-    <p class="text-xs text-gray-400 mt-1">Pisahkan dengan koma jika lebih dari satu nama pengarang.
-    </p>
+    <select name="pengarang" id="pengarang" class="w-full border px-3 py-2 rounded" required>
+      <option value="" disabled
+        {{ isset($buku->detail_pengarang) && count($buku->detail_pengarang) ? '' : 'selected' }}>
+        -- Pilih Pengarang --
+      </option>
+      @foreach ($dataPengarang as $pengarang)
+        <option value="{{ $pengarang->nama_pengarang }}"
+          @if (isset($buku->detail_pengarang) &&
+                  count($buku->detail_pengarang) &&
+                  in_array(
+                      $pengarang->nama_pengarang,
+                      $buku->detail_pengarang->pluck('pengarang.nama_pengarang')->filter()->all())) selected @endif>
+          {{ $pengarang->nama_pengarang }}
+        </option>
+      @endforeach
+    </select>
+    {{-- Untuk menyertakan nilai Pengarang agar tetap terkirim --}}
+    <input type="hidden" name="pengarang"
+      value="{{ isset($buku->detail_pengarang) && count($buku->detail_pengarang)
+          ? implode(', ', $buku->detail_pengarang->pluck('pengarang.nama_pengarang')->filter()->all())
+          : '' }}">
+    <p class="text-xs text-gray-400 mt-1">Pengarang tidak bisa diubah setelah data dibuat.</p>
   </div>
 
   <!-- Penerbit -->
   <div>
     <label for="penerbit" class="block text-sm font-semibold mb-1 text-[#394867]">Penerbit</label>
-    <input type="text" id="penerbit" name="penerbit" class="w-full border px-3 py-2 rounded"
-      value="{{ old('penerbit', $buku->penerbit->nama_penerbit ?? ($buku->penerbit ?? '')) }}"
-      required>
+    <select name="penerbit" id="penerbit" class="w-full border px-3 py-2 rounded" required>
+      <option value="" disabled
+        {{ $buku->penerbit->nama_penerbit ?? ($buku->penerbit ?? '') ? '' : 'selected' }}>
+        -- Pilih Penerbit --
+      </option>
+      @foreach ($dataPenerbit as $penerbit)
+        <option value="{{ $penerbit->nama_penerbit }}"
+          @if (old('penerbit', $buku->penerbit->nama_penerbit ?? ($buku->penerbit ?? '')) ==
+                  $penerbit->nama_penerbit) selected @endif>
+          {{ $penerbit->nama_penerbit }}
+        </option>
+      @endforeach
+    </select>
+    {{-- Untuk menyertakan nilai Penerbit agar tetap terkirim --}}
+    <input type="hidden" name="penerbit"
+      value="{{ $buku->penerbit->nama_penerbit ?? ($buku->penerbit ?? '') }}">
+    <p class="text-xs text-gray-400 mt-1">Penerbit tidak bisa diubah setelah data dibuat.</p>
   </div>
 
   <!-- Tahun Terbit -->
@@ -68,24 +89,60 @@
   <!-- Rak -->
   <div>
     <label for="rak" class="block text-sm font-semibold mb-1 text-[#394867]">Lokasi Rak</label>
-    <input type="text" id="rak" name="rak" class="w-full border px-3 py-2 rounded"
-      value="{{ old('rak', $buku->rak->no_rak ?? ($buku->rak ?? '')) }}">
+    <select name="rak" id="rak" class="w-full border px-3 py-2 rounded" required>
+      <option value="" disabled
+        {{ $buku->rak->no_rak ?? ($buku->rak ?? '') ? '' : 'selected' }}>
+        -- Pilih Rak --
+      </option>
+      @foreach ($dataRak as $rak)
+        <option value="{{ $rak->no_rak }}" @if (old('rak', $buku->rak->no_rak ?? ($buku->rak ?? '')) == $rak->no_rak) selected @endif>
+          {{ $rak->no_rak }}
+        </option>
+      @endforeach
+    </select>
+    <input type="hidden" name="rak" value="{{ $buku->rak->no_rak ?? ($buku->rak ?? '') }}">
+    <p class="text-xs text-gray-400 mt-1">Rak tidak bisa diubah setelah data dibuat.</p>
   </div>
 
   <!-- Sumber -->
   <div>
     <label for="sumber" class="block text-sm font-semibold mb-1 text-[#394867]">Sumber
       Buku</label>
-    <input type="text" id="sumber" name="sumber" class="w-full border px-3 py-2 rounded"
-      value="{{ old('sumber', $buku->sumber->nama_sumber ?? ($buku->sumber ?? '')) }}" required>
+    <select name="sumber" id="sumber" class="w-full border px-3 py-2 rounded" required>
+      <option value="" disabled
+        {{ $buku->sumber->nama_sumber ?? ($buku->sumber ?? '') ? '' : 'selected' }}>
+        -- Pilih Sumber --
+      </option>
+      @foreach ($dataSumber as $sumber)
+        <option value="{{ $sumber->nama_sumber }}"
+          @if (old('sumber', $buku->sumber->nama_sumber ?? ($buku->sumber ?? '')) == $sumber->nama_sumber) selected @endif>
+          {{ $sumber->nama_sumber }}
+        </option>
+      @endforeach
+    </select>
+    <input type="hidden" name="sumber"
+      value="{{ $buku->sumber->nama_sumber ?? ($buku->sumber ?? '') }}">
+    <p class="text-xs text-gray-400 mt-1">Sumber buku tidak bisa diubah setelah data dibuat.</p>
   </div>
 
   <!-- Kategori -->
   <div>
     <label for="kategori" class="block text-sm font-semibold mb-1 text-[#394867]">Kategori</label>
-    <input type="text" id="kategori" name="kategori" class="w-full border px-3 py-2 rounded"
-      value="{{ old('kategori', $buku->kategori->nama_kategori ?? ($buku->kategori ?? '')) }}"
+    <select name="kategori" id="kategori"
+      class="w-full border px-3 py-2 rounded bg-white text-[#394867] focus:border-blue-500 focus:ring-blue-500"
       required>
+      <option value="" disabled
+        {{ old('kategori', $buku->kategori->nama_kategori ?? ($buku->kategori ?? '')) ? '' : 'selected' }}>
+        -- Pilih Kategori --
+      </option>
+      @foreach ($dataKategori as $kategori)
+        <option value="{{ $kategori->nama_kategori }}"
+          @if (old('kategori', $buku->kategori->nama_kategori ?? ($buku->kategori ?? '')) ==
+                  $kategori->nama_kategori) selected @endif>
+          {{ $kategori->nama_kategori }}
+        </option>
+      @endforeach
+    </select>
   </div>
 
   <!-- Tanggal Terima -->
