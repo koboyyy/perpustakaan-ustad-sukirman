@@ -14,6 +14,6 @@ class DetailPengarang extends Model
 
     public function pengarang()
     {
-        return $this->belongsTo(Pengarang::class, 'tbl_pengarang');
+        return $this->belongsTo(Pengarang::class, 'id_pengarang');
     }
 }

@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->foreignId('id_rak');
             $table->foreignid('id_sumber');
             $table->foreignId('id_kategori');
+            $table->year('tahun_terbit');
             $table->integer('eksemplar')->unsigned();
             $table->date('tanggal_terima');
             $table->text('sinopsis')->nullable();

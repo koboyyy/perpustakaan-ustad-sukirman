@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('tbl_sumber', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_sumber', 100);
+            $table->string('nama_sumber', 255);
             $table->timestamps();
         });
     }

@@ -1,6 +1,8 @@
 <div class="relative">
+
+  {{-- Kolom Pencarian --}}
   <form id="search-form" action="" autocomplete="off"
-    class="flex items-center gap-0 transition-all duration-300 group shadow-lg rounded-lg overflow-hidden">
+    class="w-fit flex items-center gap-0 transition-all duration-300 group shadow-lg rounded-lg overflow-hidden">
     <input type="text" id="pencarian" name="pencarian"
       class="h-10 px-4 w-64 border-none focus:ring-2 focus:ring-[#394867] outline-none bg-[#F1F6F9] text-[#212A3E] transition-all duration-300"
       placeholder="Cari judul, pengarang, ISBN...">
@@ -10,10 +12,14 @@
       <i class="fa-solid fa-magnifying-glass text-lg"></i>
     </button>
   </form>
+
+  {{-- Field Saran Pencarian --}}
   <div id="search-suggestion"
     class="bg-white shadow-md rounded-b-lg absolute mt-1 w-64 z-50 hidden max-h-64 overflow-y-auto">
     <!-- Suggestions akan ditampilkan di sini -->
   </div>
+
+  {{-- Script untuk fungsi pencarian --}}
   <script>
     // Contoh: Daftar data dummy. Ganti nanti dengan data real dari database/API.
     const allItems = [{

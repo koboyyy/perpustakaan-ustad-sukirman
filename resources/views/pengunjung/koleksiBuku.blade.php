@@ -44,13 +44,15 @@
       {{-- Koleksi Buku --}}
       <div class="w-full">
         {{-- Navbar --}}
-        <div class="flex justify-between w-full items-start mb-7">
+        <div class="flex flex-col justify-between w-full items-start mb-7 relative">
           {{-- Pencarian --}}
           <div class="flex gap-7 items-center w-full">
             <form action="#" method="GET"
-              class="flex w-full bg-white rounded-3xl shadow-full p-1 pl-4 backdrop-blur-sm ring-1 ring-[#9BA4B5]/50 focus-within:ring-2 focus-within:ring-[#394867] transition">
+              class="flex w-full bg-white rounded-3xl shadow-full p-1 pl-4 backdrop-blur-sm ring-1 ring-[#9BA4B5]/50 focus-within:ring-2 focus-within:ring-[#394867] transition"
+              autocomplete="off">
+              {{-- Input --}}
               <input type="text" name="pencarian" placeholder="Cari buku..." id="pencarian"
-                value="{{ request('pencarian') }}"
+                autocomplete="off" value="{{ request('pencarian') }}"
                 class="bg-transparent flex-1 py-3 px-2 text-[#212A3E] placeholder-[#9BA4B5] focus:outline-none text-md rounded-l-3xl" />
               <button
                 class="bg-gradient-to-tr from-[#394867] to-[#212A3E] text-white font-semibold px-6 py-2 rounded-3xl shadow hover:from-[#212A3E] hover:to-[#394867] transition-all"
@@ -59,12 +61,36 @@
               </button>
             </form>
           </div>
+
+          {{-- Hasil Pencarian --}}
+          <div id="hasil"
+            class="bg-white z-[1000] border border-2 rounded-2xl w-full absolute top-[70px] p-0 hidden">
+            <ul id="list-hasil" class="divide-y divide-gray-200"></ul>
+          </div>
         </div>
 
         {{-- Koleksi Buku --}}
-        @if (count($dataBuku) > 0)
+        @php
+          // Ambil filter berdasarkan request kategori dan pencarian
+          $filteredBuku = collect($dataBuku);
+
+          $requestKategori = request('kategori');
+          $requestPencarian = request('pencarian');
+
+          if ($requestKategori) {
+              $filteredBuku = $filteredBuku->where('id_kategori', $requestKategori);
+          }
+          if ($requestPencarian) {
+              $filteredBuku = $filteredBuku->filter(function ($item) use ($requestPencarian) {
+                  return stripos($item['judul'], $requestPencarian) !== false ||
+                      stripos($item['penerbit'] ?? '', $requestPencarian) !== false;
+              });
+          }
+        @endphp
+
+        @if ($filteredBuku->count() > 0)
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-            @foreach ($dataBuku as $db)
+            @foreach ($filteredBuku as $db)
               <div
                 class="w-full rounded-2xl overflow-hidden flex gap-4 bg-white shadow hover:shadow-lg transition">
                 <div
@@ -83,9 +109,9 @@
                     <div class="text-lg font-semibold truncate text-[#394867]">
                       {{ $db['judul'] ?? '-' }}</div>
                     <div class="text-base italic text-[#212A3E]/80 truncate">
-                      {{ $db['pengarang'] ?? '-' }}</div>
+                      {{ $db['penerbit'] ?? '-' }}</div>
                     <div class="text-sm text-[#9BA4B5] truncate">{{ $db['penerbit'] ?? '-' }}</div>
-                    <div class="text-sm text-[#9BA4B5] truncate">{{ $db['tahunTerbit'] ?? '-' }}
+                    <div class="text-sm text-[#9BA4B5] truncate">{{ $db['tahun_terbit'] ?? '-' }}
                     </div>
                     <div class="text-sm text-[#9BA4B5] truncate">Eksemplar:
                       {{ $db['eksemplar'] ?? '0' }}</div>
@@ -103,14 +129,152 @@
             Tidak ada buku yang ditemukan.
           </div>
         @endif
-
-        {{-- Pagination --}}
-        <div class="mt-8">
-          @if (method_exists($dataBuku, 'links'))
-            {{ $dataBuku->appends(request()->all())->links() }}
-          @endif
-        </div>
       </div>
     </div>
   </section>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  {{-- 
+    Penambahan fitur:
+    - Auto complete: bila user tekan ArrowDown/ArrowUp, list suggestion bisa dinavigasi
+    - Tekan Enter pada salah satu suggestion, input dikopi ke kotak pencarian & suggestion tertutup
+    - Klik pada suggestion, juga set input
+    - Fitur tetap auto hidden saat blur/klick di luar
+  --}}
+  <script>
+    let activeSuggestionIndex = -1; // -1 artinya tidak ada yang aktif
+    let suggestionData = [];
+
+    function showSuggestionBox() {
+      $('#hasil').removeClass('hidden').addClass('block');
+    }
+
+    function hideSuggestionBox() {
+      $('#hasil').removeClass('block').addClass('hidden');
+      activeSuggestionIndex = -1;
+    }
+
+    function updateActiveSuggestion() {
+      // Highlight suggestion yang aktif, clear yang lain
+      $('#list-hasil li').removeClass('bg-[#9BA4B5]/20').removeClass('font-bold');
+      if (activeSuggestionIndex >= 0) {
+        $('#list-hasil li').eq(activeSuggestionIndex)
+          .addClass('bg-[#9BA4B5]/20').addClass('font-bold');
+      }
+    }
+
+    // Ketika user ketik (keyup)
+    $('#pencarian').on('keyup', function(e) {
+      // Untuk handling Arrow dan Enter, pakai keydown handler, di sini hanya handle fetch
+      if (['ArrowUp', 'ArrowDown', 'Enter', 'Escape'].includes(e.key)) {
+        return;
+      }
+
+      var keyword = $(this).val();
+      if (keyword.length > 0) {
+        $.get('/live-search', {
+          keyword: keyword
+        }, function(data) {
+          let hasilBox = $('#hasil');
+          let listHasil = $('#list-hasil');
+          listHasil.empty();
+
+          suggestionData = data || [];
+          activeSuggestionIndex = -1;
+
+          if (suggestionData.length > 0) {
+            showSuggestionBox();
+            // Tampilkan 10 hasil buku
+            suggestionData.forEach(function(item, idx) {
+              listHasil.append(
+                `<li class="py-2 px-3 hover:bg-[#9BA4B5]/10 cursor-pointer text-[#212A3E]" data-idx="${idx}" data-judul="${item.judul_buku}">
+                  <span class="font-semibold">${item.judul_buku}</span>
+                </li>`
+              );
+            });
+          } else {
+            hideSuggestionBox();
+          }
+        });
+      } else {
+        hideSuggestionBox();
+        $('#list-hasil').empty();
+      }
+    });
+
+    // Arrow navigation dan enter support (keydown supaya tidak trigger inputan browser default)
+    $('#pencarian').on('keydown', function(e) {
+      let listEls = $('#list-hasil li');
+      if (!listEls.length) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (activeSuggestionIndex < listEls.length - 1) {
+          activeSuggestionIndex++;
+          updateActiveSuggestion();
+          // Scroll ke elemen yang aktif jika di luar view
+          let $active = listEls.eq(activeSuggestionIndex);
+          let $parent = $('#list-hasil');
+          let activeTop = $active.position().top;
+          let activeBottom = activeTop + $active.outerHeight();
+          let parentScroll = $parent.scrollTop();
+          if (activeBottom > $parent.height()) {
+            $parent.scrollTop(parentScroll + (activeBottom - $parent.height()));
+          } else if (activeTop < 0) {
+            $parent.scrollTop(parentScroll + activeTop);
+          }
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (activeSuggestionIndex > 0) {
+          activeSuggestionIndex--;
+          updateActiveSuggestion();
+          let $active = listEls.eq(activeSuggestionIndex);
+          let $parent = $('#list-hasil');
+          let activeTop = $active.position().top;
+          let parentScroll = $parent.scrollTop();
+          if (activeTop < 0) {
+            $parent.scrollTop(parentScroll + activeTop);
+          }
+        }
+      } else if (e.key === 'Enter') {
+        if (activeSuggestionIndex >= 0 && activeSuggestionIndex < suggestionData.length) {
+          e.preventDefault();
+          let selected = suggestionData[activeSuggestionIndex];
+          $('#pencarian').val(selected.judul_buku);
+          hideSuggestionBox();
+        }
+      } else if (e.key === 'Escape') {
+        hideSuggestionBox();
+      }
+    });
+
+    // Klik pada suggestion
+    $('#list-hasil').on('click', 'li', function(e) {
+      let judul = $(this).data('judul');
+      $('#pencarian').val(judul);
+      hideSuggestionBox();
+      $('#pencarian').focus();
+    });
+
+    // Hover mouse mengubah highlight aktif
+    $('#list-hasil').on('mousemove', 'li', function() {
+      activeSuggestionIndex = parseInt($(this).attr('data-idx'));
+      updateActiveSuggestion();
+    });
+
+    // Opsi: Tutup box saat klik di luar pencarian
+    $(document).on('mousedown', function(e) {
+      if (!$(e.target).closest('#pencarian, #hasil').length) {
+        hideSuggestionBox();
+      }
+    });
+
+    // Opsi: Saat input blur, simpan sebentar supaya klik pada list bisa terproses
+    $('#pencarian').on('blur', function() {
+      setTimeout(hideSuggestionBox, 150);
+    });
+  </script>
+
 </x-pengunjung.layout-pengunjung>

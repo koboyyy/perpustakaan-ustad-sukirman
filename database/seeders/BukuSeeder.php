@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Buku;
-use App\Models\Pengarang;
-use App\Models\Penerbit;
-use App\Models\Kategori;
 use App\Models\Rak;
+use App\Models\Buku;
+use App\Models\Sumber;
+use App\Models\Kategori;
+use App\Models\Penerbit;
+use App\Models\Pengarang;
 use App\Models\DetailPengarang;
 use Illuminate\Database\Seeder;
 
@@ -17,22 +18,53 @@ class BukuSeeder extends Seeder
      */
     public function run(): void
     {
+
+        Penerbit::factory()->count(50)->create();
         // Seeder untuk tabel penerbit
-        Penerbit::factory()->count(100)->create();
+        Kategori::create([
+            'nama_kategori' => 'Sains'
+        ]);
+
+        Kategori::create([
+            'nama_kategori' => 'Komedi'
+        ]);
+
+        Kategori::create([
+            'nama_kategori' => 'Novel'
+        ]);
+
+        Kategori::create([
+            'nama_kategori' => 'Hiburan'
+        ]);
 
         // Seeder untuk tabel kategori
-        Kategori::factory()->count(100)->create();
+        // Kategori::factory()->count(20)->create();
 
         // Seeder untuk tabel rak
         Rak::factory()->count(100)->create();
 
         // Seeder untuk tabel pengarang
-        Pengarang::factory()->count(100)->create();
+        Pengarang::factory()->count(10)->create();
 
         // Seeder untuk tabel buku
-        Buku::factory()->count(1000)->create();
+        Buku::factory()->count(50)->create();
+
+        // Seeder untuk tabel sumber
+        // Sumber::factory()->count(10)->create();
+
+        Sumber::create([
+            'nama_sumber' => 'Sumbangan'
+        ]);
+
+        Sumber::create([
+            'nama_sumber' => 'Pembelian'
+        ]);
+
+        Sumber::create([
+            'nama_sumber' => 'Hibah'
+        ]);
 
         // Seeder untuk tabel detail_pengarang
-        DetailPengarang::factory()->count(100)->create();
+        DetailPengarang::factory()->count(50)->create();
     }
 }
