@@ -14,14 +14,13 @@ use Illuminate\Routing\Controller;
 
 class AdminController extends Controller
 {
-    public function __invoke(Request $request)
+    public function viewAnalitik(Request $request)
     {
-        // $menu = $request->query('menu', 'analitik');
+        return view('dashboard.analitik');
+    }
 
-        // if (!request()->has('menu')) {
-        //     return redirect()->to(url()->current() . '?menu=analitik');
-        // }
-
+    public function viewBuku(Request $request)
+    {
         return view('dashboard.databuku', [
             'dataAnggota' => Anggota::all(),
             'dataBuku' => Buku::all(),
@@ -32,5 +31,22 @@ class AdminController extends Controller
             'dataRak' => Rak::all(),
             'dataSumber' => Sumber::all(),
         ]);
+    }
+
+    public function viewAnggota(Request $request)
+    {
+        return view('dashboard.keanggotaan', [
+            'dataAnggota' => Anggota::all()
+        ]);
+    }
+
+    public function viewPeminjaman(Request $request)
+    {
+        return view('dashboard.peminjaman');
+    }
+
+    public function viewPengembalian(Request $request)
+    {
+        return view('dashboard.pengembalian');
     }
 }

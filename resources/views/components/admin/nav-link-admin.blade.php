@@ -12,15 +12,15 @@
   <span
     class="
       pointer-events-none 
-      absolute left-full top-1/2 -translate-y-1/2
-      ml-2 px-3 py-1 rounded-lg bg-[#212A3E] text-white text-xs font-semibold shadow-lg
-      opacity-0 translate-x-2
+      absolute left-full top-0.5
+      ml-3 px-3 py-2 rounded-xl bg-[#212A3E] text-white text-[13px] font-semibold shadow-xl border border-[#394867]
+      opacity-0 translate-x-4
       transition-all duration-200
-      z-[9999]
+      z-50
       whitespace-nowrap
       lg:block hidden
-      "
-    style="white-space: nowrap;">
+    "
+    style="white-space: nowrap; filter: drop-shadow(0 2px 8px rgba(33,42,62,0.10));">
     {{ $menuTitle }}
   </span>
   <style>

@@ -47,13 +47,14 @@ class BukuController extends Controller
      */
     public function store(Request $request)
     {
+        // return dd($request);
+
         $validatedData = $request->validate([
             'judul' => 'required|string|max:255',
             'kategori' => 'required|string|max:100',
             'pengarang' => 'required|string|max:255',
             'penerbit' => 'required|string|max:255',
             'tahun_terbit' => 'required|digits:4|integer|min:1950|max:' . date('Y'),
-            'isbn' => 'nullable|string|max:50',
             'eksemplar' => 'required|integer|min:1',
             'rak' => 'nullable|string|max:100',
             'sumber' => 'required|string|max:255',
@@ -81,6 +82,7 @@ class BukuController extends Controller
             'cover.mimes' => 'Format cover harus jpg, jpeg, atau png.',
             'cover.max' => 'Ukuran cover maksimal 2MB.',
         ]);
+
 
         if ($request->hasFile('cover')) {
             $cover = $request->file('cover');
@@ -119,9 +121,24 @@ class BukuController extends Controller
                     ->with('error', 'Sumber tidak ditemukan di database.');
             }
 
+            // $cekBuku = [
+            //     'judul_buku' => $validatedData['judul'],
+            //     'kategori_id' => $kategori->id,
+            //     'penerbit_id' => $penerbit->id,
+            //     'tahun_terbit' => $validatedData['tahun_terbit'],
+            //     'eksemplar' => $validatedData['eksemplar'],
+            //     'rak_id' => $rak ? $rak->id : null,
+            //     'sumber_id' => $sumber->id,
+            //     'tanggal_terima' => $validatedData['tanggal_terima'],
+            //     'sinopsis' => $validatedData['sinopsis'],
+            //     'cover' => $validatedData['cover'] ?? null,
+            // ]
+
+            // dd($cekBuku);
+
             // Cek duplikasi judul dan pengarang
             $exists = Buku::where('judul_buku', $validatedData['judul'])
-                ->where('penerbit_id', $penerbit->id)
+                ->where('id_penerbit', $penerbit->id)
                 ->first();
 
             if ($exists) {
@@ -133,12 +150,12 @@ class BukuController extends Controller
             // Memasukkan Data Kedalam Table Buku
             $buku = Buku::create([
                 'judul_buku' => $validatedData['judul'],
-                'kategori_id' => $kategori->id,
-                'penerbit_id' => $penerbit->id,
+                'id_kategori' => $kategori->id,
+                'id_penerbit' => $penerbit->id,
                 'tahun_terbit' => $validatedData['tahun_terbit'],
                 'eksemplar' => $validatedData['eksemplar'],
-                'rak_id' => $rak ? $rak->id : null,
-                'sumber_id' => $sumber->id,
+                'id_rak' => $rak ? $rak->id : null,
+                'id_sumber' => $sumber->id,
                 'tanggal_terima' => $validatedData['tanggal_terima'],
                 'sinopsis' => $validatedData['sinopsis'],
                 'cover' => $validatedData['cover'] ?? null,
@@ -162,7 +179,7 @@ class BukuController extends Controller
                 ]);
             }
 
-            return redirect()->route('dashboard')->with('success', 'Buku berhasil ditambahkan.');
+            return redirect()->route('viewBuku')->with('success', 'Buku berhasil ditambahkan.');
         } catch (QueryException $e) {
             // Tampilkan pesan asli error SQL jika dev/debug mode, dan error user-friendly jika production
             $pesan = config('app.debug')

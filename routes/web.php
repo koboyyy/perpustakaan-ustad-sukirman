@@ -16,7 +16,12 @@ Route::post('/dashboard', [AdminController::class, '__invoke'])->name('dashboard
 Route::get('/dashboard', [AdminController::class, '__invoke'])->name('dashboard');
 
 
-Route::get('/dashboard/buku', [AdminController::class, '__invoke']);
+Route::get('/dashboard/analitik', [AdminController::class, 'viewAnalitik']);
+Route::get('/dashboard/buku', [AdminController::class, 'viewBuku'])->name('viewBuku');
+Route::get('/dashboard/keanggotaan', [AdminController::class, 'viewAnggota']);
+Route::get('/dashboard/peminjaman', [AdminController::class, 'viewPeminjaman']);
+Route::get('/dashboard/pengembalian', [AdminController::class, 'viewPengembalian']);
+
 
 // ==================
 // Menu Utama

@@ -64,6 +64,7 @@
 
       {{-- Cover Preview & Upload --}}
       <div class="flex flex-col w-fit mb-6">
+
         <div
           class="w-40 h-56 bg-gray-100 rounded-lg mb-2 flex items-center justify-center overflow-hidden border border-[#9BA4B5]">
           <img id="coverPreview"
@@ -71,17 +72,22 @@
             alt="Preview Cover" class="object-cover w-full h-full"
             onerror="this.onerror=bg-amber-200null; this.src='https://fakeimg.pl/200x280/?text=No+Cover';" />
         </div>
+
         <div class="flex flex-col gap-1 w-full max-w-md">
           <label for="cover" class="text-[14px]">Upload Cover:</label>
+
           <input type="file" id="cover" name="cover" accept="image/*"
             class="w-full border border-[#9BA4B5] rounded px-2 py-1 focus:border-[#394867] focus:ring-[#394867] bg-white @error('cover') border-red-500 @enderror"
             onchange="previewImage(event)" />
+
           <span class="text-xs text-[#394867] mt-1">Format gambar: jpg, jpeg, atau png. Maks
             2MB.</span>
+
           @error('cover')
             <span class="text-red-500 text-xs">{{ $message }}</span>
           @enderror
         </div>
+
       </div>
 
       {{-- Form Fields --}}
@@ -208,7 +214,7 @@
         <div class="flex flex-col gap-1">
           <label for="rak"
             class="text-[14px] after:content-['*'] after:text-[#394867] after:ml-1">Rak:</label>
-          <select name="sumber" id="sumber"
+          <select name="rak" id="rak"
             class="w-full border border-[#9BA4B5] rounded px-3 py-2 focus:border-[#394867] focus:ring-[#394867] @error('tahun_terbit') border-red-500 @enderror"
             required>
             @foreach ($dataRak as $rak)
