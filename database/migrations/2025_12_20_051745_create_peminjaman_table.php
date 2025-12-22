@@ -15,12 +15,8 @@ return new class extends Migration {
             $table->foreignId('id_anggota');
             $table->foreignId('id_admin');
             $table->date('tanggal_pinjam');
-            $table->enum('status', ['dipinjam', 'dikembalikan', 'hilang', 'rusak'])->default('dipinjam');
+            $table->enum('status', ['dipinjam', 'dikembalikan'])->default('dipinjam');
             $table->timestamps();
-
-            // ENUM (singkatan dari "enumeration") adalah tipe data khusus pada database (dan juga di banyak bahasa pemrograman) yang memungkinkan sebuah kolom hanya memiliki nilai tertentu yang telah didefinisikan sebelumnya.
-            // Contoh pada kolom 'status' di atas: nilainya hanya boleh salah satu dari 'dipinjam', 'dikembalikan', 'hilang', atau 'rusak'.
-            // ENUM berguna untuk menjaga konsistensi data, sehingga tidak ada nilai yang tidak valid masuk ke kolom tersebut.
         });
     }
 

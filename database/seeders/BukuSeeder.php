@@ -41,13 +41,13 @@ class BukuSeeder extends Seeder
         // Kategori::factory()->count(20)->create();
 
         // Seeder untuk tabel rak
-        Rak::factory()->count(100)->create();
+        Rak::factory()->count(10)->create();
 
         // Seeder untuk tabel pengarang
         Pengarang::factory()->count(10)->create();
 
         // Seeder untuk tabel buku
-        Buku::factory()->count(50)->create();
+        Buku::factory()->count(10)->create();
 
         // Seeder untuk tabel sumber
         // Sumber::factory()->count(10)->create();

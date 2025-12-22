@@ -3,32 +3,102 @@ const trendPertumbuhanPemustaka = document.getElementById('trend-pertumbuhan-pem
 const srcRandomImg = 'https://picsum.photos/600/700';
 const bukuFavorit = document.querySelectorAll('#box-buku-favorit div img');
 const topPemustaka = document.querySelectorAll('#box-top-pemustaka img');
+const pieKategori = document.getElementById('pie-distribusi-kategori-buku');
+
+// Penjelasan:
+// - Menjadikan maintainAspectRatio: false agar chart 100% mengikuti parent container, sehingga tidak overflow jika container-nya punya height terbatas atau responsif.
+// - Disarankan: Atur container div di Blade/Laravel-nya punya height explicit, misal style="height:350px;" atau class CSS tertentu.
+// - Menambahkan resize handler agar font dan lainnya responsif.
+// - BarPercentage / CategoryPercentage di Chart.js langsung tidak cukup untuk mengontrol overflow jika parent-nya tidak kasih height.
+// - Chart tidak akan overflow jika parent container sudah benar didefinisikan height-nya.
+// - Pastikan di analitik.blade.php, element <canvas id="trend-peminjaman"> berada di dalam div yang height-nya eksplisit (via tailwind/inline/CSS).
 
 if (trendPeminjaman) {
-  new Chart(trendPeminjaman, {
-    type: 'bar',
-    data: {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-      datasets: [
-        {
-          label: 'Trend Peminjaman',
-          data: [12, 19, 8, 15, 22, 18],
-          borderWidth: 1,
-          backgroundColor: '#394867',
-        },
-      ],
-    },
-    options: {
+  // Fungsi untuk render chart sesuai besar layar
+  function resizeTrendPeminjamanChart() {
+    let width = window.innerWidth;
+    let chartOptions = {
       responsive: true,
-      // maintainAspectRatio: false,
+      maintainAspectRatio: false, // => wajib agar chart menyesuaikan height container!
       scales: {
         y: {
           beginAtZero: true,
+          ticks: {
+            font: {
+              size: width < 600 ? 10 : width < 900 ? 12 : 14,
+            },
+          },
+        },
+        x: {
+          ticks: {
+            font: {
+              size: width < 600 ? 10 : width < 900 ? 12 : 14,
+            },
+          },
         },
       },
-    },
+      plugins: {
+        legend: {
+          labels: {
+            font: {
+              size: width < 600 ? 10 : width < 900 ? 12 : 14,
+            },
+          },
+        },
+        tooltip: {
+          bodyFont: {
+            size: width < 600 ? 10 : width < 900 ? 12 : 14,
+          },
+        },
+      },
+    };
+
+    // Destroy instance sebelumnya setiap resize agar tidak duplikat
+    if (window.trendPeminjamanChart) {
+      window.trendPeminjamanChart.destroy();
+    }
+    window.trendPeminjamanChart = new Chart(trendPeminjaman, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [
+          {
+            label: 'Trend Peminjaman',
+            data: [12, 19, 8, 15, 22, 18],
+            borderWidth: 1,
+            backgroundColor: width < 600 ? '#607fbc' : '#394867',
+            barPercentage: width < 600 ? 0.6 : 0.5,
+            categoryPercentage: width < 600 ? 0.8 : 0.5,
+            borderRadius: width < 600 ? 4 : 6, // sudah diperbaiki, tanpa typo
+          },
+        ],
+      },
+      options: chartOptions,
+    });
+  }
+
+  // Inisialisasi dan update saat window resize
+  resizeTrendPeminjamanChart();
+  window.addEventListener('resize', () => {
+    resizeTrendPeminjamanChart();
   });
 }
+
+/*
+!= Penyebab batang melewati container:
+  1. Parent container/canvas tidak dikasih height secara eksplisit. Chart.js (dengan maintainAspectRatio: false) akan memenuhi seluruh tinggi container. Tetapi jika container tidak punya height jelas, canvas jadi besar (default attr height=150 px dari Chart.js bisa meluber).
+  2. Solusi: 
+    - Pastikan element pembungkus chart (div / section) yang membungkus <canvas id="trend-peminjaman"> diberi height eksplisit. 
+    - Contoh:
+        <div style="height:350px">
+          <canvas id="trend-peminjaman"></canvas>
+        </div>
+      atau dengan Tailwind: 
+        <div class="h-[350px]">
+          <canvas id="trend-peminjaman"></canvas>
+        </div>
+  3. BarPercentage terlalu kecil/besar tidak berpengaruh pada overflow secara vertikal — yang penting container chart punya tinggi eksplisit!
+*/
 
 if (trendPertumbuhanPemustaka) {
   new Chart(trendPertumbuhanPemustaka, {
@@ -56,79 +126,3 @@ if (trendPertumbuhanPemustaka) {
     },
   });
 }
-
-bukuFavorit.forEach(async img => {
-  const respon = await fetch(srcRandomImg);
-  const data = await respon.url;
-
-  try {
-    img.src = data;
-  } catch (err) {
-    console.log('error: ' + err);
-  }
-});
-
-topPemustaka.forEach(async img => {
-  const respon = await fetch(srcRandomImg);
-  const data = await respon.url;
-
-  try {
-    img.src = data;
-  } catch (err) {
-    console.log('error: ' + err);
-  }
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-  // Pie Chart Distribusi Kategori Buku
-  const pieKategori = document.getElementById('pie-distribusi-kategori-buku');
-  if (pieKategori) {
-    // Ganti dari pie menjadi doughnut supaya bulat tengahnya kosong
-    new Chart(pieKategori, {
-      type: 'doughnut',
-      data: {
-        labels: [
-          // Menambahkan icon dan warna jika dibutuhkan di legend/label saat custom legend di Chart.js
-          'Fiksi',
-          'Non-Fiksi',
-          'Sains',
-          'Sejarah',
-          'Biografi',
-          'Lainnya',
-        ],
-        datasets: [
-          {
-            data: [35, 20, 15, 10, 8, 12],
-            backgroundColor: [
-              '#394867', // Fiksi - dark theme primary
-              '#9BA4B5', // Non-Fiksi - secondary/light border
-              '#212A3E', // Sains - strong accent/dark navy
-              '#F1F6F9', // Sejarah - light bg
-              '#B0C4D9', // Biografi - gradient/soft blue
-              '#D9E4EC', // Lainnya - very light gradient
-            ],
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        cutout: '60%', // supaya terlihat bolong di tengah
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: {
-              color: '#6835BB',
-              font: {
-                weight: 'bold',
-              },
-            },
-          },
-          title: {
-            display: false,
-          },
-        },
-      },
-    });
-  }
-});

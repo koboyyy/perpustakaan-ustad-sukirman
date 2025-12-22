@@ -12,7 +12,8 @@ class Transaksi extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Peminjaman::factory(50)->create();
-        \App\Models\Pengembalian::factory(30)->create();
+        \App\Models\Peminjaman::factory(10)->create();
+        \App\Models\Pengembalian::factory(10)->create();
+        \App\Models\DetailPeminjaman::factory(20)->create();
     }
 }

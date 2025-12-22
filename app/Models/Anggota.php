@@ -17,6 +17,6 @@ class Anggota extends Model
     // relasi dengan tabel peminjaman
     public function peminjaman()
     {
-        return $this->hasMany(Peminjaman::class, 'id_anggota');
+        return $this->hasOne(Peminjaman::class, 'id_anggota');
     }
 }

@@ -23,6 +23,6 @@ class DetailPeminjaman extends Model
     // Relasi ke tabel peminjaman dengan fk id_peminjaman
     public function peminjaman()
     {
-        return $this->belongsTo(Peminjaman::class, 'id_peminajaman');
+        return $this->belongsTo(Peminjaman::class, 'id_peminjaman');
     }
 }

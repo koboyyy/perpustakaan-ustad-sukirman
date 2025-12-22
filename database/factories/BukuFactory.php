@@ -21,7 +21,7 @@ class BukuFactory extends Factory
             'id_penerbit' => $this->faker->numberBetween(1, 20), // pastikan data dummy/nilai yang sesuai dengan data relasi yang sudah ada
             'id_rak' => $this->faker->numberBetween(1, 7),
             'id_sumber' => $this->faker->numberBetween(1, 10),
-            'id_kategori' => $this->faker->numberBetween(1, 20),
+            'id_kategori' => $this->faker->numberBetween(1, 4),
             'tahun_terbit' => $this->faker->year(),
             'eksemplar' => $this->faker->numberBetween(1, 20),
             'tanggal_terima' => $this->faker->date(),

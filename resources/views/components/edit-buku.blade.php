@@ -43,7 +43,6 @@
       value="{{ isset($buku->detail_pengarang) && count($buku->detail_pengarang)
           ? implode(', ', $buku->detail_pengarang->pluck('pengarang.nama_pengarang')->filter()->all())
           : '' }}">
-    <p class="text-xs text-gray-400 mt-1">Pengarang tidak bisa diubah setelah data dibuat.</p>
   </div>
 
   <!-- Penerbit -->
@@ -65,7 +64,6 @@
     {{-- Untuk menyertakan nilai Penerbit agar tetap terkirim --}}
     <input type="hidden" name="penerbit"
       value="{{ $buku->penerbit->nama_penerbit ?? ($buku->penerbit ?? '') }}">
-    <p class="text-xs text-gray-400 mt-1">Penerbit tidak bisa diubah setelah data dibuat.</p>
   </div>
 
   <!-- Tahun Terbit -->
@@ -101,7 +99,6 @@
       @endforeach
     </select>
     <input type="hidden" name="rak" value="{{ $buku->rak->no_rak ?? ($buku->rak ?? '') }}">
-    <p class="text-xs text-gray-400 mt-1">Rak tidak bisa diubah setelah data dibuat.</p>
   </div>
 
   <!-- Sumber -->
@@ -122,7 +119,6 @@
     </select>
     <input type="hidden" name="sumber"
       value="{{ $buku->sumber->nama_sumber ?? ($buku->sumber ?? '') }}">
-    <p class="text-xs text-gray-400 mt-1">Sumber buku tidak bisa diubah setelah data dibuat.</p>
   </div>
 
   <!-- Kategori -->

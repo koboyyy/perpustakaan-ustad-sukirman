@@ -12,7 +12,7 @@
       </div>
 
       {{-- Kolom Pencarian --}}
-      <div class="mb-2 relative">
+      <div class="mb-5 relative">
         <input type="text" id="pencarian-admin" autocomplete="off"
           placeholder="Cari judul/penerbit/rak..."
           class="w-full border border-[#394867] px-4 py-2 rounded-lg focus:border-[#212A3E] focus:ring-2 focus:ring-[#394867] text-sm text-[#212A3E] transition" />
@@ -116,28 +116,6 @@
         </div>
 
         <div class="w-full p-[24px] space-y-4">
-          {{-- Pilihan jumlah buku yang ingin di tampilkan --}}
-          <div class="text-[10px] flex gap-4 items-center font-light text-[#212A3E]">
-            <div>Show</div>
-
-            <form id="show-entries-form" method="GET" action="/hasPages" class="inline">
-
-              <select name="perPage" id="show-entries"
-                class="py-[8px] px-[14px] border border-[#9BA4B5] rounded text-[#212A3E] focus:border-[#394867] focus:ring-[#394867]"
-                onchange="document.getElementById('show-entries-form').submit()">
-                <option value="10" {{ request('perPage', 10) == 10 ? 'selected' : '' }}>10
-                </option>
-                <option value="25" {{ request('perPage') == 25 ? 'selected' : '' }}>25</option>
-                <option value="50" {{ request('perPage') == 50 ? 'selected' : '' }}>50</option>
-                <option value="100" {{ request('perPage') == 100 ? 'selected' : '' }}>100
-                </option>
-              </select>
-
-            </form>
-
-            <div>entries</div>
-          </div>
-
           {{-- Tabel Buku --}}
           <div class="overflow-auto">
             <table class="w-full border border-[#394867] text-[13px]" id="tabel-buku-admin">
@@ -260,6 +238,10 @@
                 @endforelse
               </tbody>
             </table>
+
+            <div class="mt-5">
+              {{ $dataBukuDetail->links() }}
+            </div>
           </div>
         </div>
       </div>

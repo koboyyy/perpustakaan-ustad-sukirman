@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buku;
+use App\Models\Anggota;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -23,5 +24,17 @@ class UserController extends Controller
             ->get();
 
         return response()->json($bukus);
+    }
+
+
+    public function liveSearchAnggota(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        $anggota = Anggota::where('nama_lengkap', 'LIKE', '%' . $keyword . '%')
+            ->limit(15)
+            ->get();
+
+        return response()->json($anggota);
     }
 }

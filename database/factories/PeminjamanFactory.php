@@ -17,10 +17,10 @@ class PeminjamanFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_anggota' => $this->faker->numberBetween(1, 100), // sesuaikan range id_anggota yang tersedia
+            'id_anggota' => $this->faker->numberBetween(1, 10), // sesuaikan range id_anggota yang tersedia
             'id_admin' => $this->faker->numberBetween(1, 10), // sesuaikan range id_admin yang tersedia
             'tanggal_pinjam' => $this->faker->date(),
-            'status' => $this->faker->randomElement(['dipinjam', 'dikembalikan', 'hilang', 'rusak']),
+            'status' => $this->faker->randomElement(['dipinjam', 'dikembalikan']),
         ];
     }
 }

@@ -17,8 +17,8 @@ class DetailPeminjamanFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_peminjaman' => $this->faker->numberBetween(1, 100),
-            'id_buku' => $this->faker->numberBetween(1, 100),
+            'id_peminjaman' => $this->faker->numberBetween(1, 10),
+            'id_buku' => $this->faker->numberBetween(1, 10),
         ];
     }
 }
