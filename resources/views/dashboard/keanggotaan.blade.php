@@ -12,7 +12,7 @@
 
     {{-- Modal Konfirmasi Hapus --}}
     <div id="hapusModal"
-      class="fixed inset-0 z-[9999] bg-black/40 flex items-center justify-center hidden">
+      class="fixed inset-0 z-9999 bg-black/40 flex items-center justify-center hidden">
       <div
         class="bg-white w-full max-w-sm rounded-2xl shadow-lg relative flex flex-col px-6 py-8 animate-fade-in">
         <button id="closeHapusModal"
@@ -45,14 +45,14 @@
 
     {{-- Modal/Snackbar Success --}}
     <div id="hapusSuccessSnackbar"
-      class="fixed left-1/2 -translate-x-1/2 bottom-8 z-[9999] bg-green-500 text-white px-5 py-3 rounded-lg flex items-center gap-2 shadow-lg hidden animate-bounce-in">
+      class="fixed left-1/2 -translate-x-1/2 bottom-8 z-9999 bg-green-500 text-white px-5 py-3 rounded-lg flex items-center gap-2 shadow-lg hidden animate-bounce-in">
       <i class="fa-solid fa-check-circle text-2xl"></i>
       <span>Anggota berhasil dihapus!</span>
     </div>
 
     {{-- Modal Detail Anggota --}}
     <div id="detailAnggotaModal"
-      class="fixed inset-0 z-[9999] bg-black/40 flex items-center justify-center hidden">
+      class="fixed inset-0 z-9999 bg-black/40 flex items-center justify-center hidden">
       <div
         class="bg-white w-full max-w-md rounded-2xl shadow-lg relative flex flex-col px-8 py-10 animate-fade-in">
         <button id="closeDetailAnggotaModal"

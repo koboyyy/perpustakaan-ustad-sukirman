@@ -25,7 +25,7 @@
 
       {{-- Modal Konfirmasi Hapus --}}
       <div id="hapusModal"
-        class="fixed inset-0 z-[9999] bg-black/40 flex items-center justify-center hidden">
+        class="fixed inset-0 z-9999 bg-black/40 flex items-center justify-center hidden">
         <div
           class="bg-white w-full max-w-sm rounded-2xl shadow-lg relative flex flex-col px-6 py-8 animate-fade-in">
           <button id="closeHapusModal"
@@ -57,14 +57,14 @@
 
       {{-- Modal/Snackbar Success --}}
       <div id="hapusSuccessSnackbar"
-        class="fixed left-1/2 -translate-x-1/2 bottom-8 z-[9999] bg-green-500 text-white px-5 py-3 rounded-lg flex items-center gap-2 shadow-lg hidden animate-bounce-in">
+        class="fixed left-1/2 -translate-x-1/2 bottom-8 z-9999 bg-green-500 text-white px-5 py-3 rounded-lg flex items-center gap-2 shadow-lg hidden animate-bounce-in">
         <i class="fa-solid fa-check-circle text-2xl"></i>
         <span>Buku berhasil dihapus!</span>
       </div>
 
       {{-- Modal Edit Buku --}}
       <div id="editModal"
-        class="fixed inset-0 z-[9999] bg-black/40 flex items-center justify-center hidden">
+        class="fixed inset-0 z-9999 bg-black/40 flex items-center justify-center hidden">
         <div
           class="bg-white w-full max-w-2xl max-h-[96vh] my-6 rounded-2xl shadow-lg relative flex flex-col"
           style="max-height: 96vh;">
@@ -111,7 +111,7 @@
         class="bg-white rounded-2xl shadow-[0px_4px_4px_0px_rgba(57,72,103,0.15)] overflow-hidden">
         {{-- Header kotak dan title --}}
         <div
-          class="bg-gradient-to-r from-[#212A3E] via-[#394867] to-[#9BA4B5] text-white w-full flex items-center px-[24px] py-[14px]">
+          class="bg-linear-to-r from-[#212A3E] via-[#394867] to-[#9BA4B5] text-white w-full flex items-center px-[24px] py-[14px]">
           <div class="text-[14px] font-semibold"><i class="fa-solid fa-book"></i> Data Buku</div>
         </div>
 
@@ -249,18 +249,20 @@
 
     @vite('resources/js/table.js')
 
-    {{-- Script untuk handle pencarian, edit modal & detail modal --}}
     <script>
+      // Script untuk handle pencarian, edit modal & detail modal
+
+      // ==========================
+      // Untuk View Data Buku admin
+      // ==========================
+
       document.addEventListener('DOMContentLoaded', function() {
         // Utility: urutkan ulang nomor pada kolom buku
         function updateNomorBukuTable() {
           const tableBody = document.getElementById('tabel-buku-body-admin');
           let no = 1;
           Array.from(tableBody.querySelectorAll('tr')).forEach(tr => {
-            if (
-              tr.id === 'no-data-buku-admin' ||
-              tr.style.display === 'none'
-            ) return;
+            if (tr.id === 'no-data-buku-admin' || tr.style.display === 'none') return;
             const tdNo = tr.querySelector('.nomor-buku-td');
             if (tdNo) tdNo.textContent = no++;
           });
@@ -294,7 +296,7 @@
               penerbit,
               rak,
               html: row.innerHTML,
-              rowElm: row
+              rowElm: row,
             });
           });
           return data;
@@ -330,7 +332,8 @@
           }
 
           debounceTimerAdmin = setTimeout(() => {
-            let results = dataBukuCache.filter(buku =>
+            let results = dataBukuCache.filter(
+              buku =>
               buku.judul.toLowerCase().includes(keyword) ||
               buku.penerbit.toLowerCase().includes(keyword) ||
               buku.rak.toLowerCase().includes(keyword)
@@ -340,7 +343,7 @@
               results.slice(0, 8).forEach((buku, idx) => {
                 let li = document.createElement('li');
                 li.className =
-                  "px-4 py-2 cursor-pointer hover:bg-[#F1F6F9] text-[13px] transition flex flex-col";
+                  'px-4 py-2 cursor-pointer hover:bg-[#F1F6F9] text-[13px] transition flex flex-col';
                 li.textContent = buku.judul + (buku.tahun_terbit ? ' (' + buku
                   .tahun_terbit + ')' : '');
                 li.setAttribute('data-judul', buku.judul);
@@ -354,7 +357,7 @@
             } else {
               let li = document.createElement('li');
               li.textContent = 'Tidak ditemukan...';
-              li.className = "text-[#9BA4B5] italic px-4 py-2";
+              li.className = 'text-[#9BA4B5] italic px-4 py-2';
               listHasilAdmin.appendChild(li);
               aktifIdxAdmin = -1;
               showSuggestionBox();
@@ -438,13 +441,16 @@
           let isAllHidden = true;
           for (let row of rows) {
             if (row.id && row.id === 'no-data-buku-admin') continue;
-            let judul = row.querySelector('td:nth-child(2) .font-semibold')?.textContent
-              .toLowerCase() || '';
+            let judul =
+              row.querySelector('td:nth-child(2) .font-semibold')?.textContent.toLowerCase() || '';
             let penerbit = row.querySelector('td:nth-child(3) > div')?.textContent.toLowerCase() ||
               '';
             let rak = row.querySelector('td:nth-child(4) > div')?.textContent.toLowerCase() || '';
-            let cocok = keyword.length === 0 || judul.includes(keyword) || penerbit.includes(
-              keyword) || rak.includes(keyword);
+            let cocok =
+              keyword.length === 0 ||
+              judul.includes(keyword) ||
+              penerbit.includes(keyword) ||
+              rak.includes(keyword);
             row.style.display = cocok ? '' : 'none';
             if (cocok) adaData = true;
             if (row.style.display !== 'none') isAllHidden = false;
@@ -457,7 +463,7 @@
               noRow.id = 'no-data-buku-admin';
               let td = document.createElement('td');
               td.colSpan = 5;
-              td.className = "text-center py-10 text-[#9BA4B5]";
+              td.className = 'text-center py-10 text-[#9BA4B5]';
               td.innerText = 'Tidak ada data buku.';
               noRow.appendChild(td);
               tableBody.appendChild(noRow);
@@ -476,6 +482,10 @@
             updateNomorBukuTable();
           }
         });
+
+        // ==============================
+        // Modal Edit Hapus & Detail Buku
+        // ==============================
 
         // --- Modal Edit & Detail Buku ---
         const editModal = document.getElementById('editModal');
@@ -581,10 +591,10 @@
                 headers: {
                   'X-CSRF-TOKEN': '{{ csrf_token() }}',
                   'X-Requested-With': 'XMLHttpRequest',
-                  'Accept': 'application/json',
+                  Accept: 'application/json',
                 },
                 body: new URLSearchParams({
-                  _method: 'DELETE'
+                  _method: 'DELETE',
                 }),
               })
               .then(response => {
@@ -610,7 +620,8 @@
                   const table = document.getElementById('tabel-buku-admin');
                   const tbody = table.querySelector('tbody');
                   const visibleRows = Array.from(tbody.querySelectorAll('tr')).filter(
-                    row => row.offsetParent !== null && row.id !== 'no-data-buku-admin');
+                    row => row.offsetParent !== null && row.id !== 'no-data-buku-admin'
+                  );
                   // update nomor setelah hapus
                   updateNomorBukuTable();
 
@@ -618,11 +629,11 @@
                     let noRow = document.getElementById('no-data-buku-admin');
                     if (!noRow) {
                       noRow = document.createElement('tr');
-                      noRow.id = "no-data-buku-admin";
+                      noRow.id = 'no-data-buku-admin';
                       let td = document.createElement('td');
                       td.colSpan = 5;
-                      td.className = "text-center py-10 text-[#9BA4B5]";
-                      td.innerText = "Tidak ada data buku.";
+                      td.className = 'text-center py-10 text-[#9BA4B5]';
+                      td.innerText = 'Tidak ada data buku.';
                       noRow.appendChild(td);
                       tbody.appendChild(noRow);
                     } else {
@@ -677,7 +688,6 @@
         .shake { animation: shakeX .65s; }
       `;
         document.head.appendChild(styleFade);
-
       });
     </script>
   </div>

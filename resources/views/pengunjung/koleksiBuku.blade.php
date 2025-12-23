@@ -4,7 +4,7 @@
     <div class="py-16 px-2 md:px-0 mb-10 relative z-10">
       <div class="mx-auto max-w-3xl text-center">
         <h1
-          class="text-4xl sm:text-5xl xl:text-6xl font-extrabold bg-gradient-to-r from-[#212A3E] via-[#394867] to-[#9BA4B5] bg-clip-text text-transparent leading-tight drop-shadow-xl mb-4 tracking-tight">
+          class="text-4xl sm:text-5xl xl:text-6xl font-extrabold bg-linear-to-r from-[#212A3E] via-[#394867] to-[#9BA4B5] bg-clip-text text-transparent leading-tight drop-shadow-xl mb-4 tracking-tight">
           Daftar Lengkap Buku Digital <br>
           <span class="text-[#394867]">Perpustakaan Ustad Sukirman</span>
         </h1>
@@ -19,7 +19,7 @@
     <div class="flex gap-5 flex-col md:flex-row">
       {{-- Kategori --}}
       <aside
-        class="w-full md:w-80 mb-6 md:mb-0 rounded-2xl bg-gradient-to-br from-[#F1F6F9] via-[#9BA4B5] to-[#394867]/60 shadow-lg p-6">
+        class="w-full md:w-80 mb-6 md:mb-0 rounded-2xl bg-linear-to-br from-[#F1F6F9] via-[#9BA4B5] to-[#394867]/60 shadow-lg p-6">
         <div
           class="font-bold text-[#212A3E] text-[18px] mb-4 tracking-wide flex items-center gap-2">
           <i class="fa-solid fa-layer-group text-[#394867]"></i>
@@ -55,7 +55,7 @@
                 autocomplete="off" value="{{ request('pencarian') }}"
                 class="bg-transparent flex-1 py-3 px-2 text-[#212A3E] placeholder-[#9BA4B5] focus:outline-none text-md rounded-l-3xl" />
               <button
-                class="bg-gradient-to-tr from-[#394867] to-[#212A3E] text-white font-semibold px-6 py-2 rounded-3xl shadow hover:from-[#212A3E] hover:to-[#394867] transition-all"
+                class="bg-linear-to-tr from-[#394867] to-[#212A3E] text-white font-semibold px-6 py-2 rounded-3xl shadow hover:from-[#212A3E] hover:to-[#394867] transition-all"
                 type="submit">
                 <i class="fa-solid fa-magnifying-glass mr-2"></i>Cari
               </button>
@@ -64,7 +64,7 @@
 
           {{-- Hasil Pencarian --}}
           <div id="hasil"
-            class="bg-white z-[1000] border border-2 rounded-2xl w-full absolute top-[70px] p-0 hidden">
+            class="bg-white z-1000 border rounded-2xl w-full absolute top-[70px] p-0 hidden">
             <ul id="list-hasil" class="divide-y divide-gray-200"></ul>
           </div>
         </div>
@@ -94,7 +94,7 @@
               <div
                 class="w-full rounded-2xl overflow-hidden flex gap-4 bg-white shadow hover:shadow-lg transition">
                 <div
-                  class="bg-gradient-to-br from-[#9BA4B5] via-[#F1F6F9] to-[#394867]/40 h-[250px] w-[200px] rounded-xl overflow-hidden flex-shrink-0 flex justify-center items-center">
+                  class="bg-linear-to-br from-[#9BA4B5] via-[#F1F6F9] to-[#394867]/40 h-[250px] w-[200px] rounded-xl overflow-hidden shrink-0 flex justify-center items-center">
                   @if (isset($db['gambar']) && $db['gambar'])
                     <img class="buku w-full h-full object-cover"
                       src="{{ asset('storage/buku/' . $db['gambar']) }}"
@@ -116,10 +116,6 @@
                     <div class="text-sm text-[#9BA4B5] truncate">Eksemplar:
                       {{ $db['eksemplar'] ?? '0' }}</div>
                   </div>
-                  {{-- <a href="{{ route('pengunjung.detailBuku', ['id' => $db['id']]) }}"
-                    class="mt-4 bg-gradient-to-tr from-[#394867] to-[#212A3E] text-white px-3 py-2 rounded-lg text-sm font-semibold text-center hover:from-[#212A3E] hover:to-[#394867] transition">
-                    Lihat Detail
-                  </a> --}}
                 </div>
               </div>
             @endforeach
@@ -133,15 +129,6 @@
     </div>
   </section>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  {{-- 
-    Penambahan fitur:
-    - Auto complete: bila user tekan ArrowDown/ArrowUp, list suggestion bisa dinavigasi
-    - Tekan Enter pada salah satu suggestion, input dikopi ke kotak pencarian & suggestion tertutup
-    - Klik pada suggestion, juga set input
-    - Fitur tetap auto hidden saat blur/klick di luar
-  --}}
   <script>
     let activeSuggestionIndex = -1; // -1 artinya tidak ada yang aktif
     let suggestionData = [];

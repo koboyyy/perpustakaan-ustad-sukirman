@@ -1,7 +1,4 @@
 <?php
-
-use App\Models\Buku;
-use App\Models\Peminjaman;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\UserController;
@@ -9,6 +6,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PengunjungController;
+
+
 
 // ==================
 // Dashboard Admin
@@ -20,18 +19,20 @@ Route::get('/dashboard/peminjaman', [AdminController::class, 'viewPeminjaman']);
 Route::get('/dashboard/pengembalian', [AdminController::class, 'viewPengembalian']);
 
 
+
 // ==================
 // Menu Utama
 // ==================
-// Home
+// Landing Page
 Route::get('/', [PengunjungController::class, 'Home'])->name('home');
 
-// Profil Pengunjung
+// Profil Perusahaan
 Route::get('/profil', [PengunjungController::class, 'profil']);
 
 // Koleksi Buku
 // Catatan: Route keKoleksiBuku user diberi nama 'koleksi-buku'
 Route::get('/koleksi-buku', [BukuController::class, 'getBook']);
+
 Route::get('/koleksi-buku', [UserController::class, 'keKoleksiBuku'])->name('koleksi-buku');
 
 
@@ -55,43 +56,18 @@ Route::post('/register', [RegisterController::class, 'store'])->name('register')
 
 
 
-
 // ==================
 // Manajemen Buku
 // ==================
+// Pencarian Buku Live Search
+Route::get('/live-search', [UserController::class, 'liveSearch'])->name('live-search');
+
 // Tambah Buku
 Route::post('/buku', [BukuController::class, 'store'])->name('tambahBuku');
 
 // Hapus Buku
 Route::delete('/admin/buku/{id}', [BukuController::class, 'destroy'])->name('buku.destroy');
 
-// Custom Dashboard Buku View jika menu=databuku
-Route::get('/dashboard', function (\Illuminate\Http\Request $request) {
-  if ($request->query('menu') === 'databuku') {
-    $dataBuku = app(\App\Http\Controllers\BukuController::class)->getBook();
-    return view('admin.dashboard', [
-      'dataBuku' => $dataBuku,
-      'menu' => 'databuku',
-    ]);
-  }
-  // Jika bukan databuku, panggil default dashboard
-  return "Bukan daatabuku";
-});
-
-// ==================
-// Fitur Pencarian
-// ==================
-// Pencarian Buku Live Search
-Route::get('/live-search', [UserController::class, 'liveSearch'])->name('live-search');
-
-
-Route::get('/live-search-anggota', [UserController::class, 'liveSearchAnggota'])->name('live-search-anggota');
-
-
-
-// ==================
-// Buku Admin (AJAX, Modal, dsb.)
-// ==================
 // Form Edit Buku (AJAX/modal)
 Route::get('/admin/buku/{id}/edit', [BukuController::class, 'edit'])->name('admin.buku.edit');
 
@@ -103,64 +79,21 @@ Route::get('/admin/buku/{id}', [BukuController::class, 'show'])->name('admin.buk
 
 
 
-
-
-
-
-
 // ==================
-// Keanggotaan Admin (AJAX, Modal, dsb.)
+// Keanggotaan Admin
 // ==================
+Route::get('/live-search-anggota', [UserController::class, 'liveSearchAnggota'])->name('live-search-anggota');
+
 // Hapus Anggota
 Route::delete('/admin/anggota/{id}', [\App\Http\Controllers\AnggotaController::class, 'destroy'])->name('admin.anggota.destroy');
 
 // Detail Anggota (AJAX/modal)
-// Route::get('/admin/anggota/{id}', [\App\Http\Controllers\AnggotaController::class, 'show'])->name('admin.anggota.detail');
-
-Route::get('/admin/anggota/{id}', function ($id) {
-  // Ambil data anggota dari tabel
-  $anggota = DB::table('tbl_anggota')->where('id', $id)->first();
-
-  if ($anggota) {
-    // Return data anggota dalam format JSON (untuk AJAX/modal)
-    return response()->json([
-      'success' => true,
-      'data' => $anggota
-    ]);
-  } else {
-    return response()->json([
-      'success' => false,
-      'message' => 'Data anggota tidak ditemukan.'
-    ], 404);
-  }
-})->name('admin.anggota.detail');
+Route::get('/admin/anggota/{id}', [\App\Http\Controllers\AnggotaController::class, 'show'])->name('admin.anggota.detail');
 
 
 
-
-
-
-
-
-
-
-
-// Detail Anggota (AJAX/modal)
-// Route::get('/admin/peminjaman/{id}', [\App\Http\Controllers\PeminjamanController::class, 'show'])->name('detail.peminjaman.admin');
-
-Route::get('/admin/peminjaman/{id}', function ($id) { {
-    // Ambil data buku beserta relasi-relasi terkait dan fallback ke field pengarang langsung jika ada
-    $dataPeminjaman = Peminjaman::with([
-      'anggota',
-      'detail_peminjaman',
-    ])->findOrFail($id);
-
-
-    // $dataPeminjaman = Peminjaman::with('anggota', 'detail_peminjaman')->where('id', $id)->get();
-
-    // Render view detail buku dan kembalikan sebagai HTML
-    return view('components.admin.detail-peminjaman', [
-      'detailPeminjaman' => $dataPeminjaman
-    ]);
-  }
-});
+// ==================
+// Peminjaman
+// ==================
+// Detail Peminjaman (AJAX/modal)
+Route::get('/admin/peminjaman/{id}', [\App\Http\Controllers\PeminjamanController::class, 'show'])->name('detail.peminjaman.admin');

@@ -1,66 +1,60 @@
  @vite('resources/css/app.css')
- <div class="grid grid-cols-2 h-[100vh]">
-   <div class="bg-pink-400 w-full h-full flex justify-center">
-     <img src="" alt="">
-   </div>
 
-   <div class="flex justify-center items-center">
-     <div id="login-form-container"
-       class="bg-white rounded-2xl shadow-lg w-[500px] mx-auto my-8 text-[15px] overflow-hidden border border-[#9BA4B5]">
-       <div
-         class="py-5 w-full text-center bg-[#394867] text-white text-[20px] font-bold tracking-wide">
-         Login
-       </div>
-       <form method="POST" action="{{ route('login') }}" class="p-7 space-y-6">
-         @csrf
-         <div class="flex flex-col gap-2">
-           <label for="username"
-             class="font-semibold text-[#394867] after:content-['*'] after:text-red-500 after:ml-1">Nama
-             Pengguna:</label>
-           <input type="text" id="name" name="username" autocomplete="username"
-             placeholder="Masukkan nama pengguna"
-             class="border border-[#9BA4B5] focus:border-[#394867] focus:ring-2 focus:ring-[#9BA4B5] transition rounded-lg px-3 py-2 outline-none w-full shadow-sm text-[#212A3E]"
-             value="{{ old('username') }}" required>
-           @error('username')
-             <span class="text-red-500 text-[13px]">{{ $message }}</span>
-           @enderror
+ <div class="p-15 bg-blue-700 h-screen">
+   <div class="grid grid-cols-2  bg-white rounded-[100px] overflow-hidden p-5 h-full w-full">
+     <div class="flex justify-center items-center">
+       <div id="login-form-container" class="w-[500px] mx-auto my-8 text-[15px]">
+         <div class="py-5 w-full text-center text-[20px] font-bold tracking-wide">
+           Login
          </div>
 
-         <div class="flex flex-col gap-2">
-           <label for="password"
-             class="font-semibold text-[#394867] after:content-['*'] after:text-red-500 after:ml-1">Password:</label>
-           <input type="password" id="password" name="password" autocomplete="current-password"
-             placeholder="Masukkan password"
-             class="border border-[#9BA4B5] focus:border-[#394867] focus:ring-2 focus:ring-[#9BA4B5] transition rounded-lg px-3 py-2 outline-none w-full shadow-sm text-[#212A3E]"
-             required>
-           @error('password')
-             <span class="text-red-500 text-[13px]">{{ $message }}</span>
-           @enderror
-         </div>
+         <form method="POST" action="{{ route('login') }}" class="p-7 space-y-3">
+           @csrf
 
-         <div class="flex items-center justify-end">
-           {{-- <div class="flex items-center gap-2">
-             <input type="checkbox" name="remember" id="ingat-saya" class="accent-[#394867] rounded"
-               {{ old('remember') ? 'checked' : '' }}>
-             <label for="ingat-saya" class="text-[#212A3E] cursor-pointer select-none">Ingat
-               Saya</label>
-           </div> --}}
-           <a href="{{ route('password.request') }}"
-             class="text-[13px] text-[#394867] hover:underline font-medium">Lupa
-             Password?</a>
-         </div>
+           <div class="flex flex-col gap-2">
+             <input type="text" id="name" name="username" autocomplete="username"
+               placeholder="Masukkan nama pengguna"
+               class="border border-[#9BA4B5] focus:border-[#394867] focus:ring-2 focus:ring-[#9BA4B5] transition rounded-[50px] px-3 py-3 outline-none w-full shadow-sm text-[#212A3E]"
+               value="{{ old('username') }}" required>
+             @error('username')
+               <span class="text-red-500 text-[13px]">{{ $message }}</span>
+             @enderror
+           </div>
 
-         <button type="submit"
-           class="w-full h-11 bg-[#212A3E] text-white font-bold text-[16px] rounded-lg shadow hover:bg-[#394867] transition-all duration-150">
-           Masuk
-         </button>
-       </form>
-       <div
-         class="bg-[#F1F6F9] p-4 text-center text-[13px] text-[#9BA4B5] border-t border-[#9BA4B5]">
-         Belum punya akun?
-         <a href="{{ route('viewRegister') }}" class="text-[#394867] hover:underline font-semibold"
-           id="btn-daftar">Daftar</a>
+           <div class="flex flex-col gap-2">
+             <input type="password" id="password" name="password" autocomplete="current-password"
+               placeholder="Masukkan password"
+               class="border border-[#9BA4B5] focus:border-[#394867] focus:ring-2 focus:ring-[#9BA4B5] transition rounded-[50px] px-3 py-3 outline-none w-full shadow-sm text-[#212A3E]"
+               required>
+             @error('password')
+               <span class="text-red-500 text-[13px]">{{ $message }}</span>
+             @enderror
+           </div>
+
+           <div class="flex items-center justify-end">
+             <a href="{{ route('password.request') }}"
+               class="text-[13px] text-[#394867] hover:underline font-medium">Lupa
+               Password?</a>
+           </div>
+
+           <button type="submit"
+             class="w-full h-12 bg-[#212A3E] text-white font-bold text-[16px] rounded-[50px] shadow hover:bg-[#394867] transition-all duration-150">
+             Masuk
+           </button>
+
+         </form>
+
+         <div class="p-4 text-center text-[13px] text-[#9BA4B5]">
+           Belum punya akun?
+           <a href="{{ route('viewRegister') }}"
+             class="text-[#394867] hover:underline font-semibold" id="btn-daftar">Daftar</a>
+         </div>
        </div>
      </div>
+
+     <div class="bg-pink-400 w-full h-full flex justify-center rounded-[80px] overflow-hidden">
+       <img src="/img/wallpaper.jpg" alt="" class="object-cover w-full">
+     </div>
+
    </div>
  </div>

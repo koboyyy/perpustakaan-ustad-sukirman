@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buku;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class PengunjungController extends Controller
@@ -13,7 +12,6 @@ class PengunjungController extends Controller
         return view('pengunjung.home', [
             'books' => Buku::all()
         ]);
-
     }
 
     public function koleksiBuku()

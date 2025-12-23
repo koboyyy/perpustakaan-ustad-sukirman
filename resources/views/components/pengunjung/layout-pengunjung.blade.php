@@ -8,8 +8,13 @@
 
   @vite('resources/css/app.css')
 
+  {{-- Font Awesome --}}
   <script src="https://kit.fontawesome.com/23275395bd.js" crossorigin="anonymous"></script>
 
+  {{-- JQuery --}}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  {{-- List Font --}}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +26,7 @@
 <body class="light bg-[#F1F6F9]">
   <x-pengunjung::navbar-home></x-pengunjung::navbar-home>
 
-  <div class="min-h-[100vh] w-full">
+  <div class="min-h-secreen w-full">
     {{ $slot }}
   </div>
 

@@ -6,13 +6,11 @@ use App\Models\Rak;
 use App\Models\Buku;
 use App\Models\Sumber;
 use App\Models\Anggota;
-use App\Models\DetailPeminjaman;
 use App\Models\Kategori;
 use App\Models\Peminjaman;
 use App\Models\Penerbit;
 use App\Models\Pengarang;
 use App\Models\Pengembalian;
-use Illuminate\Container\Attributes\DB;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -23,7 +21,6 @@ class AdminController extends Controller
         $dataPeminjaman = Peminjaman::with('anggota', 'detail_peminjaman.buku')->get();
         $dataPengembalian = Pengembalian::all();
         $dataBuku = Buku::all();
-        $dataKategori = Kategori::all();
 
         $sumBukuPerKategori = Buku::selectRaw('tbl_kategori.nama_kategori, count(tbl_buku.id) as total_buku')
             ->rightJoin('tbl_kategori', 'tbl_kategori.id', '=', 'tbl_buku.id_kategori')
@@ -36,16 +33,6 @@ class AdminController extends Controller
             'dataBuku' => $dataBuku,
             'sumBukuPerKategori' => $sumBukuPerKategori
         ]);
-
-        // Menghitung total seluruh eksemplar buku (misal kolom jumlah_eksemplar di tabel buku)
-        // $totalEksemplar = $dataBuku->sum('eksemplar');
-        // $idPeminjaman = $dataPeminjaman->sum('id');
-        // $dataPengembalian->count();
-
-
-
-
-        // return $sumBukuPerKategori;
     }
 
     public function viewBuku(Request $request)

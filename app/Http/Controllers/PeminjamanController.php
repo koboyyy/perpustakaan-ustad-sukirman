@@ -10,24 +10,19 @@ class PeminjamanController extends Controller
     // Method: Show detail anggota (untuk modal/detail AJAX)
     public function show($id)
     {
-        // Ambil data anggota dari tabel
+        // Ambil data buku beserta relasi-relasi terkait dan fallback ke field pengarang langsung jika ada
+        $dataPeminjaman = Peminjaman::with([
+            'anggota',
+            'detail_peminjaman',
+        ])->findOrFail($id);
 
-        // Cara pada kode awal kurang tepat, karena menggunakan get() mengambil seluruh data, lalu where dan first baru dilakukan di koleksi memory.
-        // Cara yang benar, gunakan where langsung di query builder/eloquent, lalu first.
-        // $dataPeminjaman = Peminjaman::with('anggota', 'detail_peminjaman.buku')->where('id', $id)->first();
 
-        $dataPeminjaman = Peminjaman::with('anggota', 'detail_peminjaman')->where('id', $id)->get();
+        // $dataPeminjaman = Peminjaman::with('anggota', 'detail_peminjaman')->where('id', $id)->get();
 
-        if ($dataPeminjaman) {
-            return response()->json([
-                'success' => true,
-                'data' => $dataPeminjaman
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Data peminjaman tidak ditemukan.'
-            ], 404);
-        }
+        // Render view detail buku dan kembalikan sebagai HTML
+        return view('components.admin.detail-peminjaman', [
+            'detailPeminjaman' => $dataPeminjaman
+        ]);
     }
 }
+

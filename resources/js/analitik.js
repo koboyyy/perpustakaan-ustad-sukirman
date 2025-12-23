@@ -3,7 +3,6 @@ const trendPertumbuhanPemustaka = document.getElementById('trend-pertumbuhan-pem
 const srcRandomImg = 'https://picsum.photos/600/700';
 const bukuFavorit = document.querySelectorAll('#box-buku-favorit div img');
 const topPemustaka = document.querySelectorAll('#box-top-pemustaka img');
-const pieKategori = document.getElementById('pie-distribusi-kategori-buku');
 
 // Penjelasan:
 // - Menjadikan maintainAspectRatio: false agar chart 100% mengikuti parent container, sehingga tidak overflow jika container-nya punya height terbatas atau responsif.

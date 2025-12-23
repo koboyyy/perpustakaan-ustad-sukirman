@@ -47,7 +47,7 @@ class BukuSeeder extends Seeder
         Pengarang::factory()->count(10)->create();
 
         // Seeder untuk tabel buku
-        Buku::factory()->count(10)->create();
+        Buku::factory()->count(200)->create();
 
         // Seeder untuk tabel sumber
         // Sumber::factory()->count(10)->create();

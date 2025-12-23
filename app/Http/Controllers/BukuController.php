@@ -97,13 +97,13 @@ class BukuController extends Controller
 
         try {
             // Cek apakah relasi benar-benar ada
-            $kategori = \App\Models\Kategori::where('nama_kategori', $validatedData['kategori'])->first();
+            $kategori = Kategori::where('nama_kategori', $validatedData['kategori'])->first();
             if (!$kategori) {
                 return redirect()->back()
                     ->withInput()
                     ->with('error', 'Kategori tidak ditemukan di database.');
             }
-            $penerbit = \App\Models\Penerbit::where('nama_penerbit', $validatedData['penerbit'])->first();
+            $penerbit = Penerbit::where('nama_penerbit', $validatedData['penerbit'])->first();
             if (!$penerbit) {
                 return redirect()->back()
                     ->withInput()
@@ -111,14 +111,14 @@ class BukuController extends Controller
             }
             $rak = null;
             if (!empty($validatedData['rak'])) {
-                $rak = \App\Models\Rak::where('no_rak', $validatedData['rak'])->first();
+                $rak = Rak::where('no_rak', $validatedData['rak'])->first();
                 if (!$rak) {
                     return redirect()->back()
                         ->withInput()
                         ->with('error', 'No Rak tidak ditemukan di database.');
                 }
             }
-            $sumber = \App\Models\Sumber::where('nama_sumber', $validatedData['sumber'])->first();
+            $sumber = Sumber::where('nama_sumber', $validatedData['sumber'])->first();
             if (!$sumber) {
                 return redirect()->back()
                     ->withInput()
@@ -237,28 +237,28 @@ class BukuController extends Controller
 
         // Lookup relasi ke id
         if (!empty($validatedData['kategori'])) {
-            $kategori = \App\Models\Kategori::where('nama_kategori', $validatedData['kategori'])->first();
+            $kategori = Kategori::where('nama_kategori', $validatedData['kategori'])->first();
             if (!$kategori) {
                 return back()->withInput()->with('error', 'Kategori tidak ditemukan di database.');
             }
             $dataUpdate['kategori_id'] = $kategori ? $kategori->id : null;
         }
         if (!empty($validatedData['penerbit'])) {
-            $penerbit = \App\Models\Penerbit::where('nama_penerbit', $validatedData['penerbit'])->first();
+            $penerbit = Penerbit::where('nama_penerbit', $validatedData['penerbit'])->first();
             if (!$penerbit) {
                 return back()->withInput()->with('error', 'Penerbit tidak ditemukan di database.');
             }
             $dataUpdate['penerbit_id'] = $penerbit ? $penerbit->id : null;
         }
         if (!empty($validatedData['rak'])) {
-            $rak = \App\Models\Rak::where('no_rak', $validatedData['rak'])->first();
+            $rak = Rak::where('no_rak', $validatedData['rak'])->first();
             if (!$rak) {
                 return back()->withInput()->with('error', 'No Rak tidak ditemukan di database.');
             }
             $dataUpdate['rak_id'] = $rak ? $rak->id : null;
         }
         if (!empty($validatedData['sumber'])) {
-            $sumber = \App\Models\Sumber::where('nama_sumber', $validatedData['sumber'])->first();
+            $sumber = Sumber::where('nama_sumber', $validatedData['sumber'])->first();
             if (!$sumber) {
                 return back()->withInput()->with('error', 'Sumber tidak ditemukan di database.');
             }
@@ -269,8 +269,8 @@ class BukuController extends Controller
         if ($request->hasFile('cover')) {
             if ($buku->cover) {
                 $oldPath = 'buku/' . $buku->cover;
-                if (\Illuminate\Support\Facades\Storage::disk('public')->exists($oldPath)) {
-                    \Illuminate\Support\Facades\Storage::disk('public')->delete($oldPath);
+                if (Storage::disk('public')->exists($oldPath)) {
+                    Storage::disk('public')->delete($oldPath);
                 }
             }
             $cover = $request->file('cover');
@@ -321,7 +321,7 @@ class BukuController extends Controller
                 return response()->json(['success' => true, 'message' => 'Buku berhasil diperbarui.']);
             }
             return back()->with('success', 'Data buku berhasil diperbarui.');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // \DB::rollBack();
             $pesan = config('app.debug')
                 ? 'Gagal memperbarui buku: ' . $e->getMessage()
@@ -338,6 +338,7 @@ class BukuController extends Controller
      */
     public function destroy($id)
     {
+        // return "ini menghapus";
         try {
             $buku = Buku::with(['detail_pengarang'])->findOrFail($id);
 
@@ -396,7 +397,7 @@ class BukuController extends Controller
     public function edit($id)
     {
         // Alternatif versi singkat, standar Laravel:
-        $buku = \App\Models\Buku::with([
+        $buku = Buku::with([
             'kategori',
             'sumber',
             'penerbit',
@@ -405,7 +406,7 @@ class BukuController extends Controller
         ])->findOrFail($id);
 
         // Kembalikan view Blade untuk form edit, kirim variabel $buku
-        return view('components.edit-buku', [
+        return view('components.admin.edit-buku', [
             'buku' => $buku,
             'dataKategori' => Kategori::all(),
             'dataPengarang' => Pengarang::all(),

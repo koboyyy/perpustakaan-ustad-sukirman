@@ -1,5 +1,5 @@
 <footer
-  class="relative bg-gradient-to-tr from-[#212A3E] via-[#394867] to-[#9BA4B5] py-16 px-6 sm:px-12 mt-32 text-white overflow-hidden z-10">
+  class="relative bg-linear-to-tr from-[#212A3E] via-[#394867] to-[#9BA4B5] py-16 px-6 sm:px-12 text-white overflow-hidden z-10">
   <!-- Bulatan dekoratif background -->
   <div class="absolute left-0 -top-20 w-72 h-72 bg-[#9BA4B5] opacity-20 rounded-full blur-3xl z-0">
   </div>

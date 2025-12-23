@@ -6,7 +6,7 @@
 
       {{-- Judul --}}
       <div
-        class="bg-gradient-to-r from-[#212A3E] via-[#394867] to-[#9BA4B5] text-white w-full flex items-center px-[24px] py-[14px]">
+        class="bg-linear-to-r from-[#212A3E] via-[#394867] to-[#9BA4B5] text-white w-full flex items-center px-[24px] py-[14px]">
         <div class="text-[16px] font-semibold">Formulir Peminjaman Buku</div>
       </div>
 
