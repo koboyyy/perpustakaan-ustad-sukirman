@@ -16,8 +16,8 @@
     </div>
 
     {{-- Main Content --}}
-    <div class="flex gap-5 flex-col md:flex-row">
-      {{-- Kategori --}}
+    <div class="flex gap-5 flex-col md:flex-row mb-10">
+      {{-- List Kategori --}}
       <aside
         class="w-full md:w-80 mb-6 md:mb-0 rounded-2xl bg-linear-to-br from-[#F1F6F9] via-[#9BA4B5] to-[#394867]/60 shadow-lg p-6">
         <div
@@ -27,37 +27,32 @@
         </div>
         <div id="kategori" class="flex flex-col gap-2">
           {{-- Content Dinamis --}}
-          @if (isset($kategori) && count($kategori) > 0)
-            @foreach ($kategori as $kat)
-              <a href="{{ route('pengunjung.koleksiBuku', ['kategori' => $kat->id]) }}"
-                class="px-3 py-2 rounded-lg hover:bg-[#212A3E]/10 cursor-pointer transition
-                        {{ request('kategori') == $kat->id ? 'bg-[#394867]/20 font-bold text-[#394867]' : 'text-[#212A3E]' }}">
-                {{ $kat->nama }}
-              </a>
-            @endforeach
-          @else
-            <span class="text-[#9BA4B5] italic">Belum ada kategori</span>
-          @endif
+
+          @foreach ($dataKategori as $kategori)
+            <a href="{{ route('kategoriBuku', ['slug' => $kategori->nama_kategori]) }}">
+              {{ $kategori->nama_kategori }}
+            </a>
+          @endforeach
         </div>
       </aside>
 
       {{-- Koleksi Buku --}}
       <div class="w-full">
-        {{-- Navbar --}}
+        {{-- Pencarian --}}
         <div class="flex flex-col justify-between w-full items-start mb-7 relative">
-          {{-- Pencarian --}}
+          {{-- Field Pencarian --}}
           <div class="flex gap-7 items-center w-full">
-            <form action="#" method="GET"
-              class="flex w-full bg-white rounded-3xl shadow-full p-1 pl-4 backdrop-blur-sm ring-1 ring-[#9BA4B5]/50 focus-within:ring-2 focus-within:ring-[#394867] transition"
+            <form action="{{ route('pencarian') }}" method="GET"
+              class="w-full h-12 rounded-full shadow-[2px_8px_15px_2px_rgb(0,0,0,0.1)] flex"
               autocomplete="off">
               {{-- Input --}}
               <input type="text" name="pencarian" placeholder="Cari buku..." id="pencarian"
                 autocomplete="off" value="{{ request('pencarian') }}"
-                class="bg-transparent flex-1 py-3 px-2 text-[#212A3E] placeholder-[#9BA4B5] focus:outline-none text-md rounded-l-3xl" />
+                class="w-full h-full flex items-center px-7 outline-0" />
               <button
-                class="bg-linear-to-tr from-[#394867] to-[#212A3E] text-white font-semibold px-6 py-2 rounded-3xl shadow hover:from-[#212A3E] hover:to-[#394867] transition-all"
+                class="w-12 h-12 rounded-full bg-black shadow-[0px_2px_5px_1px_rgb(0,0,0,0.4)] text-white flex items-center justify-center"
                 type="submit">
-                <i class="fa-solid fa-magnifying-glass mr-2"></i>Cari
+                <i class="fa-solid fa-magnifying-glass"></i>
               </button>
             </form>
           </div>
@@ -69,56 +64,47 @@
           </div>
         </div>
 
-        {{-- Koleksi Buku --}}
-        @php
-          // Ambil filter berdasarkan request kategori dan pencarian
-          $filteredBuku = collect($dataBuku);
-
-          $requestKategori = request('kategori');
-          $requestPencarian = request('pencarian');
-
-          if ($requestKategori) {
-              $filteredBuku = $filteredBuku->where('id_kategori', $requestKategori);
-          }
-          if ($requestPencarian) {
-              $filteredBuku = $filteredBuku->filter(function ($item) use ($requestPencarian) {
-                  return stripos($item['judul'], $requestPencarian) !== false ||
-                      stripos($item['penerbit'] ?? '', $requestPencarian) !== false;
-              });
-          }
-        @endphp
-
-        @if ($filteredBuku->count() > 0)
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-            @foreach ($filteredBuku as $db)
-              <div
-                class="w-full rounded-2xl overflow-hidden flex gap-4 bg-white shadow hover:shadow-lg transition">
+        @if ($dataBuku->count() > 0)
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 w-full">
+            @foreach ($dataBuku as $buku)
+              <a href="{{ route('detail-buku', ['id' => $buku->id]) }}" style="display: block;"
+                class="w-full rounded-2xl overflow-hidden shadow hover:shadow-lg transition relative group">
+                {{-- Cover Buku --}}
                 <div
-                  class="bg-linear-to-br from-[#9BA4B5] via-[#F1F6F9] to-[#394867]/40 h-[250px] w-[200px] rounded-xl overflow-hidden shrink-0 flex justify-center items-center">
-                  @if (isset($db['gambar']) && $db['gambar'])
-                    <img class="buku w-full h-full object-cover"
-                      src="{{ asset('storage/buku/' . $db['gambar']) }}"
-                      alt="Cover {{ $db['judul'] }}">
+                  class="w-full h-full bg-linear-to-br from-[#9BA4B5] via-[#F1F6F9] to-[#394867]/40
+                  rounded-xl overflow-hidden shrink-0 flex justify-center items-center min-h-100">
+                  @if (!empty($buku->cover))
+                    <img
+                      class="buku w-full h-full object-cover object-center opacity-70 transition-transform duration-300 group-hover:scale-110"
+                      src="{{ asset('storage/buku/' . $buku->cover) }}"
+                      alt="{{ $buku->judul_buku }}">
                   @else
-                    <img class="buku w-full h-full object-contain opacity-70"
+                    <img
+                      class="buku w-full h-full object-cover object-center opacity-70 transition-transform duration-300 group-hover:scale-110"
                       src="{{ asset('images/no-cover.png') }}" alt="No Cover">
                   @endif
                 </div>
-                <div class="mt-3 flex flex-col justify-between py-1">
-                  <div>
-                    <div class="text-lg font-semibold truncate text-[#394867]">
-                      {{ $db['judul'] ?? '-' }}</div>
-                    <div class="text-base italic text-[#212A3E]/80 truncate">
-                      {{ $db['penerbit'] ?? '-' }}</div>
-                    <div class="text-sm text-[#9BA4B5] truncate">{{ $db['penerbit'] ?? '-' }}</div>
-                    <div class="text-sm text-[#9BA4B5] truncate">{{ $db['tahun_terbit'] ?? '-' }}
+                {{-- Label Kategori, Judul dan Pengarang --}}
+                <div
+                  class="absolute top-0 left-0 w-full h-full bg-black/10 hover:bg-transparent text-white transition-all duration-300">
+                  <div class="flex flex-col items-center justify-end h-full p-4">
+                    <div class="text-lg font-light bg-blue-400/20 py px-2 rounded-md truncate">
+                      {{ $buku->kategori->nama_kategori }}
                     </div>
-                    <div class="text-sm text-[#9BA4B5] truncate">Eksemplar:
-                      {{ $db['eksemplar'] ?? '0' }}</div>
+                    <div class="font-bold text-2xl wrap-break-words text-center w-full">
+                      {{ $buku->judul_buku }}
+                    </div>
+                    <div class="text-sm truncate italic">
+                      {{ $buku->penerbit->nama_penerbit }}
+                    </div>
                   </div>
                 </div>
-              </div>
+              </a>
             @endforeach
+          </div>
+
+          <div class="mt-5">
+            {{ $dataBuku->links() }}
           </div>
         @else
           <div class="w-full py-12 text-center text-[#9BA4B5] font-semibold text-xl">
@@ -129,6 +115,7 @@
     </div>
   </section>
 
+  {{-- Fitur Pencarian --}}
   <script>
     let activeSuggestionIndex = -1; // -1 artinya tidak ada yang aktif
     let suggestionData = [];

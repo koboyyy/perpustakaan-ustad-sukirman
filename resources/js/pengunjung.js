@@ -44,47 +44,6 @@ imgBuku.forEach(async img => {
   }
 });
 
-// Categories list
-function categoriesList() {
-  const kategoris = [
-    'Semua Kategori',
-    'Arsitektur & Property',
-    'Seni',
-    'Blog & Majalah',
-    'Bisnis',
-    'Agensi Kreatif',
-    'Hiburan',
-    'Mode',
-    'Makanan & Restoran',
-    'Kesehatan & Kecantikan',
-    'Halaman Arahan',
-    'Toko Online',
-    'Lainnya',
-    'Presentasi Pribadi',
-    'Fotografi',
-    'Portofolio',
-    'Olahraga',
-    'Teknologi',
-    'Bepergian',
-    'Pernikahan',
-  ];
-
-  // Initialize categories
-  const lKategori = document.getElementById('kategori');
-  const a = document.querySelectorAll('a');
-
-  a.forEach((as, a) => {
-    as.classList.add('link-light');
-  });
-
-  kategoris.forEach(kategori => {
-    const a = document.createElement('a');
-    a.setAttribute('href', '');
-    a.innerText = `${kategori}`;
-    lKategori.append(a);
-  });
-}
-
 // Show Mobile Nav
 function showMobileNav() {
   const mobileMenu = document.querySelector('#mobile-menu');

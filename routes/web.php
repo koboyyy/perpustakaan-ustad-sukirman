@@ -1,10 +1,15 @@
 <?php
+use App\Models\Buku;
+use App\Models\Kategori;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\PengunjungController;
 
 
@@ -20,20 +25,19 @@ Route::get('/dashboard/pengembalian', [AdminController::class, 'viewPengembalian
 
 
 
-// ==================
-// Menu Utama
-// ==================
-// Landing Page
+// ==========
+// Frontend
+// ==========
+// home
 Route::get('/', [PengunjungController::class, 'Home'])->name('home');
-
-// Profil Perusahaan
-Route::get('/profil', [PengunjungController::class, 'profil']);
-
+// Profil
+Route::get('/profil', [PengunjungController::class, 'profil'])->name('profil');
 // Koleksi Buku
-// Catatan: Route keKoleksiBuku user diberi nama 'koleksi-buku'
-Route::get('/koleksi-buku', [BukuController::class, 'getBook']);
-
-Route::get('/koleksi-buku', [UserController::class, 'keKoleksiBuku'])->name('koleksi-buku');
+Route::get('/koleksi-buku', [PengunjungController::class, 'koleksiBuku'])->name('koleksi-buku');
+Route::get('/koleksi-buku/kategori/{slug}', [PengunjungController::class, 'perkategori'])->name('kategoriBuku');
+Route::get('/koleksi-buku', [PengunjungController::class, 'pencarian'])->name('pencarian');
+Route::get('/koleksi-buku/buku/{id}', [PengunjungController::class, 'detailBuku'])->name('detail-buku');
+Route::get('/live-search', [UserController::class, 'liveSearch'])->name('live-search');
 
 
 
@@ -46,7 +50,7 @@ Route::post('/login', [LoginController::class, 'store'])->name('login');
 
 // Logout
 Route::post('/logout', function () {
-  \Illuminate\Support\Facades\Auth::logout();
+  Auth::logout();
   return redirect()->route('home');
 })->name('logout');
 
@@ -57,23 +61,16 @@ Route::post('/register', [RegisterController::class, 'store'])->name('register')
 
 
 // ==================
-// Manajemen Buku
+// Manajemen Data Buku
 // ==================
-// Pencarian Buku Live Search
-Route::get('/live-search', [UserController::class, 'liveSearch'])->name('live-search');
-
 // Tambah Buku
 Route::post('/buku', [BukuController::class, 'store'])->name('tambahBuku');
-
 // Hapus Buku
 Route::delete('/admin/buku/{id}', [BukuController::class, 'destroy'])->name('buku.destroy');
-
 // Form Edit Buku (AJAX/modal)
 Route::get('/admin/buku/{id}/edit', [BukuController::class, 'edit'])->name('admin.buku.edit');
-
-// Update Buku
+// Update Buku (AJAX/modal)
 Route::put('/admin/buku/{id}', [BukuController::class, 'update'])->name('admin.buku.update');
-
 // Detail Buku (AJAX/modal)
 Route::get('/admin/buku/{id}', [BukuController::class, 'show'])->name('admin.buku.detail');
 
@@ -85,10 +82,10 @@ Route::get('/admin/buku/{id}', [BukuController::class, 'show'])->name('admin.buk
 Route::get('/live-search-anggota', [UserController::class, 'liveSearchAnggota'])->name('live-search-anggota');
 
 // Hapus Anggota
-Route::delete('/admin/anggota/{id}', [\App\Http\Controllers\AnggotaController::class, 'destroy'])->name('admin.anggota.destroy');
+Route::delete('/admin/anggota/{id}', [AnggotaController::class, 'destroy'])->name('admin.anggota.destroy');
 
 // Detail Anggota (AJAX/modal)
-Route::get('/admin/anggota/{id}', [\App\Http\Controllers\AnggotaController::class, 'show'])->name('admin.anggota.detail');
+Route::get('/admin/anggota/{id}', [AnggotaController::class, 'show'])->name('admin.anggota.detail');
 
 
 
@@ -96,4 +93,4 @@ Route::get('/admin/anggota/{id}', [\App\Http\Controllers\AnggotaController::clas
 // Peminjaman
 // ==================
 // Detail Peminjaman (AJAX/modal)
-Route::get('/admin/peminjaman/{id}', [\App\Http\Controllers\PeminjamanController::class, 'show'])->name('detail.peminjaman.admin');
+Route::get('/admin/peminjaman/{id}', [PeminjamanController::class, 'show'])->name('detail.peminjaman.admin');
