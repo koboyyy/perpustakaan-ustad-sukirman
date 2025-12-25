@@ -2,7 +2,7 @@
   <div class="flex flex-col md:flex-row gap-6 items-start">
     <div class="w-full md:w-1/3 flex flex-col items-center mb-4 md:mb-0">
       @if ($buku->cover)
-        <img src="{{ asset('storage/buku/' . $buku->cover) }}" alt="Cover Buku"
+        <img src="{{ asset('storage/' . $buku->cover) }}" alt="Cover Buku"
           class="object-cover rounded-xl border shadow w-full max-w-[200px] max-h-[290px] mb-2 bg-white"
           style="aspect-ratio: 2/3;" />
       @else

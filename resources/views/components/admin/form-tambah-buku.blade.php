@@ -59,9 +59,8 @@
     <div class="flex flex-col items-center w-fit mb-6">
       <div
         class="w-40 h-56 bg-gray-100 rounded-lg mb-2 flex items-center justify-center overflow-hidden border border-[#9BA4B5]">
-        <img id="coverPreview" src="{{ asset('img/default-cover.jpg') }}" alt="Preview Cover"
-          class="object-cover w-full h-full"
-          onerror="this.onerror=null; this.src='https://fakeimg.pl/200x280/?text=No+Cover';" />
+        <img id="coverPreview" src="{{ asset('storage/cover-buku/buku-tanpa-cover.jpeg') }}"
+          alt="Preview Cover" class="object-cover w-full h-full" />
       </div>
 
       <div class="flex flex-col gap-1 w-40">

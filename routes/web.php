@@ -1,16 +1,18 @@
 <?php
+use App\View\Components\pengunjung;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\SumberController;
+use App\Http\Controllers\AnggotaController;
+use App\Http\Controllers\PenerbitController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\PengunjungController;
 use App\Http\Controllers\RegistrasiController;
-
-
+use App\Models\Kategori;
 
 // ========
 // Frontend
@@ -31,12 +33,18 @@ Route::get('/live-search-buku', [UserController::class, 'liveSearchBuku'])->name
 // ===============
 // Dashboard Admin
 // ===============
-Route::get('/dashboard/analitik', [AdminController::class, 'viewAnalitik']);
+Route::get('/dashboard/analitik', [AdminController::class, 'viewAnalitik'])->name('analitik');
 Route::get('/dashboard/buku', [AdminController::class, 'viewBuku'])->name('viewBuku');
+Route::get('/dashboard/buku', [AdminController::class, 'pencarianBuku'])->name('pencarian-dashboard-buku');
 Route::get('/dashboard/keanggotaan', [AdminController::class, 'viewAnggota']);
 Route::get('/dashboard/peminjaman', [AdminController::class, 'viewPeminjaman']);
 Route::get('/dashboard/pengembalian', [AdminController::class, 'viewPengembalian']);
 
+
+// Live Search Peminjaman
+Route::get('/live-search-peminjaman', [PeminjamanController::class, 'liveSearchPeminjaman'])->name('live-search-peminjaman');
+// Update Status Peminjaman
+Route::get('/admin/peminjaman/update-status/{id}', [PeminjamanController::class, 'update'])->name('update-status-peminjaman');
 
 
 // ===========
@@ -71,10 +79,27 @@ Route::put('/admin/buku/{id}', [BukuController::class, 'update'])->name('admin.b
 Route::get('/admin/buku/{id}', [BukuController::class, 'show'])->name('admin.buku.detail');
 
 
+// Tambah penerbit
+Route::get('/dashboard/penerbit', [PenerbitController::class, 'index'])->name('view-penerbit');
+// Sumber
+Route::get('/dashboard/sumber', [SumberController::class, 'index'])->name('view-sumber');
+// Kategori
+Route::get('/dashboard/kategori', [AdminController::class, 'kategori'])->name('view-kategori');
+// Rak
+Route::get('/dashboard/rak', [AdminController::class, 'rak'])->name('view-rak');
+
+Route::post('/dashboard/buku/tambah-penerbit', [BukuController::class, 'tambahPenerbit'])->name('tambah-penerbit');
+Route::post('/dashboard/buku/tambah-rak', [BukuController::class, 'tambahRak'])->name('tambah-rak');
+Route::post('/dashboard/buku/tambah-sumber', [BukuController::class, 'tambahSumber'])->name('tambah-sumber');
+Route::post('/dashboard/buku/tambah-kategori', [BukuController::class, 'tambahKategori'])->name('tambah-kategori');
+
 
 // =====================
 // Pengelola Keanggotaan
 // =====================
+// Tambah Anggota
+Route::post('/admin/anggota/tambah-anggota', [AnggotaController::class, 'store'])->name('tambah-anggota');
+
 Route::get('/live-search-anggota', [UserController::class, 'liveSearchAnggota'])->name('live-search-anggota');
 // Hapus Anggota
 Route::delete('/admin/anggota/{id}', [AnggotaController::class, 'destroy'])->name('admin.anggota.destroy');
@@ -90,3 +115,12 @@ Route::get('/admin/anggota/{id}', [AnggotaController::class, 'show'])->name('adm
 Route::post('/peminjaman/store', [PeminjamanController::class, 'store'])->name('store_peminjaman');
 // Detail Peminjaman (AJAX/modal)
 Route::get('/admin/peminjaman/{id}', [PeminjamanController::class, 'show'])->name('detail.peminjaman.admin');
+
+
+// Kontak Kami
+Route::get('/kontak-kami', [pengunjungController::class, 'kontakKami'])->name('kontak-kami');
+
+
+
+
+

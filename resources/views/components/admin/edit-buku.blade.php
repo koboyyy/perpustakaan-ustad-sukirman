@@ -133,7 +133,7 @@
   <div class="mb-3">
     <label class="block mb-1 font-medium">Cover Buku</label>
     @if (!empty($buku->cover))
-      <img src="{{ asset('storage/buku/' . $buku->cover) }}" alt="cover" width="60"
+      <img src="{{ asset('storage/' . $buku->cover) }}" alt="cover" width="60"
         class="mb-2">
     @endif
     <input type="file" name="cover" accept="image/*"

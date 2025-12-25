@@ -1,119 +1,165 @@
-<div>
-  <div
-    class="w-full bg-white rounded-2xl overflow-hidden shadow-[0px_4px_4px_0px_rgba(57,72,103,0.15)]">
+<div class="w-full max-w-150 bg-white rounded-2xl p-6">
 
-    {{-- Title --}}
-    <div
-      class="bg-gradient-to-r from-[#212A3E] via-[#394867] to-[#9BA4B5] text-white w-full flex justify-between items-center px-[24px] py-[14px] relative">
-      <div class="text-[16px] font-semibold">Formulir Pendaftaran Anggota</div>
-      <button onclick="showForm()"
-        class="absolute top-[16px] right-5 text-gray-400 hover:text-[#394867] text-2xl focus:outline-none z-50"
-        type="button" aria-label="Tutup">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
+  @if (session('success'))
+    <div class="bg-green-400 p-5 rounded-2xl text-white mb-4">
+      {{ session('success') }}
     </div>
+  @endif
 
-    <div class="w-full p-[24px]">
-      <form action="" class="flex flex-col gap-5">
-        <div class="space-y-4">
-          {{-- NIK --}}
-          <div class="flex flex-col gap-1">
-            <label for="nik"
-              class="text-[14px] after:content-['*'] after:text-[#394867] after:ml-1 text-[#394867]">
-              NIK:
-            </label>
-            <input type="text" id="nik" name="nik"
-              class="w-full border border-[#9BA4B5] rounded px-3 py-2 focus:border-[#212A3E] focus:ring-[#394867] text-[#212A3E] placeholder:text-[#9BA4B5]">
-          </div>
-
-          {{-- Nama Lengkap --}}
-          <div class="flex flex-col gap-1">
-            <label for="nama_lengkap"
-              class="text-[14px] after:content-['*'] after:text-[#394867] after:ml-1 text-[#394867]">
-              Nama Lengkap:
-            </label>
-            <input type="text" id="nama_lengkap" name="nama_lengkap"
-              class="w-full border border-[#9BA4B5] rounded px-3 py-2 focus:border-[#212A3E] focus:ring-[#394867] text-[#212A3E] placeholder:text-[#9BA4B5]">
-          </div>
-
-          {{-- Email --}}
-          <div class="flex flex-col gap-1">
-            <label for="email"
-              class="text-[14px] after:content-['*'] after:text-[#394867] after:ml-1 text-[#394867]">
-              Email:
-            </label>
-            <input type="email" id="email" name="email"
-              class="w-full border border-[#9BA4B5] rounded px-3 py-2 focus:border-[#212A3E] focus:ring-[#394867] text-[#212A3E] placeholder:text-[#9BA4B5]">
-          </div>
-
-          {{-- Password --}}
-          <div class="flex flex-col gap-1">
-            <label for="password"
-              class="text-[14px] after:content-['*'] after:text-[#394867] after:ml-1 text-[#394867]">
-              Password:
-            </label>
-            <input type="password" id="password" name="password"
-              class="w-full border border-[#9BA4B5] rounded px-3 py-2 focus:border-[#212A3E] focus:ring-[#394867] text-[#212A3E] placeholder:text-[#9BA4B5]">
-          </div>
-
-          {{-- No. HP --}}
-          <div class="flex flex-col gap-1">
-            <label for="no_hp"
-              class="text-[14px] after:content-['*'] after:text-[#394867] after:ml-1 text-[#394867]">
-              No. HP :
-            </label>
-            <input type="text" id="no_hp" name="no_hp"
-              class="w-full border border-[#9BA4B5] rounded px-3 py-2 focus:border-[#212A3E] focus:ring-[#394867] text-[#212A3E] placeholder:text-[#9BA4B5]">
-          </div>
-
-          {{-- Alamat --}}
-          <div class="flex flex-col gap-1">
-            <label for="alamat"
-              class="text-[14px] after:content-['*'] after:text-[#394867] after:ml-1 text-[#394867]">
-              Alamat:
-            </label>
-            <textarea name="alamat" id="alamat" rows="3"
-              class="w-full border border-[#9BA4B5] rounded px-3 py-2 resize-none focus:border-[#212A3E] focus:ring-[#394867] text-[#212A3E] placeholder:text-[#9BA4B5]"></textarea>
-          </div>
-
-          {{-- Jenis Kelamin --}}
-          <div class="flex flex-col gap-1">
-            <label for="jenis_kelamin"
-              class="text-[14px] after:content-['*'] after:text-[#394867] after:ml-1 text-[#394867]">
-              Jenis Kelamin:
-            </label>
-            <select id="jenis_kelamin" name="jenis_kelamin"
-              class="w-full border border-[#9BA4B5] rounded px-3 py-2 focus:border-[#212A3E] focus:ring-[#394867] text-[#212A3E]">
-              <option value="">Pilih Jenis Kelamin</option>
-              <option value="Laki-laki">Laki-laki</option>
-              <option value="Perempuan">Perempuan</option>
-            </select>
-          </div>
-
-          {{-- Tanggal Lahir --}}
-          <div class="flex flex-col gap-1">
-            <label for="tanggal_lahir"
-              class="text-[14px] after:content-['*'] after:text-[#394867] after:ml-1 text-[#394867]">
-              Tanggal Lahir:
-            </label>
-            <input type="date" id="tanggal_lahir" name="tanggal_lahir"
-              class="w-full border border-[#9BA4B5] rounded px-3 py-2 focus:border-[#212A3E] focus:ring-[#394867] text-[#212A3E] placeholder:text-[#9BA4B5]">
-          </div>
-        </div>
-      </form>
+  @if ($errors->any())
+    <div class="bg-red-400 p-5 rounded-2xl text-white mb-4">
+      <ul class="list-disc pl-5 text-[14px]">
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
     </div>
+  @endif
 
-    {{-- Footer Pernyataan --}}
-    <div class="bg-[#F1F6F9] px-[24px] py-[16px] border-t border-[#9BA4B5]">
-      <p class="text-[14px] text-[#394867]">Saya menyatakan data yang diisi benar dan dapat
-        dipertanggungjawabkan, serta saya setuju dengan peraturan di perpustakaan Ustad Sukirman</p>
-    </div>
-
-    {{-- Tombol Simpan --}}
-    <button type="submit"
-      class="w-full bg-[#394867] text-white py-3 font-semibold hover:bg-[#212A3E] transition-colors">
-      Simpan
-    </button>
-
+  {{-- Title --}}
+  <div class="font-semibold text-md mb-2 flex items-center gap-2">
+    <i class="fa-solid fa-user-plus text-purple-500"></i>
+    Tambah Anggota
   </div>
+
+  {{-- Formulir --}}
+  <form action="{{ route('tambah-anggota') }}" method="post" class="space-y-4">
+    @csrf
+    <!-- Nama Lengkap -->
+    <div class="flex flex-col gap-2">
+      <label for="nama_lengkap"
+        class="font-light text-sm text-gray-700 after:content-['*'] after:text-red-500 after:ml-1">Nama
+        Lengkap:</label>
+      <input type="text" id="nama_lengkap" name="nama_lengkap"
+        placeholder="Masukkan nama lengkap"
+        class="border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
+        value="{{ old('nama_lengkap') }}" required>
+      @error('nama_lengkap')
+        <span class="text-red-500 text-[13px]">{{ $message }}</span>
+      @enderror
+    </div>
+
+    <!-- Email -->
+    <div class="flex flex-col gap-2">
+      <label for="email"
+        class="font-light text-sm text-gray-700 after:content-['*'] after:text-red-500 after:ml-1">Email:</label>
+      <input type="email" id="email" name="email" autocomplete="email"
+        placeholder="Masukkan email"
+        class="border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
+        value="{{ old('email') }}" required>
+      @error('email')
+        <span class="text-red-500 text-[13px]">{{ $message }}</span>
+      @enderror
+    </div>
+
+    <!-- Username -->
+    <div class="flex flex-col gap-2">
+      <label for="username"
+        class="font-light text-sm text-gray-700 after:content-['*'] after:text-red-500 after:ml-1">Username:</label>
+      <input type="text" id="username" name="username" autocomplete="username"
+        placeholder="Masukkan username"
+        class="border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
+        value="{{ old('username') }}" required>
+      @error('username')
+        <span class="text-red-500 text-[13px]">{{ $message }}</span>
+      @enderror
+    </div>
+
+    <!-- Password -->
+    <div class="flex flex-col gap-2">
+      <label for="password"
+        class="font-light text-sm text-gray-700 after:content-['*'] after:text-red-500 after:ml-1">Password:</label>
+      <input type="password" id="password" name="password" autocomplete="new-password"
+        placeholder="Buat password"
+        class="border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
+        required>
+      @error('password')
+        <span class="text-red-500 text-[13px]">{{ $message }}</span>
+      @enderror
+    </div>
+
+    <!-- Konfirmasi Password -->
+    <div class="flex flex-col gap-2">
+      <label for="password_confirmation"
+        class="font-light text-sm text-gray-700 after:content-['*'] after:text-red-500 after:ml-1">Konfirmasi
+        Password:</label>
+      <input type="password" id="password_confirmation" name="password_confirmation"
+        autocomplete="new-password" placeholder="Ulangi password"
+        class="border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
+        required>
+      @error('password_confirmation')
+        <span class="text-red-500 text-[13px]">{{ $message }}</span>
+      @enderror
+    </div>
+
+    <!-- Tanggal Lahir -->
+    <div class="flex flex-col gap-2">
+      <label for="tanggal_lahir"
+        class="font-light text-sm text-gray-700 after:content-['*'] after:text-red-500 after:ml-1">Tanggal
+        Lahir:</label>
+      <input type="date" id="tanggal_lahir" name="tanggal_lahir"
+        placeholder="Masukkan tanggal lahir"
+        class="border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
+        value="{{ old('tanggal_lahir') }}" required>
+      @error('tanggal_lahir')
+        <span class="text-red-500 text-[13px]">{{ $message }}</span>
+      @enderror
+    </div>
+
+    <!-- NIK -->
+    <div class="flex flex-col gap-2">
+      <label for="nik"
+        class="font-light text-sm text-gray-700 after:content-['*'] after:text-red-500 after:ml-1">NIK:</label>
+      <input type="number" id="nik" name="nik" placeholder="Masukkan NIK"
+        class="border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
+        pattern="[0-9]{10,15}" value="{{ old('nik') }}" required>
+      @error('nik')
+        <span class="text-red-500 text-[13px]">{{ $message }}</span>
+      @enderror
+    </div>
+
+    <!-- Nomor HP -->
+    <div class="flex flex-col gap-2">
+      <label for="no_hp"
+        class="font-light text-sm text-gray-700 after:content-['*'] after:text-red-500 after:ml-1">Nomor
+        HP:</label>
+      <input type="tel" id="no_hp" name="no_hp" placeholder="Masukkan nomor HP"
+        class="border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
+        pattern="[0-9]{10,15}" value="{{ old('no_hp') }}" required>
+      @error('no_hp')
+        <span class="text-red-500 text-[13px]">{{ $message }}</span>
+      @enderror
+    </div>
+
+    <!-- Alamat -->
+    <div class="flex flex-col gap-2">
+      <label for="alamat"
+        class="font-light text-sm text-gray-700 after:content-['*'] after:text-red-500 after:ml-1">Alamat:</label>
+      <textarea id="alamat" name="alamat" placeholder="Masukkan alamat lengkap"
+        class="border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
+        rows="3" required>{{ old('alamat') }}</textarea>
+      @error('alamat')
+        <span class="text-red-500 text-[13px]">{{ $message }}</span>
+      @enderror
+    </div>
+
+    <div class="flex items-center gap-2">
+      <input type="checkbox" name="setuju_syarat" id="setuju_syarat"
+        class="accent-purple-600 rounded" required {{ old('setuju_syarat') ? 'checked' : '' }}>
+      <label for="setuju_syarat"
+        class="text-sm font-light text-gray-600 cursor-pointer select-none">Saya setuju
+        dengan
+        <a href="#" class="text-purple-600 hover:underline font-semibold">syarat &
+          ketentuan</a></label>
+      @error('setuju_syarat')
+        <span class="text-red-500 text-[13px]">{{ $message }}</span>
+      @enderror
+    </div>
+
+    <button type="submit"
+      class="w-full h-11 bg-linear-to-r from-[#9370FF] to-[#FD5CAB] text-white font-bold text-[16px] rounded-lg shadow hover:scale-[1.03] transition-all duration-150">
+      Tambah Anggota
+    </button>
+  </form>
+
 </div>

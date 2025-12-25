@@ -27,6 +27,7 @@ class BukuFactory extends Factory
             'eksemplar' => $this->faker->numberBetween(1, 20),
             'tanggal_terima' => $this->faker->date(),
             'sinopsis' => $this->faker->paragraph(5),
+            'cover' => 'cover-buku/buku-tanpa-cover.jpeg'
         ];
     }
 }

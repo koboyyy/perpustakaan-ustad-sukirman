@@ -61,5 +61,33 @@ class PeminjamanController extends Controller
 
         return back()->with('success', 'Peminjaman Berhasil!!');
     }
+
+    public function update($id)
+    {
+        $peminjaman = Peminjaman::findOrFail($id);
+        // Contoh: Toggle status antara "dipinjam" dan "dikembalikan"
+        if ($peminjaman->status === 'dipinjam') {
+            $peminjaman->status = 'dikembalikan';
+        } else {
+            $peminjaman->status = 'dipinjam';
+        }
+        $peminjaman->save();
+
+        return response()->json(['success' => true, 'status' => $peminjaman->status]);
+    }
+
+    public function liveSearchPeminjaman(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        $peminjamans = Peminjaman::with(['anggota', 'detail_peminjaman'])
+            ->whereHas('anggota', function ($query) use ($keyword) {
+                $query->where('nama_lengkap', 'LIKE', '%' . $keyword . '%');
+            })
+            ->limit(10)
+            ->get();
+
+        return response()->json($peminjamans);
+    }
 }
 

@@ -76,6 +76,10 @@ class BukuController extends Controller
             'sinopsis' => $validatedData['sinopsis'] ?? null,
         ];
 
+        if (!$request->input('cover_buku')) {
+            $bukuData['cover'] = 'cover-buku/buku-tanpa-cover.jpeg';
+        }
+
         // Proses cover jika diupload
         if ($request->hasFile('cover_buku')) {
             $coverFile = $request->file('cover_buku');
@@ -127,9 +131,17 @@ class BukuController extends Controller
             'sinopsis' => $validatedData['sinopsis'] ?? null,
         ];
 
+        // Proses cover jika diupload
+        if ($request->hasFile('cover')) {
+            $coverFile = $request->file('cover');
+            $coverFileName = time() . '-' . uniqid() . '.' . $coverFile->getClientOriginalExtension();
+            $coverFile->storeAs('cover-buku', $coverFileName, 'public');
+            $bukuData['cover'] = 'cover-buku/' . $coverFileName;
+        }
+
         $buku->update($bukuData);
 
-        return redirect(route('viewBuku'))->with('succes', 'Berhasil Update Buku');
+        return back()->with('succes', 'Berhasil Update Buku');
     }
 
     /**
@@ -221,6 +233,51 @@ class BukuController extends Controller
 
         // Render view detail buku dan kembalikan sebagai HTML
         return view('components.admin.detail-buku', compact('buku'))->render();
+    }
+
+    // Tambah Penerbit
+    public function tambahPenerbit(Request $request)
+    {
+        $validatedData = $request->validate([
+            'nama_penerbit' => 'required|string|max:255'
+        ]);
+
+        Penerbit::create($validatedData);
+
+        return back()->with('success', 'Berhasil menambahkan penerbit');
+    }
+
+    public function tambahRak(Request $request)
+    {
+        $validatedData = $request->validate([
+            'no_rak' => 'required|string|max:255'
+        ]);
+
+        Rak::create($validatedData);
+
+        return back()->with('success', 'Berhasil menambahkan lokasi rak');
+    }
+
+    public function tambahSumber(Request $request)
+    {
+        $validatedData = $request->validate([
+            'nama_sumber' => 'required|string|max:255'
+        ]);
+
+        Sumber::create($validatedData);
+
+        return back()->with('success', 'Berhasil menambahkan sumber');
+    }
+
+    public function tambahKategori(Request $request)
+    {
+        $validatedData = $request->validate([
+            'nama_kategori' => 'required|string|max:255'
+        ]);
+
+        Kategori::create($validatedData);
+
+        return back()->with('success', 'Berhasil menambahkan kategori');
     }
 
 }

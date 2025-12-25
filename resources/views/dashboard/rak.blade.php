@@ -1,0 +1,84 @@
+<x-admin.dashboard>
+
+  <div class="space-y-5">
+
+    <x-admin.form-tambah-rak />
+
+    {{-- kotak konten --}}
+    <div class="bg-white rounded-2xl shadow-[0px_4px_4px_0px_rgba(57,72,103,0.15)] overflow-hidden">
+      {{-- Header kotak dan title --}}
+      <div
+        class="bg-linear-to-r from-[#212A3E] via-[#394867] to-[#9BA4B5] text-white w-full flex items-center px-[24px] py-[14px]">
+        <div class="text-[14px] font-semibold"><i class="fa-solid fa-layer-group"></i> Data Rak</div>
+      </div>
+
+      <div class="w-full p-[24px] space-y-4">
+        {{-- Tabel Rak --}}
+        <div class="overflow-auto">
+          <div>
+
+            <table class="w-full border border-[#394867] text-[13px]" id="tabel-rak-admin">
+
+              {{-- Judul Kolom --}}
+              <thead>
+                <tr class="bg-[#F1F6F9]">
+                  <th class="border border-[#394867] px-2 py-0 text-[#212A3E] font-semibold w-10">
+                    No
+                  </th>
+                  <th class="border border-[#394867] px-4 py-2 text-[#212A3E] font-semibold w-60">
+                    Nama Rak
+                  </th>
+                  <th class="border border-[#394867] px-3 py-2 text-[#212A3E] font-semibold w-24">
+                    <i class="fa-solid fa-gear"></i> Aksi
+                  </th>
+                </tr>
+              </thead>
+
+              {{-- Data Tabel --}}
+              <tbody id="tabel-rak-body-admin">
+                @forelse ($dataRak as $index => $rak)
+                  <tr class="hover:bg-[#F1F6F9]/50 transition">
+                    <td class="border border-[#9BA4B5] px-3 py-2 text-center nomor-rak-td">
+                      <!-- nomor akan diisi oleh JS -->
+                    </td>
+
+                    {{-- Nama Rak --}}
+                    <td class="border border-[#9BA4B5] px-3 py-2">
+                      <div class="truncate max-w-[140px]" title="{{ $rak->no_rak ?? '-' }}">
+                        {{ $rak->no_rak ?? '-' }}
+                      </div>
+                    </td>
+
+                    {{-- Aksi --}}
+                    <td class="border border-[#9BA4B5] px-3 py-2">
+                      <div class="flex justify-center gap-2">
+                        {{-- Edit --}}
+                        <button type="button"
+                          class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition editRakBtn"
+                          data-id="{{ $rak->id }}" title="Edit Data">
+                          <i class="fa-solid fa-pen"></i>
+                        </button>
+                        {{-- Hapus --}}
+                        <button type="button"
+                          class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition hapusRakBtn"
+                          data-id="{{ $rak->id }}"
+                          data-route="{{ url('/admin/rak/' . $rak->id) }}" title="Hapus Data">
+                          <i class="fa-solid fa-trash"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                @empty
+                  <tr>
+                    <td colspan="3" class="text-center py-10 text-[#9BA4B5]">Tidak ada data rak.
+                    </td>
+                  </tr>
+                @endforelse
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</x-admin.dashboard>

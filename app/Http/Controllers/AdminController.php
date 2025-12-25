@@ -7,17 +7,27 @@ use App\Models\Buku;
 use App\Models\Sumber;
 use App\Models\Anggota;
 use App\Models\Kategori;
-use App\Models\Peminjaman;
 use App\Models\Penerbit;
+use App\Models\Peminjaman;
 use App\Models\Pengembalian;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
     public function viewAnalitik(Request $request)
     {
-        $dataPeminjaman = Peminjaman::with('anggota', 'detail_peminjaman.buku')->get();
+        if (Auth()->guest()) {
+            return redirect(route('login'));
+        }
+
+        if (Auth()->user()->username !== 'admin') {
+            return redirect(route('home'));
+        }
+
+
+        $dataPeminjaman = Peminjaman::with('anggota', 'detail_peminjaman.buku')->paginate(10);
         $dataPengembalian = Pengembalian::all();
         $dataBuku = Buku::all();
 
@@ -36,6 +46,15 @@ class AdminController extends Controller
 
     public function viewBuku(Request $request)
     {
+
+        if (Auth()->guest()) {
+            return redirect(route('login'));
+        }
+
+        if (Auth()->user()->username !== 'admin') {
+            return redirect(route('home'));
+        }
+
         return view('dashboard.databuku', [
             'dataAnggota' => Anggota::all(),
             'dataBuku' => Buku::with('penerbit', 'sumber', 'kategori', 'rak')->paginate(10),
@@ -48,6 +67,15 @@ class AdminController extends Controller
 
     public function viewAnggota(Request $request)
     {
+
+        if (Auth()->guest()) {
+            return redirect(route('login'));
+        }
+
+        if (Auth()->user()->username !== 'admin') {
+            return redirect(route('home'));
+        }
+
         return view('dashboard.keanggotaan', [
             'dataAnggota' => Anggota::paginate(10)
         ]);
@@ -55,7 +83,27 @@ class AdminController extends Controller
 
     public function viewPeminjaman(Request $request)
     {
-        $dataPeminjaman = Peminjaman::with('anggota', 'detail_peminjaman.buku')->get();
+
+        if (Auth()->guest()) {
+            return redirect(route('login'));
+        }
+
+        if (Auth()->user()->username !== 'admin') {
+            return redirect(route('home'));
+        }
+
+        $keyword = $request->input('pencarian-peminjaman');
+
+        if ($keyword) {
+            $dataPeminjaman = Peminjaman::with('anggota', 'detail_peminjaman.buku')
+                ->whereHas('anggota', function ($query) use ($keyword) {
+                    $query->where('nama_lengkap', 'LIKE', '%' . $keyword . '%');
+                })
+                ->paginate(10);
+        } else {
+            $dataPeminjaman = Peminjaman::with('anggota', 'detail_peminjaman.buku')->paginate(10);
+        }
+
         return view('dashboard.peminjaman', [
             'dataPeminjaman' => $dataPeminjaman
         ]);
@@ -63,6 +111,53 @@ class AdminController extends Controller
 
     public function viewPengembalian(Request $request)
     {
+
+        if (Auth()->guest()) {
+            return redirect(route('login'));
+        }
+
+        if (Auth()->user()->username !== 'admin') {
+            return redirect(route('home'));
+        }
+
         return view('dashboard.pengembalian');
+    }
+
+    public function kategori()
+    {
+        $kategori = Kategori::all();
+
+        return view('dashboard.kategori', [
+            'dataKategori' => $kategori
+        ]);
+    }
+
+    public function rak()
+    {
+        $rak = Rak::all();
+
+        return view('dashboard.rak', [
+            'dataRak' => $rak
+        ]);
+    }
+
+    public function pencarianBuku(Request $request)
+    {
+        $search = $request->input('pencarian');
+
+        $dataBuku = Buku::with('penerbit', 'sumber', 'kategori', 'rak')
+            ->when($search, function ($query, $search) {
+                $query->where('judul_buku', 'like', "%{$search}%");
+            })
+            ->paginate(10);
+
+        return view('dashboard.databuku', [
+            'dataAnggota' => Anggota::all(),
+            'dataBuku' => $dataBuku,
+            'dataPenerbit' => Penerbit::all(),
+            'dataKategori' => Kategori::all(),
+            'dataRak' => Rak::all(),
+            'dataSumber' => Sumber::all(),
+        ]);
     }
 }

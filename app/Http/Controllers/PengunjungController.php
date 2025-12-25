@@ -59,12 +59,17 @@ class PengunjungController extends Controller
 
     public function detailBuku($id)
     {
-        $dataBuku = Buku::with(['kategori', 'penerbit', 'detail_pengarang', 'kategori', 'rak'])
+        $dataBuku = Buku::with(['kategori', 'penerbit', 'kategori', 'rak'])
             ->where('id', $id)
             ->firstOrFail();
 
 
         return view('components.pengunjung.halaman-detail-buku', compact('dataBuku'));
+    }
+
+    public function kontakKami()
+    {
+        return view('kontak-kami');
     }
 
 

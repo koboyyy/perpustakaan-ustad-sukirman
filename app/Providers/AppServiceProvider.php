@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use App\Models\Anggota;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,5 +25,9 @@ class AppServiceProvider extends ServiceProvider
         // Register component namespaces for blade components
         Blade::anonymousComponentNamespace('components.pengunjung', 'pengunjung');
         Blade::anonymousComponentNamespace('components.admin', 'admin');
+
+        Gate::define('admin', function (Anggota $anggota) {
+            return $anggota->username === 'admin';
+        });
     }
 }

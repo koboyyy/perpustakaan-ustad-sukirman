@@ -26,7 +26,19 @@ class ActorSeeder extends Seeder
             'tanggal_lahir' => '2006-01-19'
         ]);
 
-        Admin::factory(10)->create();
-        Anggota::factory(10)->create();
+        Anggota::create([
+            'nik' => '1234567891011121315',
+            'nama_lengkap' => 'Siapa',
+            'username' => 'siapa',
+            'email' => 'siapa@gmail.com',
+            'password' => bcrypt('password'),
+            'no_hp' => '1234567810',
+            'alamat' => 'jl. Hr Soebrantas',
+            'jenis_kelamin' => 'Laki-laki',
+            'tanggal_lahir' => '2006-01-19'
+        ]);
+
+        // Admin::factory(10)->create();
+        // Anggota::factory(10)->create();
     }
 }

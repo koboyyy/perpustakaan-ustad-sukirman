@@ -44,16 +44,195 @@
         class="text-[#394867] font-semibold">untuk semua warga</span>.
     </p>
 
-    <!-- Search Bar -->
-    <form action=""
-      class="w-full max-w-lg flex gap-2 bg-white/50 rounded-3xl shadow-2xl p-1 pl-4 backdrop-blur-sm ring-1 ring-[#9BA4B5]/50 focus-within:ring-2 focus-within:ring-[#394867] transition xl:mx-auto">
-      <input
-        class="bg-transparent flex-1 py-2 px-2 text-[#212A3E] placeholder-[#9BA4B5] focus:outline-none text-md rounded-l-3xl"
-        type="text" placeholder="Cari Buku..." aria-label="Cari Buku">
-      <button type="submit"
-        class="bg-gradient-to-tr from-[#394867] to-[#212A3E] text-white font-semibold px-6 py-2 rounded-3xl shadow hover:from-[#212A3E] hover:to-[#394867] transition-all">
-        <i class="fa-solid fa-search mr-2"></i>Cari
-      </button>
-    </form>
   </div>
 </header>
+
+<!-- Search Bar -->
+@auth
+
+  <div class="container mx-auto">
+    {{-- Pencarian --}}
+    <div class="flex flex-col justify-between w-1/2 items-start mb-10 mx-auto relative -top-7">
+      {{-- Field Pencarian --}}
+      <div class="flex gap-7 items-center w-full">
+        <form action="{{ route('pencarian') }}" method="GET"
+          class="w-full h-15 px-[7px] items-center rounded-full shadow-[2px_8px_15px_2px_rgb(0,0,0,0.2)] flex border border-black/5 bg-white"
+          autocomplete="off">
+          {{-- Input --}}
+          <input type="text" name="pencarian" placeholder="Cari buku..." id="pencarian"
+            autocomplete="off" value="{{ request('pencarian') }}"
+            class="w-full h-full flex items-center px-7 outline-0 text-xl" />
+          {{-- Tombol --}}
+          <button
+            class="w-12 h-12 rounded-full bg-black shadow-[0px_2px_5px_1px_rgb(0,0,0,0.6)] text-white flex items-center justify-center"
+            type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+      </div>
+
+      {{-- Hasil Pencarian --}}
+      <div id="kotak-saran"
+        class="bg-white z-1000 border border-black/5 shadow rounded-3xl w-full absolute top-17 py-3 hidden">
+        {{-- Konten Dinamis --}}
+      </div>
+    </div>
+  </div>
+@endauth
+
+{{-- Fitur Pencarian --}}
+<script>
+  let activeSuggestionIndex = -1;
+  let suggestionData = [];
+
+  function showSuggestionBox() {
+    const hasil = document.getElementById('kotak-saran');
+    hasil.classList.remove('hidden');
+    hasil.classList.add('block');
+  }
+
+  function hideSuggestionBox() {
+    const hasil = document.getElementById('kotak-saran');
+    hasil.classList.remove('block');
+    hasil.classList.add('hidden');
+    activeSuggestionIndex = -1;
+  }
+
+  function updateActiveSuggestion() {
+    // Highlight suggestion yang aktif, clear yang lain
+    const listEls = document.querySelectorAll('#kotak-saran div');
+    listEls.forEach((div, idx) => {
+      div.classList.remove('bg-[#9BA4B5]/20', 'font-bold');
+      if (idx === activeSuggestionIndex) {
+        div.classList.add('bg-[#9BA4B5]/20', 'font-bold');
+      }
+    });
+  }
+
+  // Bugfix: Pakai 'input' event untuk fetch saran/jalankan pencarian, bukan 'keydown'
+  document.getElementById('pencarian').addEventListener('input', function(e) {
+    var keyword = this.value;
+    const kotakSaran = document.getElementById('kotak-saran');
+
+    if (keyword.length > 0) {
+      fetch(`/live-search-buku?keyword=${encodeURIComponent(keyword)}`)
+        .then(response => response.json())
+        .then(data => {
+          kotakSaran.innerHTML = '';
+          suggestionData = data || [];
+          activeSuggestionIndex = -1;
+
+          if (suggestionData.length > 0) {
+            showSuggestionBox();
+            suggestionData.forEach(function(item, idx) {
+              const div = document.createElement('div');
+              div.className =
+                'py-3 px-9 hover:bg-[#9BA4B5]/10 cursor-pointer text-[#212A3E]';
+              div.setAttribute('data-idx', idx);
+              div.setAttribute('data-judul', item.judul_buku);
+              div.innerHTML = `<span class="font-semibold">${item.judul_buku}</span>`;
+              kotakSaran.appendChild(div);
+            });
+            updateActiveSuggestion();
+          } else {
+            hideSuggestionBox();
+          }
+        })
+        .catch(() => {
+          kotakSaran.innerHTML = '';
+          hideSuggestionBox();
+        });
+    } else {
+      hideSuggestionBox();
+      kotakSaran.innerHTML = '';
+    }
+  });
+
+  // Arrow navigation dan enter support
+  document.getElementById('pencarian').addEventListener('keydown', function(e) {
+    const listEls = Array.from(document.querySelectorAll('#kotak-saran div'));
+    if (!listEls.length) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (activeSuggestionIndex < listEls.length - 1) {
+        activeSuggestionIndex++;
+        updateActiveSuggestion();
+        // Scroll ke elemen yang aktif jika di luar view
+        const active = listEls[activeSuggestionIndex];
+        const parent = document.getElementById('kotak-saran');
+        const activeTop = active.offsetTop;
+        const activeBottom = activeTop + active.offsetHeight;
+        const parentScroll = parent.scrollTop;
+        if (activeBottom > parent.clientHeight + parentScroll) {
+          parent.scrollTop = parentScroll + (activeBottom - parent.clientHeight);
+        } else if (activeTop < parentScroll) {
+          parent.scrollTop = activeTop;
+        }
+      }
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (activeSuggestionIndex > 0) {
+        activeSuggestionIndex--;
+        updateActiveSuggestion();
+        const active = listEls[activeSuggestionIndex];
+        const parent = document.getElementById('kotak-saran');
+        const activeTop = active.offsetTop;
+        const parentScroll = parent.scrollTop;
+        if (activeTop < parentScroll) {
+          parent.scrollTop = activeTop;
+        }
+      }
+    } else if (e.key === 'Enter') {
+      if (activeSuggestionIndex >= 0 && activeSuggestionIndex < suggestionData.length) {
+        e.preventDefault();
+        const selected = suggestionData[activeSuggestionIndex];
+        document.getElementById('pencarian').value = selected.judul_buku;
+        hideSuggestionBox();
+      }
+    } else if (e.key === 'Escape') {
+      hideSuggestionBox();
+    }
+  });
+
+  // Click pada suggestion (event delegation)
+  document.getElementById('kotak-saran').addEventListener('mousedown', function(e) {
+    let target = e.target;
+    while (target && target !== this && !target.hasAttribute('data-idx')) {
+      target = target.parentElement;
+    }
+    if (target && target.hasAttribute('data-judul')) {
+      let judul = target.getAttribute('data-judul');
+      document.getElementById('pencarian').value = judul;
+      hideSuggestionBox();
+      document.getElementById('pencarian').focus();
+      e.preventDefault();
+    }
+  });
+
+  // Hover mouse mengubah highlight aktif
+  document.getElementById('kotak-saran').addEventListener('mousemove', function(e) {
+    let target = e.target;
+    while (target && target !== this && !target.hasAttribute('data-idx')) {
+      target = target.parentElement;
+    }
+    if (target && target.hasAttribute('data-idx')) {
+      activeSuggestionIndex = parseInt(target.getAttribute('data-idx'), 10);
+      updateActiveSuggestion();
+    }
+  });
+
+  // Opsi: Tutup box saat klik di luar pencarian
+  document.addEventListener('mousedown', function(e) {
+    const pencarian = document.getElementById('pencarian');
+    const kotakSaran = document.getElementById('kotak-saran');
+    if (!pencarian.contains(e.target) && !kotakSaran.contains(e.target)) {
+      hideSuggestionBox();
+    }
+  });
+
+  // Opsi: Saat input blur, simpan sebentar supaya klik pada list bisa terproses
+  document.getElementById('pencarian').addEventListener('blur', function() {
+    setTimeout(hideSuggestionBox, 150);
+  });
+</script>

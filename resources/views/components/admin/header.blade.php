@@ -2,8 +2,8 @@
   <div
     class="bg-white h-[69px] shadow-[0px_4px_4px_0px_rgba(57,72,103,0.08)] w-full flex justify-between items-center pl-[10px] pr-[10px] sm:pl-[19px] sm:pr-[24px] z-1 relative z-100">
 
+    {{-- Logo dan Title --}}
     <div class="flex just gap-[10px] items-center">
-
       {{-- Logo --}}
       <div class="flex">
         <div class="flex items-center gap-[8px] sm:gap-[16px]">
@@ -20,7 +20,30 @@
           </div>
         </div>
       </div>
+    </div>
 
+    <div>
+      {{-- Logout --}}
+
+      <form method="POST" action="{{ route('logout') }}" class="inline-block">
+        @csrf
+        <button type="submit"
+          class="px-4 py-2 rounded-lg bg-[#394867] text-[#F1F6F9] font-semibold shadow-md hover:bg-[#212A3E] transition-colors duration-300 flex items-center gap-1 ml-3">
+          <i class="fa-solid fa-sign-out-alt mr-2"></i>
+          <span class="xs:inline">Logout</span>
+        </button>
+      </form>
+
+      {{-- Dashboard Admin --}}
+
+      <form method="get" action="{{ route('home') }}" class="inline-block">
+        @csrf
+        <button type="submit"
+          class="px-4 py-2 rounded-lg bg-[#394867] text-[#F1F6F9] font-semibold shadow-md hover:bg-[#212A3E] transition-colors duration-300 flex items-center gap-1 ml-3">
+          <i class="fa-solid fa-sign-out-alt mr-2"></i>
+          <span class="xs:inline">Homepage</span>
+        </button>
+      </form>
     </div>
 
     {{-- Hamburger Menu --}}
@@ -52,26 +75,6 @@
           </svg>
         </button>
       </div>
-      {{-- Ganti Bahasa Mobile --}}
-      <form action="" method="POST" id="mobile-lang-switch-form" class="w-full">
-        @csrf
-        <label for="mobile-language" class="block text-xs font-semibold text-[#394867] mb-1">Ganti
-          Bahasa</label>
-        <select name="language" id="mobile-language"
-          class="py-2 px-3 rounded-[8px] border border-[#9BA4B5] focus:outline-none focus:ring-2 focus:ring-[#394867] bg-gradient-to-r from-[#EEF3F7] to-white text-xs font-semibold text-[#212A3E] shadow-sm transition-all duration-300 w-full">
-          <option value="id" @if (app()->getLocale() == 'id') selected @endif>
-            🇮🇩 Bahasa Indonesia
-          </option>
-          <option value="en" @if (app()->getLocale() == 'en') selected @endif>
-            🇺🇸 English
-          </option>
-        </select>
-      </form>
-      <script>
-        document.getElementById('mobile-language').addEventListener('change', function() {
-          document.getElementById('mobile-lang-switch-form').submit();
-        });
-      </script>
       {{-- Profile Mobile --}}
       <div class="flex items-center gap-4 border-t border-[#D9E4EC] pt-5">
         <div
@@ -81,43 +84,6 @@
         <div>
           <h1 class="text-sm font-bold text-[#394867]">John Doe</h1>
           <p class="text-xs text-[#9BA4B5] font-medium tracking-wide">admin</p>
-        </div>
-      </div>
-    </div>
-
-    {{-- Ganti Bahasa --}}
-    <div class="lg:flex items-center gap-[10px] sm:gap-[20px] hidden">
-      {{-- Ganti Bahasa --}}
-      <form action="" method="POST" id="lang-switch-form">
-        @csrf
-        <select name="language" id="language"
-          class="py-1 px-2 sm:py-1.5 sm:px-3 rounded-[8px] border border-[#9BA4B5] focus:outline-none focus:ring-2 focus:ring-[#394867] bg-gradient-to-r from-[#EEF3F7] to-white text-xs sm:text-sm font-semibold text-[#212A3E] shadow-sm transition-all duration-300">
-          <option value="id" @if (app()->getLocale() == 'id') selected @endif>
-            🇮🇩 Bahasa Indonesia
-          </option>
-          <option value="en" @if (app()->getLocale() == 'en') selected @endif>
-            🇺🇸 English
-          </option>
-        </select>
-      </form>
-      <script>
-        document.getElementById('language').addEventListener('change', function() {
-          document.getElementById('lang-switch-form').submit();
-        });
-      </script>
-
-      {{-- profil --}}
-      <div
-        class="hidden lg:flex items-center gap-[8px] sm:gap-[14px] pl-3 sm:pl-5 border-l border-[#D9E4EC]">
-        {{-- Foto --}}
-        <div
-          class="bg-gradient-to-tr from-[#394867] to-[#9BA4B5] w-[32px] h-[32px] sm:w-[40px] sm:h-[40px] rounded-full flex items-center justify-center shadow-inner">
-          <span class="text-white font-bold text-base sm:text-lg">JD</span>
-        </div>
-        {{-- Name --}}
-        <div>
-          <h1 class="text-xs sm:text-sm font-bold text-[#394867]">John Doe</h1>
-          <p class="text-[10px] sm:text-xs text-[#9BA4B5] font-medium tracking-wide">admin</p>
         </div>
       </div>
     </div>

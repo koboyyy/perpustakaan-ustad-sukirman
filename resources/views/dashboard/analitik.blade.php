@@ -1,3 +1,6 @@
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <x-admin.dashboard>
   <div class="w-full mb-100 lg:mb-0">
     {{-- Title --}}
@@ -20,26 +23,6 @@
         z-index: 2;
       }
     </style>
-
-    {{-- MODAL DETAIL PEMINJAMAN --}}
-    <div id="modal-detail-peminjaman"
-      class="w-full h-screen z-100 bg-black/10 fixed top-0 left-0 flex justify-center items-center hidden">
-      <div
-        class="bg-white min-w-[500px] min-h-[300px] rounded-2xl z-100 p-5 text-center relative  max-h-[800px] overflow-auto">
-
-        <div id="modal-detail-konten">
-          {{-- Konten Di Load Di sini --}}
-        </div>
-
-        {{-- tombol close --}}
-        <button id="btn-close-detail-peminjaman"
-          class="absolute top-3 right-3 text-gray-600 hover:text-red-500 focus:outline-none"
-          title="Tutup">
-          <i class="fa-solid fa-xmark fa-lg"></i>
-        </button>
-      </div>
-
-    </div>
 
     <div class="flex flex-col w-full space-y-[30px] max-w-[1690.7px] mx-auto">
       {{-- Section A --}}

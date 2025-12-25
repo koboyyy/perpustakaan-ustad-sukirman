@@ -1,14 +1,6 @@
 <x-admin.dashboard>
 
-  <div class="w-full space-y-10">
-    {{-- Title --}}
-    <div class="text-[16px] font-semibold text-[#212A3E]"><i class="fa-solid fa-user-group"></i>
-      Data Keanggotaan
-    </div>
-
-    <div class="flex justify-between flex-wrap gap-4">
-      <x-admin.pencarian />
-    </div>
+  <div class="w-full space-y-10 flex gap-5">
 
     {{-- Modal Konfirmasi Hapus --}}
     <div id="hapusModal"
@@ -93,66 +85,75 @@
       </div>
     </div>
 
-    <div
-      class="w-full bg-white rounded-t-2xl overflow-hidden shadow-[0px_4px_4px_0px_rgba(57,72,103,0.15)]">
+    <x-admin.form-pendaftaran-anggota></x-admin.form-pendaftaran-anggota>
+
+    <div class="w-full">
       {{-- Title --}}
-      <div
-        class="bg-gradient-to-r from-[#212A3E] via-[#394867] to-[#9BA4B5] text-white w-full flex items-center px-[24px] py-[14px]">
-        <div class="text-[14px] font-semibold"><i class="fa-solid fa-user-group"></i> Data
-          Keanggotaan
-        </div>
+      <div class="text-[16px] font-semibold text-[#212A3E]"><i class="fa-solid fa-user-group"></i>
+        Data Keanggotaan
       </div>
 
-      <div class="w-full p-[24px] space-y-4">
-
-        {{-- Table --}}
-        <div class="overflow-auto">
-          <table id="tabel-anggota" class="w-full border border-[#394867] ">
-            <tr class="rounded-top-2xl">
-              <th class="border border-[#394867] px-2 py-2 bg-[#F1F6F9] text-[#212A3E]">No</th>
-              <th class="border border-[#394867] px-2 py-2 bg-[#F1F6F9] text-[#212A3E]">Nama</th>
-              <th class="border border-[#394867] px-2 py-2 bg-[#F1F6F9] text-[#212A3E]">Email</th>
-              <th class="border border-[#394867] px-2 py-2 bg-[#F1F6F9] text-[#212A3E]">No. HP</th>
-              <th class="border border-[#394867] px-2 py-2 bg-[#F1F6F9] text-[#212A3E]">Aksi</th>
-            </tr>
-
-            @foreach ($dataAnggota as $anggota)
-              <tr>
-                <td class="border border-[#9BA4B5] px-2 py-2 text-center nomor-data"></td>
-                <td class="border border-[#9BA4B5] px-2 py-2">{{ $anggota->nama_lengkap }}</td>
-                <td class="border border-[#9BA4B5] px-2 py-2">{{ $anggota->email }}</td>
-                <td class="border border-[#9BA4B5] px-2 py-2">{{ $anggota->no_hp }}</td>
-                <td class="border border-[#9BA4B5] px-2 py-2">
-                  <div class="flex justify-center gap-2">
-                    {{-- Detail --}}
-                    <button type="button"
-                      class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition detailAnggotaBtn"
-                      data-id="{{ $anggota->id }}" title="Lihat Detail">
-                      <i class="fa-solid fa-eye"></i>
-                    </button>
-
-                    {{-- Hapus --}}
-                    <button type="button"
-                      class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition hapusAnggotaBtn"
-                      data-id="{{ $anggota->id }}"
-                      data-route="{{ url('/admin/anggota/' . $anggota->id) }}" title="Hapus Data">
-                      <i class="fa-solid fa-trash"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            @endforeach
-
-          </table>
-
-          <div class="mt-5">
-            {{ $dataAnggota->links() }}
+      <div
+        class="w-full bg-white rounded-t-2xl overflow-hidden shadow-[0px_4px_4px_0px_rgba(57,72,103,0.15)]">
+        {{-- Title --}}
+        <div
+          class="bg-gradient-to-r from-[#212A3E] via-[#394867] to-[#9BA4B5] text-white w-full flex items-center px-[24px] py-[14px]">
+          <div class="text-[14px] font-semibold"><i class="fa-solid fa-user-group"></i> Data
+            Keanggotaan
           </div>
         </div>
 
+        <div class="w-full p-[24px] space-y-4">
+
+          {{-- Table --}}
+          <div class="overflow-auto">
+            <table id="tabel-anggota" class="w-full border border-[#394867] ">
+              <tr class="rounded-top-2xl">
+                <th class="border border-[#394867] px-2 py-2 bg-[#F1F6F9] text-[#212A3E]">No</th>
+                <th class="border border-[#394867] px-2 py-2 bg-[#F1F6F9] text-[#212A3E]">Nama</th>
+                <th class="border border-[#394867] px-2 py-2 bg-[#F1F6F9] text-[#212A3E]">Email</th>
+                <th class="border border-[#394867] px-2 py-2 bg-[#F1F6F9] text-[#212A3E]">No. HP
+                </th>
+                <th class="border border-[#394867] px-2 py-2 bg-[#F1F6F9] text-[#212A3E]">Aksi</th>
+              </tr>
+
+              @foreach ($dataAnggota as $anggota)
+                <tr>
+                  <td class="border border-[#9BA4B5] px-2 py-2 text-center nomor-data"></td>
+                  <td class="border border-[#9BA4B5] px-2 py-2">{{ $anggota->nama_lengkap }}</td>
+                  <td class="border border-[#9BA4B5] px-2 py-2">{{ $anggota->email }}</td>
+                  <td class="border border-[#9BA4B5] px-2 py-2">{{ $anggota->no_hp }}</td>
+                  <td class="border border-[#9BA4B5] px-2 py-2">
+                    <div class="flex justify-center gap-2">
+                      {{-- Detail --}}
+                      <button type="button"
+                        class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition detailAnggotaBtn"
+                        data-id="{{ $anggota->id }}" title="Lihat Detail">
+                        <i class="fa-solid fa-eye"></i>
+                      </button>
+
+                      {{-- Hapus --}}
+                      <button type="button"
+                        class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition hapusAnggotaBtn"
+                        data-id="{{ $anggota->id }}"
+                        data-route="{{ url('/admin/anggota/' . $anggota->id) }}" title="Hapus Data">
+                        <i class="fa-solid fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              @endforeach
+
+            </table>
+
+            <div class="mt-5">
+              {{ $dataAnggota->links() }}
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
-    <x-admin.form-pendaftaran-anggota></x-admin.form-pendaftaran-anggota>
 
     @vite('resources/js/table.js')
   </div>

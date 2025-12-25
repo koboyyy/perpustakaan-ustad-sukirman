@@ -13,7 +13,7 @@
       {{-- Cover --}}
       <div class="">
         <div class="bg-pink-100 w-75 h-full shadow-[-20px_30px_20px_0px_rgb(0,0,0,0.1)]">
-          <img src="" alt="">
+          <img src="{{ asset('storage/' . $dataBuku->cover) }}" alt="">
         </div>
       </div>
 
@@ -25,47 +25,11 @@
           </div>
 
           <div class="text-2xl font-semibold">
-            @php
-              $pengarangStr = '';
-              if (
-                  !empty($dataBuku->detail_pengarang) &&
-                  is_iterable($dataBuku->detail_pengarang) &&
-                  count($dataBuku->detail_pengarang)
-              ) {
-                  $names = [];
-                  foreach ($dataBuku->detail_pengarang as $detail) {
-                      if (
-                          isset($detail->pengarang) &&
-                          isset($detail->pengarang->nama_pengarang) &&
-                          $detail->pengarang->nama_pengarang
-                      ) {
-                          $names[] = $detail->pengarang->nama_pengarang;
-                      }
-                  }
-                  if (count($names)) {
-                      $pengarangStr = implode(', ', $names);
-                  }
-              }
-              if (
-                  !$pengarangStr &&
-                  !empty($dataBuku->pengarang) &&
-                  is_string($dataBuku->pengarang)
-              ) {
-                  $pengarangStr = $dataBuku->pengarang;
-              }
-              if (!$pengarangStr && !empty($dataBuku->nama_pengarang)) {
-                  $pengarangStr = $dataBuku->nama_pengarang;
-              }
-            @endphp
-            @if ($pengarangStr)
-              {{ $pengarangStr }}
-            @else
-              <span class="text-red-500 italic">--</span>
-            @endif
+            {{ $dataBuku->pengarang }}
           </div>
 
           <div class="text-xl">
-            {{ $dataBuku->penerbit->nama_penerbit }}
+            {{ $dataBuku->penerbit->nama_penerbit ?? ' - ' }}
           </div>
         </div>
 
@@ -89,61 +53,20 @@
           <div class="space-y-5">
             <div class="font-semibold text-xl">Pengarang</div>
             <div>
-              @php
-                $pengarangStr = '';
-                // Kenapa data pengarang bisa tidak ada?
-                // - Relasi detail_pengarang kosong (belum diisikan di DB)
-                // - Setiap elemen detail_pengarang tidak punya pengarang/nama_pengarang
-                // - Field pengarang (string) di tabel buku kosong
-                // - Field lama nama_pengarang juga kosong
-                if (
-                    !empty($dataBuku->detail_pengarang) &&
-                    is_iterable($dataBuku->detail_pengarang) &&
-                    count($dataBuku->detail_pengarang)
-                ) {
-                    $names = [];
-                    foreach ($dataBuku->detail_pengarang as $detail) {
-                        if (
-                            isset($detail->pengarang) &&
-                            isset($detail->pengarang->nama_pengarang) &&
-                            $detail->pengarang->nama_pengarang
-                        ) {
-                            $names[] = $detail->pengarang->nama_pengarang;
-                        }
-                    }
-                    if (count($names)) {
-                        $pengarangStr = implode(', ', $names);
-                    }
-                }
-                if (
-                    !$pengarangStr &&
-                    !empty($dataBuku->pengarang) &&
-                    is_string($dataBuku->pengarang)
-                ) {
-                    $pengarangStr = $dataBuku->pengarang;
-                }
-                if (!$pengarangStr && !empty($dataBuku->nama_pengarang)) {
-                    $pengarangStr = $dataBuku->nama_pengarang;
-                }
-              @endphp
-              @if ($pengarangStr)
-                {{ $pengarangStr }}
-              @else
-                <span class="text-red-500 italic">Tidak ada data pengarang</span>
-              @endif
+              {{ $dataBuku->pengarang ? $dataBuku->pengarang : '-' }}
             </div>
 
             <div class="space-y-5">
               <div class="font-semibold text-xl">Penerbit</div>
               <div>
-                {{ $dataBuku->penerbit->nama_penerbit }}
+                {{ $dataBuku->penerbit && $dataBuku->penerbit->nama_penerbit ? $dataBuku->penerbit->nama_penerbit : '-' }}
               </div>
             </div>
 
             <div class="space-y-5">
               <div class="font-semibold text-xl">Tahun Terbit</div>
               <div>
-                {{ $dataBuku->tahun_terbit }}
+                {{ $dataBuku->tahun_terbit ? $dataBuku->tahun_terbit : '-' }}
               </div>
             </div>
           </div>
@@ -152,21 +75,21 @@
             <div class="space-y-5">
               <div class="font-semibold text-xl">Lokasi Rak</div>
               <div>
-                {{ $dataBuku->rak->no_rak }}
+                {{ $dataBuku->rak && $dataBuku->rak->no_rak ? $dataBuku->rak->no_rak : '-' }}
               </div>
             </div>
 
             <div class="space-y-5">
               <div class="font-semibold text-xl">Kategori</div>
               <div>
-                {{ $dataBuku->kategori->nama_kategori }}
+                {{ $dataBuku->kategori && $dataBuku->kategori->nama_kategori ? $dataBuku->kategori->nama_kategori : '-' }}
               </div>
             </div>
 
             <div class="space-y-5">
               <div class="font-semibold text-xl">Jumlah Salinan</div>
               <div>
-                {{ $dataBuku->eksemplar }}
+                {{ $dataBuku->eksemplar ? $dataBuku->eksemplar : '-' }}
               </div>
             </div>
           </div>

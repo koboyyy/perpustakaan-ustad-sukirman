@@ -1,16 +1,5 @@
 const trendPeminjaman = document.getElementById('trend-peminjaman');
 const trendPertumbuhanPemustaka = document.getElementById('trend-pertumbuhan-pemustaka');
-const srcRandomImg = 'https://picsum.photos/600/700';
-const bukuFavorit = document.querySelectorAll('#box-buku-favorit div img');
-const topPemustaka = document.querySelectorAll('#box-top-pemustaka img');
-
-// Penjelasan:
-// - Menjadikan maintainAspectRatio: false agar chart 100% mengikuti parent container, sehingga tidak overflow jika container-nya punya height terbatas atau responsif.
-// - Disarankan: Atur container div di Blade/Laravel-nya punya height explicit, misal style="height:350px;" atau class CSS tertentu.
-// - Menambahkan resize handler agar font dan lainnya responsif.
-// - BarPercentage / CategoryPercentage di Chart.js langsung tidak cukup untuk mengontrol overflow jika parent-nya tidak kasih height.
-// - Chart tidak akan overflow jika parent container sudah benar didefinisikan height-nya.
-// - Pastikan di analitik.blade.php, element <canvas id="trend-peminjaman"> berada di dalam div yang height-nya eksplisit (via tailwind/inline/CSS).
 
 if (trendPeminjaman) {
   // Fungsi untuk render chart sesuai besar layar
@@ -83,22 +72,6 @@ if (trendPeminjaman) {
   });
 }
 
-/*
-!= Penyebab batang melewati container:
-  1. Parent container/canvas tidak dikasih height secara eksplisit. Chart.js (dengan maintainAspectRatio: false) akan memenuhi seluruh tinggi container. Tetapi jika container tidak punya height jelas, canvas jadi besar (default attr height=150 px dari Chart.js bisa meluber).
-  2. Solusi: 
-    - Pastikan element pembungkus chart (div / section) yang membungkus <canvas id="trend-peminjaman"> diberi height eksplisit. 
-    - Contoh:
-        <div style="height:350px">
-          <canvas id="trend-peminjaman"></canvas>
-        </div>
-      atau dengan Tailwind: 
-        <div class="h-[350px]">
-          <canvas id="trend-peminjaman"></canvas>
-        </div>
-  3. BarPercentage terlalu kecil/besar tidak berpengaruh pada overflow secara vertikal — yang penting container chart punya tinggi eksplisit!
-*/
-
 if (trendPertumbuhanPemustaka) {
   new Chart(trendPertumbuhanPemustaka, {
     type: 'line',
@@ -125,3 +98,50 @@ if (trendPertumbuhanPemustaka) {
     },
   });
 }
+
+
+  const pieKategori = document.getElementById('pie-distribusi-kategori-buku');
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Pie Chart Distribusi Kategori Buku
+
+    if (pieKategori) {
+      // Ganti dari pie menjadi doughnut supaya bulat tengahnya kosong
+      new Chart(pieKategori, {
+        type: 'doughnut',
+        data: {
+          labels: {!! json_encode($sumBukuPerKategori->pluck('nama_kategori')->toArray()) !!},
+          datasets: [{
+            data: {!! json_encode($sumBukuPerKategori->pluck('total_buku')->toArray()) !!},
+            backgroundColor: [
+              '#394867', // Fiksi - dark theme primary
+              '#9BA4B5', // Non-Fiksi - secondary/light border
+              '#212A3E', // Sains - strong accent/dark navy
+              '#F1F6F9', // Sejarah - light bg
+              '#B0C4D9', // Biografi - gradient/soft blue
+              '#D9E4EC', // Lainnya - very light gradient
+            ],
+            borderWidth: 1,
+          }],
+        },
+        options: {
+          responsive: true,
+          cutout: '60%', // supaya terlihat bolong di tengah
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                color: '#6835BB',
+                font: {
+                  weight: 'bold',
+                },
+              },
+            },
+            title: {
+              display: false,
+            },
+          },
+        },
+      });
+    }
+  });

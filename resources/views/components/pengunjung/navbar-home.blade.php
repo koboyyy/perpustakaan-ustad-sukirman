@@ -27,8 +27,16 @@
         href="{{ route('home') }}">HOME</a>
       <a class="transition-all duration-300 font-bold py-2 px-2 hover:text-[#394867]"
         href="/profil">PROFIL</a>
+      @guest
+        <a class="transition-all duration-300 font-bold py-2 px-2 hover:text-[#394867]"
+          href="/login">KOLEKSI BUKU</a>
+      @endguest
+      @auth
+        <a class="transition-all duration-300 font-bold py-2 px-2 hover:text-[#394867]"
+          href="/koleksi-buku">KOLEKSI BUKU</a>
+      @endauth
       <a class="transition-all duration-300 font-bold py-2 px-2 hover:text-[#394867]"
-        href="/koleksi-buku">KOLEKSI BUKU</a>
+        href="{{ route('kontak-kami') }}">KONTAK KAMI</a>
     </div>
 
     <!-- Right: Tombol Theme & Login -->
@@ -51,6 +59,18 @@
           </a>
         </div>
       @endguest
+
+      {{-- Dashboard Admin --}}
+      @can('admin')
+        <form method="get" action="{{ route('analitik') }}" class="inline-block">
+          @csrf
+          <button type="submit"
+            class="px-4 py-2 rounded-lg bg-[#394867] text-[#F1F6F9] font-semibold shadow-md hover:bg-[#212A3E] transition-colors duration-300 flex items-center gap-1 ml-3">
+            <i class="fa-solid fa-sign-out-alt mr-2"></i>
+            <span class="xs:inline">Dashboard Admin</span>
+          </button>
+        </form>
+      @endcan
 
       {{-- Logout --}}
       @auth
