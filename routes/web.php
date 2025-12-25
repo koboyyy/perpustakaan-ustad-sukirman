@@ -1,4 +1,5 @@
 <?php
+use App\Models\Kategori;
 use App\View\Components\pengunjung;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BukuController;
@@ -9,10 +10,10 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\SumberController;
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\PenerbitController;
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\PengunjungController;
 use App\Http\Controllers\RegistrasiController;
-use App\Models\Kategori;
 
 // ========
 // Frontend

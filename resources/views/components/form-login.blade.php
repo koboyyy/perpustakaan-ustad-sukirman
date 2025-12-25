@@ -47,20 +47,9 @@
         </button>
       </form>
 
-      <!-- Login with Google button -->
-      {{-- <div class="py-3 px-7 flex items-center">
-           <div class="w-full border-t border-[#E5E9F2]"></div>
-           <span class="mx-2 text-[#9BA4B5] text-[13px] font-medium">atau</span>
-           <div class="w-full border-t border-[#E5E9F2]"></div>
-         </div>
-         <div class="flex flex-col items-center px-7">
-           <a href="{{ route('login.google') }}"
-             class="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-[50px] bg-white border border-[#9BA4B5] text-[#394867] font-semibold shadow-sm hover:bg-[#F1F6F9] transition-all duration-150">
-             <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-               alt="Google" class="w-5 h-5">
-             <span>Masuk dengan Google</span>
-           </a>
-         </div> --}}
+      <a href="/auth/google" class="btn btn-danger">
+        Login dengan Google
+      </a>
 
       <div class="p-4 text-center text-[13px] text-[#9BA4B5]">
         Belum punya akun?
