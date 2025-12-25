@@ -67,12 +67,6 @@ class PengunjungController extends Controller
         return view('components.pengunjung.halaman-detail-buku', compact('dataBuku'));
     }
 
-    public function kontakKami()
-    {
-        return view('kontak-kami');
-    }
-
-
     public function profil()
     {
         return view('pengunjung.profil');

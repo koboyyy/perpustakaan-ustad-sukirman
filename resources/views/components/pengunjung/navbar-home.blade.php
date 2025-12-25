@@ -35,8 +35,6 @@
         <a class="transition-all duration-300 font-bold py-2 px-2 hover:text-[#394867]"
           href="/koleksi-buku">KOLEKSI BUKU</a>
       @endauth
-      <a class="transition-all duration-300 font-bold py-2 px-2 hover:text-[#394867]"
-        href="{{ route('kontak-kami') }}">KONTAK KAMI</a>
     </div>
 
     <!-- Right: Tombol Theme & Login -->

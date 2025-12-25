@@ -118,10 +118,5 @@ Route::post('/peminjaman/store', [PeminjamanController::class, 'store'])->name('
 Route::get('/admin/peminjaman/{id}', [PeminjamanController::class, 'show'])->name('detail.peminjaman.admin');
 
 
-// Kontak Kami
-Route::get('/kontak-kami', [pengunjungController::class, 'kontakKami'])->name('kontak-kami');
-
-
-
 
 
