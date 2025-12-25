@@ -10,12 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('tbl_detail_pengarang', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('id_pengarang');
-            $table->foreignId('id_buku');
-            $table->timestamps();
-        });
+        // Schema::create('tbl_detail_pengarang', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->foreignId('id_pengarang');
+        //     $table->foreignId('id_buku');
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -23,6 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('Detail_Pengarang');
+        // Schema::dropIfExists('Detail_Pengarang');
     }
 };

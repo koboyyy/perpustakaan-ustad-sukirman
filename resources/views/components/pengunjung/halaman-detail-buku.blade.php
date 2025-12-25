@@ -1,7 +1,15 @@
 <x-pengunjung.layout-pengunjung title="halaman detail buku">
   <div class="container mx-auto mb-20">
     {{-- Cover dan judul, pengarang, penerbit --}}
-    <div class="w-full h-100 flex justify-center gap-20 100 translate-y-25">
+    <div class="w-full h-100 flex justify-center gap-20 100 translate-y-25 relative">
+
+      <div class="absolute left-0 top-1/2 -translate-y-1/2">
+        <a href="{{ url()->previous() }}"
+          class="flex items-center text-[#394867] hover:text-[#638ECB] transition-colors group">
+          <i class="fa-solid fa-angle-left mr-2 text-2xl group-hover:text-[#638ECB]"></i>
+          <span class="font-semibold group-hover:underline">Kembali</span>
+        </a>
+      </div>
       {{-- Cover --}}
       <div class="">
         <div class="bg-pink-100 w-75 h-full shadow-[-20px_30px_20px_0px_rgb(0,0,0,0.1)]">

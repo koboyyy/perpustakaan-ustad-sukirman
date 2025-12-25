@@ -1,9 +1,23 @@
 <x-admin.dashboard>
 
-  <div class="w-full flex gap-4">
+  <div class="w-full flex gap-4 relative">
+
+    @if (session()->has('error-edit'))
+      <div class="bg-pink-300 p-5 text-2xl font-bold">
+        {{ session('error-edit') }}
+      </div>
+    @endif
+
+    @if (session()->has('success'))
+      <div
+        class="bg-green-300 p-5 text-2xl font-bold p-4 rounded-2xl absolute bottom-10 left-1/2 -translate-x-1/2 z-9999">
+        {{ session('succes') }}
+      </div>
+    @endif
+
     {{-- FORM TAMBAH BUKU --}}
-    <x-admin.form-tambah-buku :dataBuku="$dataBuku" :dataAnggota="$dataAnggota" :dataPengarang="$dataPengarang"
-      :dataKategori="$dataKategori" :dataRak="$dataRak" :dataSumber="$dataSumber" :dataPenerbit="$dataPenerbit" />
+    <x-admin.form-tambah-buku :dataBuku="$dataBuku" :dataAnggota="$dataAnggota" :dataKategori="$dataKategori"
+      :dataRak="$dataRak" :dataSumber="$dataSumber" :dataPenerbit="$dataPenerbit" />
 
     <div class="w-full space space-y-4">
       {{-- icon dan judul --}}
@@ -145,7 +159,7 @@
               <tbody id="tabel-buku-body-admin">
 
                 {{-- Kode nomor akan di-handle lewat JS setelah render dan tiap penghapusan --}}
-                @forelse ($dataBukuDetail as $index => $buku)
+                @forelse ($dataBuku as $index => $buku)
                   <tr class="hover:bg-[#F1F6F9]/50 transition">
 
                     <td class="border border-[#9BA4B5] px-3 py-2 text-center nomor-buku-td">
@@ -155,9 +169,9 @@
                     {{-- Judul Buku --}}
                     <td class="border border-[#9BA4B5] px-3 py-2 flex gap-2 items-center">
                       <div>
-                        @if (isset($buku['gambar']) && $buku['gambar'])
-                          <img src="{{ asset('storage/buku/' . $buku['gambar']) }}"
-                            alt="Cover {{ $buku['judul'] ?? '-' }}"
+                        @if ($buku->cover)
+                          <img src="{{ asset('storage/' . $buku->cover) }}"
+                            alt="Cover {{ $buku->judul ?? '-' }}"
                             class="w-12 h-16 object-cover rounded shadow">
                         @else
                           <img src="{{ asset('images/no-cover.png') }}" alt="No Cover"
@@ -166,34 +180,35 @@
                       </div>
 
                       <div class="truncate max-w-[180px] flex flex-col gap-2"
-                        title="{{ $buku['judul'] ?? '-' }}">
-                        <div class="font-semibold">{{ $buku['judul'] ?? '-' }}</div>
-                        <div class="italic">{{ $buku['tahun_terbit'] }}</div>
+                        title="{{ $buku->judul ?? '-' }}">
+                        <div class="font-semibold">{{ $buku->judul_buku ?? '-' }}</div>
+                        <div class="italic">{{ $buku->tahun_terbit }}</div>
                       </div>
                     </td>
 
                     {{-- Penerbit --}}
                     <td class="border border-[#9BA4B5] px-3 py-2">
-                      <div class="truncate max-w-[140px]" title="{{ $buku['penerbit'] ?? '-' }}">
-                        {{ $buku['penerbit'] ?? '-' }}
+                      <div class="truncate max-w-[140px]"
+                        title="{{ $buku->penerbit->nama_penerbit ?? '-' }}">
+                        {{ $buku->penerbit->nama_penerbit ?? '-' }}
                       </div>
                     </td>
 
                     {{-- Rak --}}
                     <td class="border border-[#9BA4B5] px-3 py-2 w-fit">
                       <div class="truncate text-center font-semibold"
-                        title="{{ $buku['rak'] ?? '-' }}">
-                        {{ $buku['rak'] ?? '-' }}
+                        title="{{ $buku->rak->no_rak ?? '-' }}">
+                        {{ $buku->rak->no_rak ?? '-' }}
                       </div>
                     </td>
 
                     {{-- Ketersediaan --}}
                     <td class="border border-[#9BA4B5] px-3 py-2 w-fit">
                       <div class="truncate text-center"
-                        title="{{ $buku['eksemplar'] > 0 ? 'Tersedia' : 'Habis' }}">
-                        @if (isset($buku['eksemplar']) && $buku['eksemplar'] > 0)
+                        title="{{ $buku->eksemplar > 0 ? 'Tersedia' : 'Habis' }}">
+                        @if (isset($buku->eksemplar) && $buku->eksemplar > 0)
                           <span class="text-green-600 font-semibold">
-                            Tersedia ({{ $buku['eksemplar'] }})
+                            Tersedia ({{ $buku->eksemplar }})
                           </span>
                         @else
                           <span class="text-red-500 font-semibold">
@@ -209,21 +224,20 @@
                         {{-- Detail --}}
                         <button type="button"
                           class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded transition detailBukuBtn"
-                          data-id="{{ $buku['id'] }}" title="Lihat Detail">
+                          data-id="{{ $buku->id }}" title="Lihat Detail">
                           <i class="fa-solid fa-circle-info"></i>
                         </button>
                         {{-- Edit --}}
                         <button type="button"
                           class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition editBukuBtn"
-                          data-id="{{ $buku['id'] }}" title="Edit Data">
+                          data-id="{{ $buku->id }}" title="Edit Data">
                           <i class="fa-solid fa-pen"></i>
                         </button>
                         {{-- Hapus --}}
                         <button type="button"
                           class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition hapusBukuBtn"
-                          data-id="{{ $buku['id'] }}"
-                          data-route="{{ url('/admin/buku/' . $buku['id']) }}"
-                          title="Hapus Data">
+                          data-id="{{ $buku->id }}"
+                          data-route="{{ url('/admin/buku/' . $buku->id) }}" title="Hapus Data">
                           <i class="fa-solid fa-trash"></i>
                         </button>
                       </div>
@@ -240,7 +254,7 @@
             </table>
 
             <div class="mt-5">
-              {{ $dataBukuDetail->links() }}
+              {{ $dataBuku->links() }}
             </div>
           </div>
         </div>

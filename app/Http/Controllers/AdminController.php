@@ -9,7 +9,6 @@ use App\Models\Anggota;
 use App\Models\Kategori;
 use App\Models\Peminjaman;
 use App\Models\Penerbit;
-use App\Models\Pengarang;
 use App\Models\Pengembalian;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -39,28 +38,7 @@ class AdminController extends Controller
     {
         return view('dashboard.databuku', [
             'dataAnggota' => Anggota::all(),
-            'dataBuku' => Buku::all(),
-            // Mengambil data buku dari BukuController::getBook() yang mengembalikan Collection,
-            // kemudian melakukan manual pagination menggunakan LengthAwarePaginator,
-            // agar bisa dipakai untuk fitur paginasi pada tabel databuku admin.
-
-            'dataBukuDetail' => (function () {
-                $dataBukuCollection = app(\App\Http\Controllers\BukuController::class)->getBook();
-                $perPage = 10;
-                $currentPage = \Illuminate\Pagination\Paginator::resolveCurrentPage() ?: 1;
-                $currentItems = $dataBukuCollection->slice(($currentPage - 1) * $perPage, $perPage)->values();
-                return new \Illuminate\Pagination\LengthAwarePaginator(
-                    $currentItems,
-                    $dataBukuCollection->count(),
-                    $perPage,
-                    $currentPage,
-                    [
-                        'path' => request()->url(),
-                        'query' => request()->query(),
-                    ]
-                );
-            })(),
-            'dataPengarang' => Pengarang::all(),
+            'dataBuku' => Buku::with('penerbit', 'sumber', 'kategori', 'rak')->paginate(10),
             'dataPenerbit' => Penerbit::all(),
             'dataKategori' => Kategori::all(),
             'dataRak' => Rak::all(),
@@ -77,7 +55,10 @@ class AdminController extends Controller
 
     public function viewPeminjaman(Request $request)
     {
-        return view('dashboard.peminjaman');
+        $dataPeminjaman = Peminjaman::with('anggota', 'detail_peminjaman.buku')->get();
+        return view('dashboard.peminjaman', [
+            'dataPeminjaman' => $dataPeminjaman
+        ]);
     }
 
     public function viewPengembalian(Request $request)

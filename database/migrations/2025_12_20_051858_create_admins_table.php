@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('tbl_admin', function (Blueprint $table) {
             $table->id();
             $table->string('nama_lengkap');
+            $table->string('username')->unique();
             $table->string('email', 191)->unique();
             $table->string('password');
             $table->string('no_hp');

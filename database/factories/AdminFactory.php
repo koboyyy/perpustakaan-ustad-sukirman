@@ -18,6 +18,7 @@ class AdminFactory extends Factory
     {
         return [
             'nama_lengkap' => $this->faker->name(),
+            'username' => $this->faker->unique()->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'password' => bcrypt('password'), // default hashed password
             'no_hp' => $this->faker->phoneNumber(),

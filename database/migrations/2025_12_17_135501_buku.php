@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('tbl_buku', function (Blueprint $table) {
             $table->id();
             $table->string('judul_buku');
+            $table->string('pengarang');
             $table->foreignId('id_penerbit');
             $table->foreignId('id_rak');
             $table->foreignid('id_sumber');

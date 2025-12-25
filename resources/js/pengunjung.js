@@ -29,20 +29,20 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-// Load random images for book covers
-const srcRandomImg = 'https://picsum.photos/600/700';
-const imgBuku = document.querySelectorAll('.buku');
+// // Load random images for book covers
+// const srcRandomImg = 'https://picsum.photos/600/700';
+// const imgBuku = document.querySelectorAll('.buku');
 
-imgBuku.forEach(async img => {
-  const respon = await fetch(srcRandomImg);
-  const data = await respon.url;
+// imgBuku.forEach(async img => {
+//   const respon = await fetch(srcRandomImg);
+//   const data = await respon.url;
 
-  try {
-    img.src = data;
-  } catch (err) {
-    console.log('error: ' + err);
-  }
-});
+//   try {
+//     img.src = data;
+//   } catch (err) {
+//     console.log('error: ' + err);
+//   }
+// });
 
 // Show Mobile Nav
 function showMobileNav() {

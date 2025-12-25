@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('nik')->unique();
             $table->string('nama_lengkap');
+            $table->string('username');
             $table->string('email', 191)->unique();
             $table->string('password');
             $table->string('no_hp');

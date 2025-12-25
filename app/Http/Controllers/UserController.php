@@ -8,11 +8,12 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function liveSearch(Request $request)
+    public function liveSearchBuku(Request $request)
     {
         $keyword = $request->input('keyword');
 
-        $bukus = Buku::where('judul_buku', 'LIKE', '%' . $keyword . '%')
+        $bukus = Buku::with(['penerbit', 'kategori', 'rak', 'sumber'])
+            ->where('judul_buku', 'LIKE', '%' . $keyword . '%')
             ->limit(10)
             ->get();
 

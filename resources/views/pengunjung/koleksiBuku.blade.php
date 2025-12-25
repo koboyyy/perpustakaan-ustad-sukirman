@@ -73,15 +73,15 @@
                 <div
                   class="w-full h-full bg-linear-to-br from-[#9BA4B5] via-[#F1F6F9] to-[#394867]/40
                   rounded-xl overflow-hidden shrink-0 flex justify-center items-center min-h-100">
-                  @if (!empty($buku->cover))
+                  @if ($buku->cover)
+                    )
                     <img
                       class="buku w-full h-full object-cover object-center opacity-70 transition-transform duration-300 group-hover:scale-110"
-                      src="{{ asset('storage/buku/' . $buku->cover) }}"
-                      alt="{{ $buku->judul_buku }}">
+                      src="{{ asset('storage/' . $buku->cover) }}" alt="{{ $buku->judul_buku }}">
                   @else
                     <img
                       class="buku w-full h-full object-cover object-center opacity-70 transition-transform duration-300 group-hover:scale-110"
-                      src="{{ asset('images/no-cover.png') }}" alt="No Cover">
+                      src="{{ asset('img/default-cover.jpg') }}" alt="No Cover">
                   @endif
                 </div>
                 {{-- Label Kategori, Judul dan Pengarang --}}

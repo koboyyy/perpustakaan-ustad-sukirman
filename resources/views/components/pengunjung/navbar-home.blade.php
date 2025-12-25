@@ -33,15 +33,18 @@
 
     <!-- Right: Tombol Theme & Login -->
     <div class="flex items-center gap-3 md:gap-5 ml-auto z-20">
-      <button id="btn-theme" onclick="setTheme()"
-        class="hidden sm:flex px-4 py-2 rounded-lg bg-[#394867] text-[#F1F6F9] font-semibold shadow-md hover:bg-[#212A3E] transition-colors duration-300"
+      {{-- Ganti Tema --}}
+      {{-- <button id="btn-theme" onclick="setTheme()"
+        class="hidden sm:flex px-4 py-2 rounded-lg bg-[#394867] text-[#F1F6F9] font-semibold shadow-md hover:bg-[#212A3E] transition-colors duration-300 items-center"
         type="button">
         <i class="fa-solid fa-moon mr-2"></i>
         <span class="hidden sm:inline">Theme</span>
-      </button>
+      </button> --}}
+
+      {{-- login --}}
       @guest
         <div>
-          <a id="btn-login" href="{{ route('viewLogin') }}"
+          <a id="btn-login" href="{{ route('login') }}"
             class="px-4 py-2 rounded-lg bg-[#394867] text-[#F1F6F9] font-semibold shadow-md hover:bg-[#212A3E] transition-colors duration-300 flex items-center gap-1">
             <i class="fa-solid fa-sign-in-alt mr-2"></i>
             <span class="xs:inline">Login</span>
@@ -49,6 +52,7 @@
         </div>
       @endguest
 
+      {{-- Logout --}}
       @auth
         <form method="POST" action="{{ route('logout') }}" class="inline-block">
           @csrf
@@ -60,8 +64,8 @@
         </form>
       @endauth
 
-      @auth
-        <form method="POST" action="{{ route('dashboard') }}" class="inline-block">
+      {{-- @auth
+        <form method="POST" action="{{ route('home') }}" class="inline-block">
           @csrf
           <button type="submit"
             class="px-4 py-2 rounded-lg bg-[#394867] text-[#F1F6F9] font-semibold shadow-md hover:bg-[#212A3E] transition-colors duration-300 flex items-center gap-1 ml-3">
@@ -69,7 +73,7 @@
             <span class="xs:inline">Dashboard</span>
           </button>
         </form>
-      @endauth
+      @endauth --}}
       <!-- Hamburger menu mobile -->
       <button id="hamburger-btn"
         class="md:hidden ml-2 flex items-center justify-center p-2 text-[#394867] hover:bg-[#F1F6F9] rounded transition focus:outline-none"
@@ -116,7 +120,7 @@
           <i class="fa-solid fa-moon mr-2"></i>Theme
         </button>
         @guest
-          <a id="mobile-login" href="{{ route('viewLogin') }}"
+          <a id="mobile-login" href="{{ route('login') }}"
             class="mt-3 px-4 py-2 rounded-lg bg-[#394867] text-[#F1F6F9] font-semibold shadow flex items-center gap-1">
             <i class="fa-solid fa-sign-in-alt mr-2"></i>Login
           </a>

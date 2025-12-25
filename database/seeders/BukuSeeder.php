@@ -7,8 +7,6 @@ use App\Models\Buku;
 use App\Models\Sumber;
 use App\Models\Kategori;
 use App\Models\Penerbit;
-use App\Models\Pengarang;
-use App\Models\DetailPengarang;
 use Illuminate\Database\Seeder;
 
 class BukuSeeder extends Seeder
@@ -19,7 +17,7 @@ class BukuSeeder extends Seeder
     public function run(): void
     {
 
-        Penerbit::factory()->count(50)->create();
+        Penerbit::factory()->count(5)->create();
         // Seeder untuk tabel penerbit
         Kategori::create([
             'nama_kategori' => 'Sains'
@@ -41,13 +39,10 @@ class BukuSeeder extends Seeder
         // Kategori::factory()->count(20)->create();
 
         // Seeder untuk tabel rak
-        Rak::factory()->count(10)->create();
-
-        // Seeder untuk tabel pengarang
-        Pengarang::factory()->count(10)->create();
+        Rak::factory()->count(5)->create();
 
         // Seeder untuk tabel buku
-        Buku::factory()->count(200)->create();
+        Buku::factory()->count(5)->create();
 
         // Seeder untuk tabel sumber
         // Sumber::factory()->count(10)->create();
@@ -63,8 +58,5 @@ class BukuSeeder extends Seeder
         Sumber::create([
             'nama_sumber' => 'Hibah'
         ]);
-
-        // Seeder untuk tabel detail_pengarang
-        DetailPengarang::factory()->count(50)->create();
     }
 }

@@ -2,8 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Peminjaman;
+use App\Models\Pengembalian;
 use Illuminate\Database\Seeder;
+use App\Models\DetailPeminjaman;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class Transaksi extends Seeder
 {
@@ -12,8 +15,7 @@ class Transaksi extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Peminjaman::factory(10)->create();
-        \App\Models\Pengembalian::factory(10)->create();
-        \App\Models\DetailPeminjaman::factory(20)->create();
+        // Peminjaman::factory(10)->create();
+        // DetailPeminjaman::factory(20)->create();
     }
 }

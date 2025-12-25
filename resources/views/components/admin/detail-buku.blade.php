@@ -24,7 +24,6 @@
           <tr>
             <td class="font-semibold py-2 w-40 text-[#394867]">Judul Buku</td>
             <td class="py-2 pl-2 text-[#212A3E]">
-              {{-- Cek beberapa kemungkinan field --}}
               @if (!empty($buku->judul_buku))
                 {{ $buku->judul_buku }}
               @elseif (!empty($buku->judul))
@@ -42,48 +41,10 @@
           <tr>
             <td class="font-semibold py-2 text-[#394867]">Pengarang</td>
             <td class="py-2 pl-2">
-              @php
-                $pengarangStr = '';
-                // Kenapa data pengarang bisa tidak ada?
-                // - Relasi detail_pengarang kosong (belum diisikan di DB)
-                // - Setiap elemen detail_pengarang tidak punya pengarang/nama_pengarang
-                // - Field pengarang (string) di tabel buku kosong
-                // - Field lama nama_pengarang juga kosong
-                if (
-                    !empty($buku->detail_pengarang) &&
-                    is_iterable($buku->detail_pengarang) &&
-                    count($buku->detail_pengarang)
-                ) {
-                    $names = [];
-                    foreach ($buku->detail_pengarang as $detail) {
-                        if (
-                            isset($detail->pengarang) &&
-                            isset($detail->pengarang->nama_pengarang) &&
-                            $detail->pengarang->nama_pengarang
-                        ) {
-                            $names[] = $detail->pengarang->nama_pengarang;
-                        }
-                    }
-                    if (count($names)) {
-                        $pengarangStr = implode(', ', $names);
-                    }
-                }
-                if (!$pengarangStr && !empty($buku->pengarang) && is_string($buku->pengarang)) {
-                    $pengarangStr = $buku->pengarang;
-                }
-                if (!$pengarangStr && !empty($buku->nama_pengarang)) {
-                    $pengarangStr = $buku->nama_pengarang;
-                }
-              @endphp
-              @if ($pengarangStr)
-                {{ $pengarangStr }}
+              @if (!empty($buku->pengarang))
+                {{ $buku->pengarang }}
               @else
-                <span class="text-red-500 italic">Tidak ada data pengarang!
-                  {{-- Penjelasan dev: --}}
-                  <span class="block text-xs text-gray-400 font-normal mt-1">Pengarang bisa kosong
-                    jika data relasi & set pengarang belum diisi, atau semua field terkait nama
-                    pengarang di DB kosong.</span>
-                </span>
+                <span class="text-red-500 italic">Tidak ada data pengarang!</span>
               @endif
             </td>
           </tr>
