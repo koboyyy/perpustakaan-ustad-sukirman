@@ -62,11 +62,15 @@
         </div>
       </div>
 
+      <div class="w-full py-1 flex justify-between mb-5">
+        <div>Jumlah buku: {{ $dataBuku->count() }}</div>
+      </div>
+
       {{-- Main Content --}}
       <div class="flex gap-5 flex-col md:flex-row mb-10">
+
         {{-- List Kategori --}}
-        <aside
-          class="w-full md:w-80 mb-6 md:mb-0 rounded-2xl bg-linear-to-br from-[#F1F6F9] via-[#9BA4B5] to-[#394867]/60 shadow-lg p-6">
+        <aside class="w-full md:w-80 h-fit rounded-md shadow p-6 bg-white">
           <div
             class="font-bold text-[#212A3E] text-[18px] mb-4 tracking-wide flex items-center gap-2">
             <i class="fa-solid fa-layer-group text-[#394867]"></i>
@@ -86,14 +90,14 @@
         <div class="w-full">
 
           @if ($dataBuku->count() > 0)
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 w-full">
+            <div class="grid grid-cols-1 md:grid-cols-6 gap-4 w-full">
               @foreach ($dataBuku as $buku)
                 <a href="{{ route('detail-buku', ['id' => $buku->id]) }}" style="display: block;"
                   class="w-full rounded-2xl overflow-hidden shadow hover:shadow-lg transition relative group">
                   {{-- Cover Buku --}}
                   <div
                     class="w-full h-full bg-linear-to-br from-[#9BA4B5] via-[#F1F6F9] to-[#394867]/40
-                  rounded-xl overflow-hidden shrink-0 flex justify-center items-center min-h-100">
+                  rounded-xl overflow-hidden shrink-0 flex justify-center items-center min-h-65">
                     @if ($buku->cover)
                       <img
                         class="buku w-full h-full object-cover object-center opacity-70 transition-transform duration-300 group-hover:scale-110"
@@ -108,13 +112,13 @@
                   <div
                     class="absolute top-0 left-0 w-full h-full bg-black/10 hover:bg-transparent text-white transition-all duration-300">
                     <div class="flex flex-col items-center justify-end h-full p-4">
-                      <div class="text-lg font-light bg-blue-400/20 py px-2 rounded-md truncate">
+                      <div class="text-sm font-light bg-blue-400/20 py px-2 rounded-md truncate">
                         {{ $buku->kategori->nama_kategori }}
                       </div>
-                      <div class="font-bold text-2xl wrap-break-words text-center w-full">
+                      <div class="font-bold text-base wrap-break-words text-center w-full">
                         {{ $buku->judul_buku }}
                       </div>
-                      <div class="text-sm truncate italic">
+                      <div class="text-xs truncate italic">
                         {{ $buku->penerbit->nama_penerbit ?? ' ' }}
                       </div>
                     </div>

@@ -22,6 +22,7 @@
           </div>
         </div>
       </form>
+
       <x-admin.list-peminjaman :dataPeminjaman="$dataPeminjaman"></x-admin.list-peminjaman>
     </div>
   </div>

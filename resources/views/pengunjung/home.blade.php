@@ -1,6 +1,6 @@
 <x-pengunjung.layout-pengunjung title="Homepage">
   {{-- Hero --}}
-  <x-pengunjung.header-home></x-pengunjung.header-home>
+  <x-pengunjung.header-home :dataBuku="$dataBuku"></x-pengunjung.header-home>
 
   {{-- Konten Utama --}}
   <div class="space-y-40 py-20">

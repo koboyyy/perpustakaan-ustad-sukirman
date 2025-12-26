@@ -24,7 +24,7 @@
 </head>
 
 <body class="light bg-[#F1F6F9]">
-  <x-pengunjung::navbar-home></x-pengunjung::navbar-home>
+  {{-- <x-pengunjung::navbar-home></x-pengunjung::navbar-home> --}}
 
   <div class="min-h-secreen w-full">
     {{ $slot }}

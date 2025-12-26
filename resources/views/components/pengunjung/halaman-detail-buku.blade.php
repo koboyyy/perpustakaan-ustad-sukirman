@@ -13,7 +13,8 @@
       {{-- Cover --}}
       <div class="">
         <div class="bg-pink-100 w-75 h-full shadow-[-20px_30px_20px_0px_rgb(0,0,0,0.1)]">
-          <img src="{{ asset('storage/' . $dataBuku->cover) }}" alt="">
+          <img src="{{ asset('storage/' . $dataBuku->cover) }}" alt=""
+            class="object-cover w-full h-full">
         </div>
       </div>
 
