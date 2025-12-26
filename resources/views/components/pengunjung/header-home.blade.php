@@ -49,7 +49,6 @@
 
 <!-- Search Bar -->
 @auth
-
   <div class="container mx-auto">
     {{-- Pencarian --}}
     <div class="flex flex-col justify-between w-1/2 items-start mb-10 mx-auto relative -top-7">
@@ -196,15 +195,17 @@
   });
 
   // Click pada suggestion (event delegation)
-  document.getElementById('kotak-saran').addEventListener('mousedown', function(e) {
+  document.getElementById('kotak-saran').addEventListener('click', function(e) {
     let target = e.target;
     while (target && target !== this && !target.hasAttribute('data-idx')) {
       target = target.parentElement;
     }
     if (target && target.hasAttribute('data-judul')) {
       let judul = target.getAttribute('data-judul');
-      document.getElementById('pencarian').value = judul;
+      const inputPencarian = document.getElementById('pencarian')
+      inputPencarian.value = judul;
       hideSuggestionBox();
+
       document.getElementById('pencarian').focus();
       e.preventDefault();
     }

@@ -493,3 +493,213 @@
     setTimeout(hideSuggestionBox, 150);
   });
 </script>
+
+<script>
+  // ==============================
+  // Modal Edit Hapus & Detail Buku
+  // ==============================
+
+  // --- Modal Edit & Detail Buku ---
+  const editModal = document.getElementById('editModal');
+  const closeEditModal = document.getElementById('closeEditModal');
+  const editModalForm = document.getElementById('editModalForm');
+
+  const detailModal = document.getElementById('detailModal');
+  const closeDetailModal = document.getElementById('closeDetailModal');
+  const detailModalContent = document.getElementById('detailModalContent');
+
+  // --- Modal Hapus Buku ---
+  const hapusModal = document.getElementById('hapusModal');
+  const closeHapusModal = document.getElementById('closeHapusModal');
+  const batalHapusBtn = document.getElementById('batalHapusBtn');
+  const konfirmasiHapusBtn = document.getElementById('konfirmasiHapusBtn');
+  const hapusBtnLoader = document.getElementById('hapusBtnLoader');
+  const hapusBtnText = document.getElementById('hapusBtnText');
+  const hapusSuccessSnackbar = document.getElementById('hapusSuccessSnackbar');
+  let bukuHapusFormAction = '';
+  let bukuHapusRow = null;
+
+  // Event delegation untuk tombol edit, detail, hapus
+  document.body.addEventListener('click', function(e) {
+    // Edit
+    if (e.target.closest('.editBukuBtn')) {
+      const button = e.target.closest('.editBukuBtn');
+      const bukuId = button.getAttribute('data-id');
+
+      editModal.classList.remove('hidden');
+      editModalForm.innerHTML =
+        '<div class="flex justify-center items-center text-[#394867] py-10">Memuat formulir...</div>';
+
+      fetch(`/admin/buku/${bukuId}/edit`)
+        .then(response => response.text())
+        .then(html => {
+          editModalForm.innerHTML = html;
+        })
+        .catch(() => {
+          editModalForm.innerHTML =
+            '<div class="text-red-500 py-10 text-center">Gagal memuat data.</div>';
+        });
+    }
+
+    // Detail
+    if (e.target.closest('.detailBukuBtn')) {
+      const button = e.target.closest('.detailBukuBtn');
+      const bukuId = button.getAttribute('data-id');
+      detailModal.classList.remove('hidden');
+      detailModalContent.innerHTML =
+        '<div class="flex justify-center items-center text-[#394867] py-10">Memuat detail...</div>';
+
+      fetch(`/admin/buku/${bukuId}`)
+        .then(response => response.text())
+        .then(html => {
+          detailModalContent.innerHTML = html;
+        })
+        .catch(() => {
+          detailModalContent.innerHTML =
+            '<div class="text-red-500 py-10 text-center">Gagal memuat detail.</div>';
+        });
+    }
+
+    // Hapus
+    if (e.target.closest('.hapusBukuBtn')) {
+      const btn = e.target.closest('.hapusBukuBtn');
+      bukuHapusFormAction = btn.getAttribute('data-route');
+      // Simpan TR row supaya bisa remove
+      bukuHapusRow = btn.closest('tr');
+      hapusModal.classList.remove('hidden');
+    }
+  });
+
+  function resetHapusModalBtn() {
+    if (hapusBtnLoader && hapusBtnText && konfirmasiHapusBtn) {
+      hapusBtnLoader.classList.add('hidden');
+      hapusBtnText.classList.remove('hidden');
+      konfirmasiHapusBtn.disabled = false;
+    }
+  }
+
+  if (closeHapusModal) {
+    closeHapusModal.addEventListener('click', function() {
+      hapusModal.classList.add('hidden');
+      resetHapusModalBtn();
+    });
+  }
+  if (batalHapusBtn) {
+    batalHapusBtn.addEventListener('click', function() {
+      hapusModal.classList.add('hidden');
+      resetHapusModalBtn();
+    });
+  }
+
+  if (konfirmasiHapusBtn) {
+    konfirmasiHapusBtn.addEventListener('click', function() {
+      if (!bukuHapusFormAction || !bukuHapusRow) return;
+      konfirmasiHapusBtn.disabled = true;
+      hapusBtnText.classList.add('hidden');
+      hapusBtnLoader.classList.remove('hidden');
+
+      fetch(bukuHapusFormAction, {
+          method: 'POST',
+          headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'X-Requested-With': 'XMLHttpRequest',
+            Accept: 'application/json',
+          },
+          body: new URLSearchParams({
+            _method: 'DELETE',
+          }),
+        })
+        .then(response => {
+          if (!response.ok) throw new Error();
+          return response.json ? response.json() : {};
+        })
+        .then(() => {
+          // Animasi fade out row
+          bukuHapusRow.classList.add('animate-fade-out');
+          setTimeout(() => {
+            bukuHapusRow.remove();
+            // Tampilkan snackbar success
+            hapusSuccessSnackbar.classList.remove('hidden');
+            // Hide modal
+            hapusModal.classList.add('hidden');
+            resetHapusModalBtn();
+
+            setTimeout(() => {
+              hapusSuccessSnackbar.classList.add('hidden');
+            }, 1700);
+
+            // Jika tabel kosong tampilkan pesan
+            const table = document.getElementById('tabel-buku-admin');
+            const tbody = table.querySelector('tbody');
+            const visibleRows = Array.from(tbody.querySelectorAll('tr')).filter(
+              row => row.offsetParent !== null && row.id !== 'no-data-buku-admin'
+            );
+            // update nomor setelah hapus
+            updateNomorBukuTable();
+
+            if (visibleRows.length === 0) {
+              let noRow = document.getElementById('no-data-buku-admin');
+              if (!noRow) {
+                noRow = document.createElement('tr');
+                noRow.id = 'no-data-buku-admin';
+                let td = document.createElement('td');
+                td.colSpan = 5;
+                td.className = 'text-center py-10 text-[#9BA4B5]';
+                td.innerText = 'Tidak ada data buku.';
+                noRow.appendChild(td);
+                tbody.appendChild(noRow);
+              } else {
+                noRow.style.display = '';
+              }
+            }
+          }, 400); // sesuai animasi
+        })
+        .catch(() => {
+          resetHapusModalBtn();
+          konfirmasiHapusBtn.classList.add('shake'); // animasi gagal
+          setTimeout(() => konfirmasiHapusBtn.classList.remove('shake'), 650);
+        });
+    });
+  }
+
+  // Optional: Tutup modal jika klik di luar konten
+  editModal.addEventListener('click', function(e) {
+    if (e.target === editModal) {
+      editModal.classList.add('hidden');
+    }
+  });
+  detailModal.addEventListener('click', function(e) {
+    if (e.target === detailModal) {
+      detailModal.classList.add('hidden');
+    }
+  });
+  hapusModal.addEventListener('click', function(e) {
+    if (e.target === hapusModal) {
+      hapusModal.classList.add('hidden');
+      resetHapusModalBtn();
+    }
+  });
+
+  closeEditModal?.addEventListener('click', function() {
+    editModal.classList.add('hidden');
+  });
+  closeDetailModal?.addEventListener('click', function() {
+    detailModal.classList.add('hidden');
+  });
+
+  // CSS Animasi (Tambahkan jika belum ada)
+  const styleFade = document.createElement('style');
+  styleFade.innerHTML = `
+        @keyframes fadeOutRow { from {opacity:1; transform: scale(1);} to {opacity:0; transform: scale(0.95);} }
+        .animate-fade-out { animation: fadeOutRow 0.4s forwards; }
+        @keyframes fadeInModal { from{opacity:0;transform:scale(0.97);} to{opacity:1;transform:scale(1);} }
+        .animate-fade-in { animation: fadeInModal .25s;}
+        @keyframes bounceIn { 0%{opacity:0;transform:translateY(30px);} 52%{opacity:1;transform:translateY(-6px);} 75%{transform:translateY(3px);} 100%{transform:translateY(0);} }
+        .animate-bounce-in { animation: bounceIn .7s; }
+        @keyframes shakeX { 8%,41% {transform:translateX(-8px)} 25%,58%{transform:translateX(6px)} 75%{transform:translateX(-4px)} 92%{transform:translateX(2px)} 100%{transform:translateX(0)} }
+        .shake { animation: shakeX .65s; }
+      `;
+  document.head.appendChild(styleFade);
+</script>
+</div>
+</script>

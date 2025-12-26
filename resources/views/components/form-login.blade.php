@@ -47,10 +47,6 @@
         </button>
       </form>
 
-      <a href="/auth/google" class="btn btn-danger">
-        Login dengan Google
-      </a>
-
       <div class="p-4 text-center text-[13px] text-[#9BA4B5]">
         Belum punya akun?
         <a href="{{ route('registrasi') }}" class="text-[#394867] hover:underline font-semibold"

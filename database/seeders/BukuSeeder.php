@@ -16,7 +16,6 @@ class BukuSeeder extends Seeder
      */
     public function run(): void
     {
-
         Penerbit::factory()->count(5)->create();
         // Seeder untuk tabel penerbit
         Kategori::create([
@@ -35,17 +34,13 @@ class BukuSeeder extends Seeder
             'nama_kategori' => 'Hiburan'
         ]);
 
-        // Seeder untuk tabel kategori
-        // Kategori::factory()->count(20)->create();
+        Penerbit::create([
+            'nama_penerbit' => 'Robert C. Martin'
+        ]);
 
-        // Seeder untuk tabel rak
-        Rak::factory()->count(5)->create();
-
-        // Seeder untuk tabel buku
-        Buku::factory()->count(50)->create();
-
-        // Seeder untuk tabel sumber
-        // Sumber::factory()->count(10)->create();
+        Rak::create([
+            'no_rak' => 'J02'
+        ]);
 
         Sumber::create([
             'nama_sumber' => 'Sumbangan'
@@ -58,5 +53,19 @@ class BukuSeeder extends Seeder
         Sumber::create([
             'nama_sumber' => 'Hibah'
         ]);
+
+
+        // Seeder untuk tabel kategori
+        // Kategori::factory()->count(20)->create();
+
+        // Seeder untuk tabel rak
+        // Rak::factory()->count(5)->create();
+
+        // Seeder untuk tabel buku
+        // Buku::factory()->count(20)->create();
+
+        // Seeder untuk tabel sumber
+        // Sumber::factory()->count(10)->create();
+
     }
 }

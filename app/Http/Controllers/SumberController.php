@@ -15,4 +15,16 @@ class SumberController extends Controller
             'dataSumber' => $sumber
         ]);
     }
+
+    public function destroy(Request $request, $id)
+    {
+        $sumber = Sumber::find($id);
+        if (!$sumber) {
+            return response()->json(['message' => 'Sumber tidak ditemukan.'], 404);
+        }
+
+        $sumber->delete();
+
+        return response()->json(['message' => 'Sumber berhasil dihapus.']);
+    }
 }

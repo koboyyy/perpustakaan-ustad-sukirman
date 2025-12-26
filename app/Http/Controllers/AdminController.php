@@ -18,15 +18,6 @@ class AdminController extends Controller
 {
     public function viewAnalitik(Request $request)
     {
-        if (Auth()->guest()) {
-            return redirect(route('login'));
-        }
-
-        if (Auth()->user()->username !== 'admin') {
-            return redirect(route('home'));
-        }
-
-
         $dataPeminjaman = Peminjaman::with('anggota', 'detail_peminjaman.buku')->paginate(10);
         $dataPengembalian = Pengembalian::all();
         $dataBuku = Buku::all();
@@ -46,15 +37,6 @@ class AdminController extends Controller
 
     public function viewBuku(Request $request)
     {
-
-        if (Auth()->guest()) {
-            return redirect(route('login'));
-        }
-
-        if (Auth()->user()->username !== 'admin') {
-            return redirect(route('home'));
-        }
-
         return view('dashboard.databuku', [
             'dataAnggota' => Anggota::all(),
             'dataBuku' => Buku::with('penerbit', 'sumber', 'kategori', 'rak')->paginate(10),
@@ -67,15 +49,6 @@ class AdminController extends Controller
 
     public function viewAnggota(Request $request)
     {
-
-        if (Auth()->guest()) {
-            return redirect(route('login'));
-        }
-
-        if (Auth()->user()->username !== 'admin') {
-            return redirect(route('home'));
-        }
-
         return view('dashboard.keanggotaan', [
             'dataAnggota' => Anggota::paginate(10)
         ]);
@@ -83,15 +56,6 @@ class AdminController extends Controller
 
     public function viewPeminjaman(Request $request)
     {
-
-        if (Auth()->guest()) {
-            return redirect(route('login'));
-        }
-
-        if (Auth()->user()->username !== 'admin') {
-            return redirect(route('home'));
-        }
-
         $keyword = $request->input('pencarian-peminjaman');
 
         if ($keyword) {
@@ -111,34 +75,7 @@ class AdminController extends Controller
 
     public function viewPengembalian(Request $request)
     {
-
-        if (Auth()->guest()) {
-            return redirect(route('login'));
-        }
-
-        if (Auth()->user()->username !== 'admin') {
-            return redirect(route('home'));
-        }
-
         return view('dashboard.pengembalian');
-    }
-
-    public function kategori()
-    {
-        $kategori = Kategori::all();
-
-        return view('dashboard.kategori', [
-            'dataKategori' => $kategori
-        ]);
-    }
-
-    public function rak()
-    {
-        $rak = Rak::all();
-
-        return view('dashboard.rak', [
-            'dataRak' => $rak
-        ]);
     }
 
     public function pencarianBuku(Request $request)
