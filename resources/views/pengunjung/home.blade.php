@@ -3,7 +3,7 @@
   <x-pengunjung.header-home :dataBuku="$dataBuku"></x-pengunjung.header-home>
 
   {{-- Konten Utama --}}
-  <div class="space-y-40 py-20">
+  <div class="space-y-15 lg:space-y-40 py-20">
     {{-- <x-pengunjung.rekomendasi-buku :books="$books" /> --}}
 
     <x-pengunjung.box-layanan></x-pengunjung.box-layanan>

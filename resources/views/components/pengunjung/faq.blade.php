@@ -2,7 +2,7 @@
   <x-pengunjung.sub-title title="FAQ"
     subtitle="Dapatkan Jawaban Dari Pertanyaan Yang Sering Di Ajukan Tentang Perpustakaan Usatadz Sukirman"></x-pengunjung.sub-title>
 
-  <div class="space-y-4">
+  <div class="space-y-4 px-4">
     <x-pengunjung.jawaban-pertannya-faq pertanyaan="Berapa lama batas waktu peminjaman?"
       jawaban="Batas waktu peminjaman adalah 7 hari (sesuai kebijakan perpustakaan)." />
 

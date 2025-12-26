@@ -1,4 +1,4 @@
-<div class="relative container rounded-4xl shadow py-25 mx-auto px-30 overflow-hidden">
+<div class="relative container rounded-xl shadow py-10 mx-auto overflow-hidden">
 
   {{-- Background --}}
   <div class="absolute top-0 left-0 w-full h-full z-0">
@@ -6,15 +6,15 @@
   </div>
 
   <div
-    class="absolute top-0 left-0 w-1/2 h-full z-10 bg-amber-600 shadow-[100px_0px_200px_300px_rgb(255,0,0)]">
+    class="absolute top-0 left-0 w-full h-full z-10 bg-amber-600 shadow-[100px_0px_200px_300px_oklch(66.6% 0.179 58.318)]">
   </div>
 
-  <div class="relative z-20 flex justify-between items-center text-white">
+  <div class="relative z-20 flex flex-col md:flex-row justify-between px-5">
     <div>
-      <div class="font-bold text-4xl">Jam Oprasional Layanan</div>
+      <div class="font-bold text-xl">Jam Oprasional Layanan</div>
     </div>
 
-    <div class="w-fit px-20 text-2xl">
+    <div class="w-fit text-md">
       <div class="my-4">
         <div class="mb-4">
           <div class="font-semibold mb-1">Jam Buka Perpustakaan</div>

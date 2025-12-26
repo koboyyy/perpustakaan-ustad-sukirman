@@ -1,90 +1,8 @@
 <header class="w-full relative p-3 fles flex justify-between">
-
-  {{-- latar belakang gambar untuk layar ponsel --}}
-  <div class="absolute inset-0 lg:hidden">
-    <img src="/img/one-piece.jpeg" alt="" class="w-full h-full object-cover brightness-50">
-  </div>
-
-  {{-- latar belakang gambar untuk layar large --}}
-  <div class="absolute inset-0 hidden lg:block 2xl:hidden p-3">
-    <img src="/img/one-piece.jpeg" alt=""
-      class="w-full h-full object-cover brightness-50 rounded-2xl">
-  </div>
-
-  {{-- Gambar Slider lg --}}
-  <div
-    class="w-130 lg:w-180 xl:w-220 h-[220px] lg:h-[250px] absolute bottom-18 right-12 lg:right-3 rounded-2xl lg:rounded-l-2xl flex flex-col overflow-hidden hidden md:inline-block">
-
-    <div class="flex overflow-hidden gap-4 h-full" id="carousel-buku"
-      style="scroll-behavior: smooth;">
-      @foreach ($dataBuku->take(10) as $buku)
-        <div
-          class="w-[150px] lg:w-[180px] h-full bg-amber-600 rounded-2xl shrink-0 overflow-hidden flex items-center justify-center">
-          @if ($buku->cover)
-            <img src="{{ asset('storage/' . $buku->cover) }}" alt="cover buku"
-              class="w-full h-full object-cover" />
-          @else
-            <div
-              class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 text-lg">
-              Tidak ada gambar
-            </div>
-          @endif
-        </div>
-      @endforeach
-    </div>
-    <script>
-      // Animasi Scroll Otomatis untuk Carousel Buku
-      document.addEventListener('DOMContentLoaded', function() {
-        const carousel = document.getElementById('carousel-buku');
-        const cardWidth = 200 + 16; // width + gap. 16px = gap-4 (tailwind)
-        let scrollTo = 0;
-        let maxScroll = carousel.scrollWidth - carousel.clientWidth;
-
-        function autoScroll() {
-          if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 1) {
-            carousel.scrollLeft = 0;
-            scrollTo = 0;
-          } else {
-            scrollTo = carousel.scrollLeft + cardWidth;
-            carousel.scrollTo({
-              left: scrollTo,
-              behavior: 'smooth'
-            });
-          }
-        }
-
-        let interval = setInterval(autoScroll, 2500);
-
-        // Pause animasi saat hover
-        carousel.addEventListener('mouseenter', () => clearInterval(interval));
-        carousel.addEventListener('mouseleave', () => {
-          interval = setInterval(autoScroll, 2500);
-        });
-      });
-    </script>
-  </div>
-
-  {{-- Dekorasi + --}}
-  <div class="absolute bottom-12 left-13 flex items-center justify-between w-2/5 mt-4">
-    <!-- 3 Plus Icons Right -->
-    <div class="flex gap-1 ml-auto">
-      <i class="fa-solid fa-plus text-xl"></i>
-      <i class="fa-solid fa-plus text-xl"></i>
-      <i class="fa-solid fa-plus text-xl"></i>
-    </div>
-    <div class="flex-1"></div>
-    <!-- 2 Plus Icons Left -->
-    <div class="flex gap-1">
-      <i class="fa-solid fa-plus text-xl"></i>
-      <i class="fa-solid fa-plus text-xl"></i>
-    </div>
-  </div>
-
-  {{-- Main --}}
-  <div class="p-5 px-10 z-10 text-white 2xl:text-black">
+  <div class="p-5 px-10">
     {{-- bar navigasi --}}
     <div id="navbar"
-      class="bg-white w-full h-[60px] px-2 rounded-full flex justify-evenly items-center border border-black/10 max-w-300 mx-auto hidden">
+      class="bg-white w-full h-[60px] px-2 rounded-full flex justify-evenly items-center border border-black/10 max-w-300 mx-auto">
 
       {{-- logo --}}
       <div
@@ -106,30 +24,12 @@
         <a class="transition-all duration-300 font-bold py-2 px-2 hover:text-[#394867] rounded-full grow justify-center flex {{ request()->is('koleksi-buku') ? 'active' : '' }}"
           href="/koleksi-buku">Koleksi Buku</a>
       @endauth
-
-      <style>
-        #navbar a {
-          transition: all 300ms ease;
-        }
-
-        .active {
-          background: black;
-          color: white;
-        }
-      </style>
     </div>
-
-    {{-- Title --}}
-    <div
-      class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold mt-10 md:mt-16 lg:mt-20 xl:mb-14">
-      Selamat Datang di Perpustakaan Ustadz Sukirman Desa Wonosari
-    </div>
-
     <!-- Search Bar -->
     @auth
-      <div class="container text-black">
+      <div class="container mx-auto mt-5">
         {{-- Pencarian --}}
-        <div class="flex flex-col w-full sm:w-2/3 2xl:w-9/10 justify-between items-start relative ">
+        <div class="flex flex-col w-full sm:w-2/3 justify-between items-start mb-10 relative ">
           {{-- Field Pencarian --}}
           <div class="flex gap-3 sm:gap-7 items-center w-full">
             <form action="{{ route('pencarian') }}" method="GET"
@@ -141,7 +41,7 @@
                 class="w-full h-full flex items-center px-3 sm:px-7 outline-0 text-base sm:text-xl" />
               {{-- Tombol --}}
               <button
-                class="w-7 h-7 sm:w-12 sm:h-12 shrink-0 rounded-full bg-black shadow-[0px_2px_5px_1px_rgb(0,0,0,0.4)] text-white flex items-center justify-center"
+                class="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-full bg-black shadow-[0px_2px_5px_1px_rgb(0,0,0,0.4)] text-white flex items-center justify-center"
                 type="submit">
                 <i class="fa-solid fa-magnifying-glass"></i>
               </button>
@@ -157,39 +57,147 @@
       </div>
     @endauth
 
-    {{-- Deskripsi --}}
-    <div class="w-50 xl:w-70 xl:mt-15 xl:mb-20">
+    <style>
+      #navbar a {
+        transition: all 300ms ease;
+      }
+
+      .active {
+        background: black;
+        color: white;
+      }
+    </style>
+
+    {{-- Title --}}
+    <div class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold mt-10 md:mt-16 lg:mt-20">
+      Selamat Datang di Perpustakaan Ustadz Sukirman Desa Wonosari
+    </div>
+
+    <!-- Search Bar -->
+    @auth
+      <div class="container mx-auto mt-5">
+        {{-- Pencarian --}}
+        <div class="flex flex-col w-2/3 justify-between items-start mb-10 relative ">
+          {{-- Field Pencarian --}}
+          <div class="flex gap-7 items-center w-full">
+            <form action="{{ route('pencarian') }}" method="GET"
+              class="w-full h-15 px-[7px] items-center rounded-full flex border border-black/10 bg-white"
+              autocomplete="off">
+              {{-- Input --}}
+              <input type="text" name="pencarian" placeholder="Cari buku..." id="pencarian"
+                autocomplete="off" value="{{ request('pencarian') }}"
+                class="w-full h-full flex items-center px-7 outline-0 text-xl" />
+              {{-- Tombol --}}
+              <button
+                class="w-12 h-12 shrink-0 rounded-full bg-black shadow-[0px_2px_5px_1px_rgb(0,0,0,0.4)] text-white flex items-center justify-center"
+                type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </form>
+          </div>
+
+          {{-- Hasil Pencarian --}}
+          <div id="kotak-saran"
+            class="bg-white z-1000 border border-black/5 shadow rounded-3xl w-full absolute top-17 py-3 hidden">
+            {{-- Konten Dinamis --}}
+          </div>
+        </div>
+      </div>
+    @endauth
+
+    <div class="w-50 mt-25">
       <div>
-        <i class="fa-solid fa-book-open text-2xl mr-2"></i>
+        <i class="fa-solid fa-book-open text-2xl text-[#394867] mr-2"></i>
       </div>
       Perpustakaan Ustadz Sukirman berasal dari nama SUKIRMAN yang pertama sekali merintis lahan di
       Wonosari. Nama ini memudahkan masyarakat mengingat perpustakaan desa Wonosari. Perpustakaan
       Ustadz Sukirman diresmikan oleh Bupati Bengkalis pada tanggal 17 Desember 2019.
     </div>
 
+    <div class="flex items-center justify-between w-full mt-4">
+      <!-- 3 Plus Icons Right -->
+      <div class="flex gap-1 ml-auto">
+        <i class="fa-solid fa-plus text-[#FFD600] text-xl"></i>
+        <i class="fa-solid fa-plus text-[#FFD600] text-xl"></i>
+        <i class="fa-solid fa-plus text-[#FFD600] text-xl"></i>
+      </div>
+      <div class="flex-1"></div>
+      <!-- 2 Plus Icons Left -->
+      <div class="flex gap-1">
+        <i class="fa-solid fa-plus text-[#FFD600] text-xl"></i>
+        <i class="fa-solid fa-plus text-[#FFD600] text-xl"></i>
+      </div>
+
+    </div>
   </div>
 
-  {{-- Bingkai gambar background --}}
   <div class="relative">
     {{-- Bingkai Banner --}}
-    <div id="bingkai-foto-banner" class="relative mx-auto bg-blue-200 hidden 2xl:block">
+    <div id="bingkai-foto-banner" class="relative mx-auto bg-amber-300 hidden lg:block">
       <img src="/img/one-piece.jpeg" alt=""
         class="w-full h-full object-cover brightness-50">
     </div>
     {{-- Style & Responsive Bingkai Banner --}}
     <style>
-      /* Bingkai ukuran besar, height diubah jadi 980px */
+      /* Default (large) */
       #bingkai-foto-banner {
-        width: 1000px;
-        height: 980px;
-        clip-path: path("M 0,15 A 15,15 0,0,1 15,0 L 832,0 A 15,15 0,0,1 847,15 L 847,45 A 15,15 0,0,0 862,60 L 985,60 A 15,15 0,0,1 1000,75 L 1000,965 A 15,15 0,0,1 985,980 L 15,980 A 15,15 0,0,1 0,965 L 0,905 A 15,15 0,0,1 15,890 L 570,890 A 15,15 0,0,0 585,875 L 585,690 A 15,15 0,0,0 570,675 L 15,675 A 15,15 0,0,1 0,660 L 0,15 Z");
+        width: 1150px;
+        height: 1000px;
+        clip-path: path("M 0,20 A 20,20 0,0,1 20,0 L 853,0 A 20,20 0,0,1 873,20 L 873,60 A 20,20 0,0,0 893,80 L 1130,80 A 20,20 0,0,1 1150,100 L 1150,980 A 20,20 0,0,1 1130,1000 L 20,1000 A 20,20 0,0,1 0,980 L 0,840 A 20,20 0,0,1 20,820 L 388,820 A 20,20 0,0,0 408,800 L 408,520 A 20,20 0,0,0 388,500 L 20,500 A 20,20 0,0,1 0,480 L 0,20 Z");
+      }
+
+      /* Keyframes for smooth resizing (just visual demo with animation) */
+      @keyframes resizeBanner {
+        0% {
+          width: 350px;
+          height: 250px;
+        }
+
+        50% {
+          width: 750px;
+          height: 500px;
+        }
+
+        100% {
+          width: 1150px;
+          height: 1000px;
+        }
+      }
+
+      /* Responsive: laptop */
+      @media (max-width: 1280px) {
+        #bingkai-foto-banner {
+          width: 900px;
+          height: 600px;
+          /* Optionally, slightly scale down the clip-path for illustration */
+          clip-path: path("M 0,16 A 16,16 0,0,1 16,0 L 660,0 A 16,16 0,0,1 676,16 L 676,48 A 16,16 0,0,0 692,64 L 900,64 A 16,16 0,0,1 916,80 L 916,590 A 16,16 0,0,1 900,600 L 16,600 A 16,16 0,0,1 0,590 L 0,504 A 16,16 0,0,1 16,492 L 300,492 A 16,16 0,0,0 316,480 L 316,312 A 16,16 0,0,0 300,300 L 16,300 A 16,16 0,0,1 0,284 L 0,16 Z");
+        }
+      }
+
+      /* Responsive: tablet */
+      @media (max-width: 900px) {
+        #bingkai-foto-banner {
+          width: 600px;
+          height: 350px;
+          clip-path: path("M 0,11 A 11,11 0,0,1 11,0 L 460,0 A 11,11 0,0,1 471,11 L 471,33 A 11,11 0,0,0 482,44 L 600,44 A 11,11 0,0,1 611,55 L 611,340 A 11,11 0,0,1 600,351 L 11,351 A 11,11 0,0,1 0,340 L 0,288 A 11,11 0,0,1 11,277 L 200,277 A 11,11 0,0,0 211,266 L 211,175 A 11,11 0,0,0 200,164 L 11,164 A 11,11 0,0,1 0,153 L 0,11 Z");
+        }
+      }
+
+      /* Responsive: mobile */
+      @media (max-width: 640px) {
+        #bingkai-foto-banner {
+          width: 98vw;
+          height: 130px;
+          clip-path: path("M 0,5 A 5,5 0,0,1 5,0 L 270,0 A 5,5 0,0,1 275,5 L 275,15 A 5,5 0,0,0 280,20 L 330,20 A 5,5 0,0,1 335,25 L 335,120 A 5,5 0,0,1 330,130 L 5,130 A 5,5 0,0,1 0,120 L 0,112 A 5,5 0,0,1 5,107 L 100,107 A 5,5 0,0,0 105,102 L 105,70 A 5,5 0,0,0 100,65 L 5,65 A 5,5 0,0,1 0,60 L 0,5 Z");
+        }
       }
     </style>
 
     {{-- Profil dan Tombol --}}
-    <div class="pl-4 pb-4  absolute right-0 top-0 text-black z-9999 flex gap-4 items-center hidden">
+    <div
+      class="pl-4 pb-4 w-[275px] h-[80px]  absolute right-0 top-0 text-black z-9999 flex gap-4 items-center">
       <button id="toggle-theme"
-        class="bg-white text-[#212A3E] rounded-full w-[30px] h-[30px] flex items-center justify-center shadow transition-colors duration-300 shrink-0">
+        class="bg-white text-[#212A3E] rounded-full w-[50px] h-[50px] flex items-center justify-center shadow transition-colors duration-300 shrink-0">
         <span id="theme-icon">
           <i class="fa-solid fa-sun text-2xl"></i>
         </span>
@@ -212,7 +220,8 @@
           });
         });
       </script>
-      <div class="bg-white w-full rounded-full flex items-center font-semibold p-3 shadow">
+      <div
+        class="bg-white w-full h-[60px] rounded-full flex items-center text-xl font-semibold p-3 shadow">
         @auth
           <form method="POST" action="{{ route('logout') }}" class="w-full h-full">
             @csrf
@@ -232,9 +241,8 @@
       </div>
     </div>
 
-    {{-- Gambar Slider --}}
-    {{-- <div
-      class="w-180 h-[280px] absolute top-[520px] -left-83 rounded-2xl flex flex-col overflow-hidden hidden">
+    <div
+      class="w-180 h-[280px] absolute top-[520px] -left-83 rounded-2xl flex flex-col overflow-hidden">
 
       <div class="flex overflow-hidden gap-4 h-full" id="carousel-buku"
         style="scroll-behavior: smooth;">
@@ -283,7 +291,7 @@
           });
         });
       </script>
-    </div> --}}
+    </div>
   </div>
 </header>
 
