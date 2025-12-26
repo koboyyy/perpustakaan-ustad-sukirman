@@ -3,7 +3,7 @@
   class="bg-white w-full h-[60px] px-3 rounded-full flex items-center border border-black/10 max-w-300 mx-auto mt-4 shadow-lg">
 
   {{-- Logo kiri --}}
-  <div class="w-50 flex-shrink-0 flex items-center z-10">
+  <div class="flex items-center z-10 flex-1">
     <div
       class="flex items-center w-11 h-11 rounded-full shadow justify-center border border-black/10">
       <a href="{{ route('home') }}" class="flex items-center gap-2 justify-center">
@@ -31,7 +31,7 @@
   </div>
 
   {{-- Tombol kanan --}}
-  <div class="flex items-center gap-2 shrink-0 z-10">
+  <div class="flex items-center gap-2 shrink-0 z-10 flex-1 justify-end">
     @guest
       <a id="btn-login" href="{{ route('login') }}"
         class="px-3 py-1.5 rounded-full bg-[#394867] text-[#F1F6F9] font-semibold shadow hover:bg-[#212A3E] transition-colors duration-300 flex items-center gap-1 text-sm">
