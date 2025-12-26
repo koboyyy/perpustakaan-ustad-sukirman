@@ -133,12 +133,12 @@
                       </button>
 
                       {{-- Hapus --}}
-                      <button type="button"
+                      {{-- <button type="button"
                         class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition hapusAnggotaBtn"
                         data-id="{{ $anggota->id }}"
                         data-route="{{ url('/admin/anggota/' . $anggota->id) }}" title="Hapus Data">
                         <i class="fa-solid fa-trash"></i>
-                      </button>
+                      </button> --}}
                     </div>
                   </td>
                 </tr>

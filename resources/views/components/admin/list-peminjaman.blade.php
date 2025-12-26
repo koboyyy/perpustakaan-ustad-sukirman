@@ -31,7 +31,7 @@
       <div>
         <div class="font-semibold flex">
           <div>
-            {{ $peminjaman->anggota->nama_lengkap }}
+            {{ $peminjaman->anggota ? $peminjaman->anggota->nama_lengkap : ' Tidak di kenali ' }}
           </div>
 
           <div class="border-l-1 ml-2 pl-2">
