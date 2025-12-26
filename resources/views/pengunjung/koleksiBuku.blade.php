@@ -1,5 +1,4 @@
 <x-pengunjung.layout-pengunjung title="Koleksi Buku">
-
   {{-- @guest
     <div class="flex justify-center items-center min-h-[150px]">
       <div
@@ -17,6 +16,7 @@
     </div>
 
   @endguest --}}
+  <x-pengunjung.bar-navigasi></x-pengunjung.bar-navigasi>
 
   @auth
     <section class="container mx-auto font-dm-sans">
@@ -40,7 +40,7 @@
         {{-- Field Pencarian --}}
         <div class="flex gap-7 items-center w-full">
           <form action="{{ route('pencarian') }}" method="GET"
-            class="w-full h-15 px-[7px] items-center rounded-full shadow-[2px_8px_15px_2px_rgb(0,0,0,0.2)] flex border border-black/5"
+            class="bg-white w-full h-15 px-[7px] items-center rounded-full flex border border-black/5"
             autocomplete="off">
             {{-- Input --}}
             <input type="text" name="pencarian" placeholder="Cari buku..." id="pencarian"
@@ -48,7 +48,7 @@
               class="w-full h-full flex items-center px-7 outline-0 text-xl" />
             {{-- Tombol --}}
             <button
-              class="w-12 h-12 rounded-full bg-black shadow-[0px_2px_5px_1px_rgb(0,0,0,0.6)] text-white flex items-center justify-center"
+              class="w-12 h-12 rounded-full bg-black shadow-[0px_2px_5px_1px_rgb(0,0,0,0.6)] text-white flex items-center justify-center shrink-0"
               type="submit">
               <i class="fa-solid fa-magnifying-glass"></i>
             </button>

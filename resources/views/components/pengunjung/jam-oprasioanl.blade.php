@@ -1,4 +1,4 @@
-<div class="relative container rounded-2xl shadow py-25 mx-auto px-30 overflow-hidden">
+<div class="relative container rounded-4xl shadow py-25 mx-auto px-30 overflow-hidden">
 
   {{-- Background --}}
   <div class="absolute top-0 left-0 w-full h-full z-0">

@@ -2,7 +2,41 @@
 
   <div class="w-full p-5 px-10">
     {{-- bar navigasi --}}
-    <x-pengunjung.bar-navigasi></x-pengunjung.bar-navigasi>
+    <div id="navbar"
+      class="bg-white w-full h-[60px] px-2 rounded-full flex justify-evenly items-center border border-black/10 max-w-300 mx-auto">
+
+      {{-- logo --}}
+      <div
+        class="flex items-center w-11 h-11 rounded-full shadow justify-center mr-2 border border-black/10">
+        <a href="{{ route('home') }}" class="flex items-center gap-2 justify-center">
+          <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-8 h-8">
+        </a>
+      </div>
+
+      <a class="transition-all duration-300 font-bold py-2 px-2 hover:text-[#394867] rounded-full grow justify-center flex {{ request()->is('/') ? 'active' : '' }}"
+        href="{{ route('home') }}">Home</a>
+      <a class="transition-all duration-300 font-bold py-2 px-2 hover:text-[#394867] rounded-full grow justify-center flex {{ request()->is('profil') ? 'active' : '' }}"
+        href="/profil">Profil</a>
+      @guest
+        <a class="transition-all duration-300 font-bold py-2 px-2 hover:text-[#394867] rounded-full grow justify-center flex {{ request()->is('login') ? 'active' : '' }}"
+          href="/login">Koleksi Buku</a>
+      @endguest
+      @auth
+        <a class="transition-all duration-300 font-bold py-2 px-2 hover:text-[#394867] rounded-full grow justify-center flex {{ request()->is('koleksi-buku') ? 'active' : '' }}"
+          href="/koleksi-buku">Koleksi Buku</a>
+      @endauth
+    </div>
+
+    <style>
+      #navbar a {
+        transition: all 300ms ease;
+      }
+
+      .active {
+        background: black;
+        color: white;
+      }
+    </style>
 
     {{-- Title --}}
     <div class="text-6xl font-semibold mt-20">
@@ -17,7 +51,7 @@
           {{-- Field Pencarian --}}
           <div class="flex gap-7 items-center w-full">
             <form action="{{ route('pencarian') }}" method="GET"
-              class="w-full h-15 px-[7px] items-center rounded-full shadow-[2px_8px_15px_2px_rgb(0,0,0,0.1)] flex border border-black/5 bg-white"
+              class="w-full h-15 px-[7px] items-center rounded-full flex border border-black/10 bg-white"
               autocomplete="off">
               {{-- Input --}}
               <input type="text" name="pencarian" placeholder="Cari buku..." id="pencarian"
