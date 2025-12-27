@@ -2,19 +2,18 @@
 
   {{-- latar belakang gambar untuk layar ponsel --}}
   <div class="absolute inset-0 lg:hidden">
-    <img src="/img/one-piece.jpeg" alt="" class="w-full h-full object-cover brightness-50">
+    <img src="/img/library2.jpg" alt="" class="w-full h-full object-cover brightness-50">
   </div>
 
   {{-- latar belakang gambar untuk layar large --}}
   <div class="absolute inset-0 hidden lg:block 2xl:hidden p-3">
-    <img src="/img/one-piece.jpeg" alt=""
+    <img src="/img/library2.jpg" alt=""
       class="w-full h-full object-cover brightness-50 rounded-2xl">
   </div>
 
   {{-- Gambar Slider lg --}}
   <div
-    class="w-130 lg:w-180 xl:w-220 h-[220px] lg:h-[250px] absolute bottom-18 right-12 lg:right-3 rounded-2xl lg:rounded-l-2xl flex flex-col overflow-hidden hidden md:inline-block">
-
+    class="w-130 lg:w-180 xl:w-220 h-[220px] lg:h-[250px] absolute bottom-14 right-12 lg:right-3 2xl:hidden rounded-2xl md:rounded-none md:rounded-l-2xl flex flex-col overflow-hidden hidden md:inline-block">
     <div class="flex overflow-hidden gap-4 h-full" id="carousel-buku"
       style="scroll-behavior: smooth;">
       @foreach ($dataBuku->take(10) as $buku)
@@ -81,7 +80,7 @@
   </div>
 
   {{-- Main --}}
-  <div class="p-5 px-10 z-10 text-white 2xl:text-black">
+  <div class="p-5 px-10 z-10 text-[rgb(251,251,251)] 2xl:text-black space-y-10">
     {{-- bar navigasi --}}
     <div id="navbar"
       class="bg-white w-full h-[60px] px-2 rounded-full flex justify-evenly items-center border border-black/10 max-w-300 mx-auto hidden">
@@ -141,7 +140,7 @@
                 class="w-full h-full flex items-center px-3 sm:px-7 outline-0 text-base sm:text-xl" />
               {{-- Tombol --}}
               <button
-                class="w-7 h-7 sm:w-12 sm:h-12 shrink-0 rounded-full bg-black shadow-[0px_2px_5px_1px_rgb(0,0,0,0.4)] text-white flex items-center justify-center"
+                class="w-7 h-7 sm:w-12 sm:h-12 shrink-0 rounded-full bg-black shadow-[0px_2px_5px_1px_rgb(0,0,0,0.4)] text-white flex items-center justify-center hover:cursor-pointer"
                 type="submit">
                 <i class="fa-solid fa-magnifying-glass"></i>
               </button>
@@ -172,9 +171,8 @@
   {{-- Bingkai gambar background --}}
   <div class="relative">
     {{-- Bingkai Banner --}}
-    <div id="bingkai-foto-banner" class="relative mx-auto bg-blue-200 hidden 2xl:block">
-      <img src="/img/one-piece.jpeg" alt=""
-        class="w-full h-full object-cover brightness-50">
+    <div id="bingkai-foto-banner" class="relative bg-blue-200 hidden 2xl:block">
+      <img src="/img/library2.jpg" alt="" class="w-full h-full object-cover brightness-50">
     </div>
     {{-- Style & Responsive Bingkai Banner --}}
     <style>
@@ -182,65 +180,19 @@
       #bingkai-foto-banner {
         width: 1000px;
         height: 980px;
-        clip-path: path("M 0,15 A 15,15 0,0,1 15,0 L 832,0 A 15,15 0,0,1 847,15 L 847,45 A 15,15 0,0,0 862,60 L 985,60 A 15,15 0,0,1 1000,75 L 1000,965 A 15,15 0,0,1 985,980 L 15,980 A 15,15 0,0,1 0,965 L 0,905 A 15,15 0,0,1 15,890 L 570,890 A 15,15 0,0,0 585,875 L 585,690 A 15,15 0,0,0 570,675 L 15,675 A 15,15 0,0,1 0,660 L 0,15 Z");
+        clip-path: path("M 0,15 A 15,15 0,0,1 15,0 L 832,0 A 15,15 0,0,1 847,15 L 847,45 A 15,15 0,0,0 862,60 L 985,60 A 15,15 0,0,1 1000,75 L 1000,965 A 15,15 0,0,1 985,980 L 15,980 A 15,15 0,0,1 0,965 L 0,940 A 15,15 0,0,1 15,925 L 420,925 A 15,15 0,0,0 435,910 L 435,690 A 15,15 0,0,0 420,675 L 15,675 A 15,15 0,0,1 0,660 L 0,15 Z");
       }
     </style>
 
-    {{-- Profil dan Tombol --}}
-    <div class="pl-4 pb-4  absolute right-0 top-0 text-black z-9999 flex gap-4 items-center hidden">
-      <button id="toggle-theme"
-        class="bg-white text-[#212A3E] rounded-full w-[30px] h-[30px] flex items-center justify-center shadow transition-colors duration-300 shrink-0">
-        <span id="theme-icon">
-          <i class="fa-solid fa-sun text-2xl"></i>
-        </span>
-      </button>
-      <script>
-        // Simple theme toggle (demo only, replace with real theme logic as needed)
-        document.addEventListener('DOMContentLoaded', function() {
-          const btn = document.getElementById('toggle-theme');
-          const icon = document.getElementById('theme-icon');
-          let dark = false;
-          btn.addEventListener('click', function() {
-            dark = !dark;
-            if (dark) {
-              document.documentElement.classList.add('dark');
-              icon.innerHTML = `<i class="fa-solid fa-moon text-2xl"></i>`;
-            } else {
-              document.documentElement.classList.remove('dark');
-              icon.innerHTML = `<i class="fa-solid fa-sun text-2xl"></i>`;
-            }
-          });
-        });
-      </script>
-      <div class="bg-white w-full rounded-full flex items-center font-semibold p-3 shadow">
-        @auth
-          <form method="POST" action="{{ route('logout') }}" class="w-full h-full">
-            @csrf
-            <button type="submit"
-              class="w-full h-full rounded-full flex items-center justify-center hover:bg-[#F1F6F9] transition">
-              <i class="fa-solid fa-sign-out-alt mr-2"></i>
-              Logout
-            </button>
-          </form>
-        @else
-          <a href="{{ route('login') }}"
-            class="w-full h-full rounded-full flex items-center justify-center hover:bg-[#F1F6F9] transition">
-            <i class="fa-solid fa-sign-in-alt mr-2"></i>
-            Login
-          </a>
-        @endauth
-      </div>
-    </div>
-
     {{-- Gambar Slider --}}
-    {{-- <div
-      class="w-180 h-[280px] absolute top-[520px] -left-83 rounded-2xl flex flex-col overflow-hidden hidden">
+    <div id="gambar-slider"
+      class="w-150 h-[225px] absolute bottom-17 right-145 rounded-2xl flex flex-col overflow-hidden hidden 2xl:inline-block">
 
-      <div class="flex overflow-hidden gap-4 h-full" id="carousel-buku"
+      <div class="flex overflow-hidden gap-4 h-full" id="carousel-buku-2"
         style="scroll-behavior: smooth;">
         @foreach ($dataBuku->take(10) as $buku)
           <div
-            class="w-[200px] h-full bg-amber-600 rounded-2xl shrink-0 overflow-hidden flex items-center justify-center">
+            class="w-[180px] h-full bg-amber-600 rounded-2xl shrink-0 overflow-hidden flex items-center justify-center">
             @if ($buku->cover)
               <img src="{{ asset('storage/' . $buku->cover) }}" alt="cover buku"
                 class="w-full h-full object-cover" />
@@ -253,10 +205,38 @@
           </div>
         @endforeach
       </div>
+      <style>
+        /* Gambar Slider Responsive: width dan translate-x berubah untuk 2xl, 3xl, dst */
+        @media (min-width: 1536px) {
+
+          /* 2xl breakpoint (Tailwind default) */
+          #gambar-slider {
+            width: 600px;
+          }
+        }
+
+        @media (min-width: 1800px) {
+
+          /* custom 3xl */
+          #gambar-slider {
+            width: 820px;
+          }
+        }
+
+        @media (min-width: 2100px) {
+
+          /* custom 4xl */
+          #gambar-slider {
+            width: 950px;
+          }
+        }
+
+        /* Default (2xl kebawah) silakan tetap menggunakan utility dari Tailwind */
+      </style>
       <script>
         // Animasi Scroll Otomatis untuk Carousel Buku
         document.addEventListener('DOMContentLoaded', function() {
-          const carousel = document.getElementById('carousel-buku');
+          const carousel = document.getElementById('carousel-buku-2');
           const cardWidth = 200 + 16; // width + gap. 16px = gap-4 (tailwind)
           let scrollTo = 0;
           let maxScroll = carousel.scrollWidth - carousel.clientWidth;
@@ -283,7 +263,7 @@
           });
         });
       </script>
-    </div> --}}
+    </div>
   </div>
 </header>
 

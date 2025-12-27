@@ -6,37 +6,44 @@
   </div>
 
   <div
-    class="absolute top-0 left-0 w-full h-full z-10 bg-amber-600 shadow-[100px_0px_200px_300px_oklch(66.6% 0.179 58.318)]">
+    class="absolute top-0 left-0 w-full h-full z-10 bg-[rgba(57,72,103,0.56)] shadow-[50px_0px_200px_300px_rgba(57,72,103)]">
   </div>
 
-  <div class="relative z-20 flex flex-col md:flex-row justify-between px-5">
-    <div>
-      <div class="font-bold text-xl">Jam Oprasional Layanan</div>
+  <div
+    class="absolute top-0 left-0 w-full h-full md:w-1/2 z-10 bg-[rgb(57,72,103)] shadow-[10px_0px_200px_300px_rgba(57,72,103)]">
+  </div>
+
+  <div
+    class="relative z-20 flex flex-col sm:flex-row justify-between items-center px-5 text-[rgb(251,251,251)] text-sm sm:text-base md:text-lg lg:text-xl">
+    <div class="grow text-center">
+      <div class="font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl">Jam Oprasional Layanan</div>
     </div>
 
-    <div class="w-fit text-md">
-      <div class="my-4">
+    <div class="grow flex justify-center text-xs sm:text-base md:text-lg">
+      <div>
         <div class="mb-4">
-          <div class="font-semibold mb-1">Jam Buka Perpustakaan</div>
+          <div class="font-semibold mb-1 text-base sm:text-lg md:text-xl">Jam Buka Perpustakaan
+          </div>
           <div>
-            <div>Senin s/d Jum’at:</div>
+            <div class="text-xs sm:text-base md:text-lg">Senin s/d Jum’at:</div>
             <ul class="list-disc pl-4 mb-1">
-              <li>Pagi: 08.00–12.00 WIB</li>
-              <li>Istirahat: 12.00–14.00 WIB</li>
-              <li>Siang: 14.00–16.00 WIB</li>a
+              <li class="text-xs sm:text-base md:text-lg">Pagi: 08.00–12.00 WIB</li>
+              <li class="text-xs sm:text-base md:text-lg">Istirahat: 12.00–14.00 WIB</li>
+              <li class="text-xs sm:text-base md:text-lg">Siang: 14.00–16.00 WIB</li>
             </ul>
           </div>
         </div>
 
         <div class="mb-4">
-          <div class="font-semibold mb-1">Jam Layanan Perpustakaan</div>
+          <div class="font-semibold mb-1 text-base sm:text-lg md:text-xl">Jam Layanan Perpustakaan
+          </div>
         </div>
         <div>
-          <div>Senin s/d Jum’at:</div>
+          <div class="text-xs sm:text-base md:text-lg">Senin s/d Jum’at:</div>
           <ul class="list-disc pl-4">
-            <li>Pagi: 08.30–12.00 WIB</li>
-            <li>Istirahat: 12.00–14.00 WIB</li>
-            <li>Siang: 14.30–16.00 WIB</li>
+            <li class="text-xs sm:text-base md:text-lg">Pagi: 08.30–12.00 WIB</li>
+            <li class="text-xs sm:text-base md:text-lg">Istirahat: 12.00–14.00 WIB</li>
+            <li class="text-xs sm:text-base md:text-lg">Siang: 14.30–16.00 WIB</li>
           </ul>
         </div>
       </div>

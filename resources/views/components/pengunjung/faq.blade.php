@@ -35,30 +35,27 @@
       jawaban="Pengunjung dapat langsung mengunjungi Perpustakaan Ustadz Sukirman Desa Wonosari pada alamat Jl. HR. Soebrantas, Wonosari, Kec. Bengkalis, Kabupaten Bengkalis, Riau 28711 atau mengunjungi Website Perpustakaan Ustadz Sukirman pada alamat ...." />
   </div>
 </div>
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const btnShow = document.querySelectorAll('.btn-show');
+    const card = document.querySelectorAll('.card');
 
-    btnShow.forEach(element => {
+    card.forEach(element => {
       element.addEventListener('click', function(e) {
-        // Temukan elemen jawaban di dalam card FAQ ini
-        const card = element.closest('.card');
-
-        if (!card) return;
-        const jawab = card.querySelector('.jawaban');
+        const jawab = element.querySelector('.jawaban');
 
         if (jawab) {
           // Toggle tampil/sembunyikan jawaban
           jawab.classList.toggle('hidden');
           // Temukan tombol, lalu toggle SVG + atau -
-          const btn = card.querySelector('.btn-show');
+          const btn = element.querySelector('.btn-show');
           if (btn) {
             // Periksa apakah jawaban sekarang tersembunyi
             if (jawab.classList.contains('hidden')) {
               // Icon +
               btn.innerHTML = `
                 <svg xmlns="http://www.w3.org/2000/svg"
-                  class="h-6 w-6 text-white transition-transform duration-300" fill="none"
+                  class="h-6 w-6 text-[rgb(255,109,31)] transition-transform duration-300" fill="none"
                   viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke="currentColor" stroke-width="2" d="M12 6v12m6-6H6" />
                 </svg>
@@ -67,7 +64,7 @@
               // Icon -
               btn.innerHTML = `
                 <svg xmlns="http://www.w3.org/2000/svg"
-                  class="h-6 w-6 text-white transition-transform duration-300" fill="none"
+                  class="h-6 w-6 text-[rgb(255,109,31)] transition-transform duration-300" fill="none"
                   viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke="currentColor" stroke-width="2" d="M6 12h12" />
                 </svg>

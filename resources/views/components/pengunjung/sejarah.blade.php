@@ -1,22 +1,24 @@
-<div class="p-30 relative">
-  <div class="absolute inset-0 bg-amber-900"></div>
+<div class="p-4 relative">
+  <div class="absolute inset-0"></div>
 
-  <div class="mb-6 flex container min-h-100 mx-auto relative rounded-2xl overflow-hidden">
-    <div class=" bg-amber-500 w-full">
-
+  <div
+    class="mb-6 flex container min-h-100 mx-auto relative rounded-2xl overflow-hidden flex-col md:flex-row">
+    <div class="bg-blue-100 w-full">
+      <img src="img/library2.jpg" alt="" class="object-cover object-center w-full h-full">
     </div>
 
-    <div class="w-full p-10 pr-40 bg-white">
-      <h2 class="text-xl font-bold text-[#394867] mb-2 flex items-center gap-2">
+    <div class="w-full p-4 md:p-7 bg-white">
+      <h2 class="font-bold text-[rgb(25,25,25)] mb-2 flex items-center gap-2 text-xl">
         <i class="fa-solid fa-clock-rotate-left"></i>
         Sejarah Perpustakaan
       </h2>
-      <div class="text-[#212A3E] text-base">
-        Perpustakaan Ustadz Sukirman berasal dari nama <b class="text-[#9BA4B5]">Sukirman</b>,
-        sosok yang merintis lahan di Wonosari. Nama ini jadi inspirasi <b>Perpustakaan Desa
-          Wonosari</b>.
-        Perpustakaan diresmikan oleh <b>Bupati Bengkalis</b> pada <span class="text-green-600">17
-          Desember 2019</span>.
+      <div class="text-[#212A3E] leading-relaxed text-justify">
+        <span class="font-semibold text-blue-400">Perpustakaan Ustadz Sukirman</span> mengambil
+        nama dari <span class="font-semibold">Sukirman</span>, sosok perintis yang
+        membuka lahan pertama kali di Wonosari. Nama ini dipilih untuk memudahkan masyarakat dalam
+        mengingat keberadaan <span class="font-semibold">Perpustakaan Desa Wonosari</span>. <br><br>
+        Perpustakaan ini diresmikan secara resmi oleh <span class="font-semibold ">Bupati
+          Bengkalis</span> pada <span class="font-semibold text-blue-400">17 Desember 2019</span>.
       </div>
     </div>
   </div>

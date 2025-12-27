@@ -1,54 +1,35 @@
 <x-pengunjung.layout-pengunjung title="Koleksi Buku">
-  {{-- @guest
-    <div class="flex justify-center items-center min-h-[150px]">
-      <div
-        class="bg-yellow-50 border border-yellow-100 rounded-md px-6 py-4 text-center text-yellow-700 text-base max-w-md mx-auto flex items-center justify-center gap-3">
-        <i class="fa-regular fa-smile text-lg"></i>
-        <span>
-          Untuk melihat koleksi buku, silakan <span class="font-semibold text-purple-700">login /
-            registrasi</span> terlebih dahulu.
-        </span>
-      </div>
-    </div>
-
-    <div class="h-200">
-      <x-form-login></x-form-login>
-    </div>
-
-  @endguest --}}
-  <x-pengunjung.bar-navigasi></x-pengunjung.bar-navigasi>
-
   @auth
-    <section class="container mx-auto font-dm-sans">
+    <section class="container mx-auto font-dm-sans px-2 md:px-0">
       {{-- Hero --}}
-      <div class="py-16 px-2 md:px-0 mb-2 relative z-10">
+      <div class="py-16 px-5 md:px-0 md:mb-2 relative z-10">
         <div class="mx-auto max-w-3xl text-center">
           <h1
-            class="text-4xl sm:text-5xl xl:text-6xl font-extrabold bg-linear-to-r from-[#212A3E] via-[#394867] to-[#9BA4B5] bg-clip-text text-transparent leading-tight drop-shadow-xl mb-4 tracking-tight">
-            Daftar Lengkap Buku Digital <br>
-            <span class="text-[#394867]">Perpustakaan Ustad Sukirman</span>
+            class="text-2xl md:text-4xl sm:text-5xl xl:text-6xl font-extrabold bg-linear-to-r from-[#212A3E] via-[#394867] to-[#9BA4B5] bg-clip-text text-transparent leading-tight drop-shadow-xl mb-4 tracking-tight">
+            Daftar Lengkap Buku <br>
+            <span class="text-[#394867]">Perpustakaan Ustadz Sukirman</span>
           </h1>
-          <p class="text-lg sm:text-xl text-[#212A3E]/90 font-medium mb-0 mt-2">
+          <p class="sm:text-xl text-[#212A3E]/90 font-medium mb-0 mt-2">
             Jelajahi koleksi buku terbaik yang ada di
-            <span class="font-semibold text-[#394867]">Perpustakaan Digital Ustad Sukirman</span>.
+            <span class="font-semibold text-[#394867]">Perpustakaan Digital Ustadz Sukirman</span>.
           </p>
         </div>
       </div>
 
       {{-- Pencarian --}}
-      <div class="flex flex-col justify-between w-1/2 items-start mb-10 mx-auto relative">
+      <div class="flex flex-col justify-between md:w-1/2 items-start mb-10 mx-auto relative px-4">
         {{-- Field Pencarian --}}
         <div class="flex gap-7 items-center w-full">
           <form action="{{ route('pencarian') }}" method="GET"
-            class="bg-white w-full h-15 px-[7px] items-center rounded-full flex border border-black/5"
+            class="bg-white w-full h-10 md:h-15 px-[7px] items-center rounded-full flex border border-black/5"
             autocomplete="off">
             {{-- Input --}}
             <input type="text" name="pencarian" placeholder="Cari buku..." id="pencarian"
               autocomplete="off" value="{{ request('pencarian') }}"
-              class="w-full h-full flex items-center px-7 outline-0 text-xl" />
+              class="w-full h-full flex items-center px-7 outline-0 md:text-xl" />
             {{-- Tombol --}}
             <button
-              class="w-12 h-12 rounded-full bg-black shadow-[0px_2px_5px_1px_rgb(0,0,0,0.6)] text-white flex items-center justify-center shrink-0"
+              class="w-7 h-7 md:w-12 md:h-12 rounded-full bg-black shadow-[0px_2px_5px_1px_rgb(0,0,0,0.6)] text-white flex items-center justify-center shrink-0"
               type="submit">
               <i class="fa-solid fa-magnifying-glass"></i>
             </button>
@@ -62,24 +43,21 @@
         </div>
       </div>
 
-      <div class="w-full py-1 flex justify-between mb-5">
-        <div>Jumlah buku: {{ $dataBuku->count() }}</div>
-      </div>
-
       {{-- Main Content --}}
-      <div class="flex gap-5 flex-col md:flex-row mb-10">
+      <div class="flex gap-5 flex-col md:flex-row mb-10 px-4">
 
         {{-- List Kategori --}}
-        <aside class="w-full md:w-80 h-fit rounded-md shadow p-6 bg-white">
+        <aside class="w-full md:w-80 h-fit rounded-md shadow p-6 bg-[#212A3E] ">
           <div
-            class="font-bold text-[#212A3E] text-[18px] mb-4 tracking-wide flex items-center gap-2">
-            <i class="fa-solid fa-layer-group text-[#394867]"></i>
+            class="font-bold text-[rgb(251,251,251)] text-[18px] mb-4 tracking-wide flex items-center gap-2">
+            <i class="fa-solid fa-layer-group text-[rgb(251,251,251)]"></i>
             KATEGORI
           </div>
-          <div id="kategori" class="flex flex-col gap-2">
+          <div id="kategori" class="flex md:flex-col gap-2 flex-wrap">
             {{-- Content Dinamis --}}
             @foreach ($dataKategori as $kategori)
-              <a href="{{ route('kategoriBuku', ['slug' => $kategori->nama_kategori]) }}">
+              <a href="{{ route('kategoriBuku', ['slug' => $kategori->nama_kategori]) }}"
+                class="bg-[rgb(255,109,31)] rounded-md px-3 py-1 text-[rgb(251,251,251)] hover:bg-[rgb(255,109,31,0.7)]">
                 {{ $kategori->nama_kategori }}
               </a>
             @endforeach
@@ -90,40 +68,52 @@
         <div class="w-full">
 
           @if ($dataBuku->count() > 0)
-            <div class="grid grid-cols-1 md:grid-cols-6 gap-4 w-full">
+            <div
+              class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-2 md:gap-4 w-full">
               @foreach ($dataBuku as $buku)
-                <a href="{{ route('detail-buku', ['id' => $buku->id]) }}" style="display: block;"
-                  class="w-full rounded-2xl overflow-hidden shadow hover:shadow-lg transition relative group">
+                <div
+                  class="w-full rounded-xl overflow-hidden shadow hover:shadow-lg transition group p-1.5 bg-white
+                  sm:p-2 md:rounded-2xl">
                   {{-- Cover Buku --}}
-                  <div
-                    class="w-full h-full bg-linear-to-br from-[#9BA4B5] via-[#F1F6F9] to-[#394867]/40
-                  rounded-xl overflow-hidden shrink-0 flex justify-center items-center min-h-65">
+                  <div class="rounded-lg md:rounded-xl overflow-hidden relative aspect-[3/4]">
+                    <div
+                      class="absolute top-2 right-2 bg-[#F1F6F9] px-2 py-0.5 rounded-full text-xs md:text-sm lg:text-base">
+                      <div class="text-[#212A3E]">
+                        {{ $buku->kategori->nama_kategori }}
+                      </div>
+                    </div>
+
                     @if ($buku->cover)
                       <img
-                        class="buku w-full h-full object-cover object-center opacity-70 transition-transform duration-300 group-hover:scale-110"
+                        class="buku w-full h-full object-cover object-center opacity-70 transition-transform duration-300 group-hover:scale-105"
                         src="{{ asset('storage/' . $buku->cover) }}" alt="{{ $buku->judul_buku }}">
                     @else
                       <img
-                        class="buku w-full h-full object-cover object-center opacity-70 transition-transform duration-300 group-hover:scale-110"
+                        class="buku w-full h-full object-cover object-center opacity-70 transition-transform duration-300 group-hover:scale-105"
                         src="{{ asset('img/default-cover.jpg') }}" alt="No Cover">
                     @endif
                   </div>
-                  {{-- Label Kategori, Judul dan Pengarang --}}
+
                   <div
-                    class="absolute top-0 left-0 w-full h-full bg-black/10 hover:bg-transparent text-white transition-all duration-300">
-                    <div class="flex flex-col items-center justify-end h-full p-4">
-                      <div class="text-sm font-light bg-blue-400/20 py px-2 rounded-md truncate">
-                        {{ $buku->kategori->nama_kategori }}
-                      </div>
-                      <div class="font-bold text-base wrap-break-words text-center w-full">
+                    class="flex items-center justify-between gap-2 px-1.5 py-2 md:px-2 md:py-2 flex-wrap">
+                    <div class="flex flex-col gap-0.5 min-w-0">
+                      <div
+                        class="text-xs md:text-sm lg:text-base font-semibold text-[#212A3E] mb-0.5 truncate"
+                        title="{{ $buku->judul_buku }}">
                         {{ $buku->judul_buku }}
                       </div>
-                      <div class="text-xs truncate italic">
+                      <div
+                        class="text-[10px] md:text-xs lg:text-sm text-[#394867] truncate leading-tight"
+                        title="{{ $buku->penerbit->nama_penerbit ?? '' }}">
                         {{ $buku->penerbit->nama_penerbit ?? ' ' }}
                       </div>
                     </div>
+                    <a href="{{ route('detail-buku', ['id' => $buku->id]) }}"
+                      class="border border-black/10 rounded-2xl px-2 py-1 text-[10px] md:text-xs lg:text-sm transition whitespace-nowrap hover:bg-black hover:text-white mt-auto">
+                      Detail Buku
+                    </a>
                   </div>
-                </a>
+                </div>
               @endforeach
             </div>
 

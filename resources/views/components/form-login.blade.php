@@ -1,7 +1,7 @@
 <div
-  class="relative container mx-auto flex bg-white rounded-[100px] overflow-hidden p-5 h-full w-full z-9999">
+  class="relative container mx-auto flex bg-white rounded-2xl xl:rounded-[100px] overflow-hidden p-5 h-full w-full z-9999">
   <div class="w-full flex justify-center items-center">
-    <div id="login-form-container" class="w-full mx-auto my-8 text-[15px] px-10 md:px-20">
+    <div id="login-form-container" class="w-full mx-auto my-8 text-[15px] px-4 lg:px-10">
 
       @if (session()->has('success'))
         <div class="bg-green-100 p-5 rounded-2xl font-semibold">
@@ -42,22 +42,21 @@
         </div>
 
         <button type="submit"
-          class="w-full h-12 bg-[#212A3E] text-white font-bold text-[16px] rounded-[50px] shadow hover:bg-[#394867] transition-all duration-150">
+          class="w-full h-12 bg-[rgb(255,109,31)] hover:bg-[#3170ad] text-white font-bold text-[16px] rounded-[50px] shadow transition-all duration-150">
           Masuk
         </button>
       </form>
 
       <div class="p-4 text-center text-[13px] text-[#9BA4B5]">
         Belum punya akun?
-        <a href="{{ route('registrasi') }}" class="text-[#394867] hover:underline font-semibold"
+        <a href="{{ route('registrasi') }}" class="text-blue-400 hover:underline font-semibold"
           id="btn-daftar">Daftar</a>
       </div>
     </div>
   </div>
 
-  <div
-    class="bg-pink-400 w-full h-full md:flex justify-center rounded-[80px] overflow-hidden hidden">
-    <img src="/img/wallpaper.jpg" alt="" class="object-cover w-full">
+  <div class="w-full h-full justify-center rounded-[80px] overflow-hidden hidden xl:block">
+    <img src="/img/library3.jpg" alt="" class="object-center w-full h-full object-cover">
   </div>
 
 </div>

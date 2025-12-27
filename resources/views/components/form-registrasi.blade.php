@@ -130,7 +130,7 @@
           class="accent-purple-600 rounded" required {{ old('setuju_syarat') ? 'checked' : '' }}>
         <label for="setuju_syarat" class="text-gray-600 cursor-pointer select-none">Saya setuju
           dengan
-          <a href="#" class="text-purple-600 hover:underline font-semibold">syarat &
+          <a href="#" class="text-blue-400 hover:underline font-semibold">syarat &
             ketentuan</a></label>
         @error('setuju_syarat')
           <span class="text-red-500 text-[13px]">{{ $message }}</span>
@@ -138,13 +138,13 @@
       </div>
 
       <button type="submit"
-        class="w-full h-11 bg-linear-to-r from-[#9370FF] to-[#FD5CAB] text-white font-bold text-[16px] rounded-lg shadow hover:scale-[1.03] transition-all duration-150">
+        class="w-full h-11 bg-[rgb(255,109,31)] text-white font-bold text-[16px] rounded-lg shadow hover:scale-[1.03] transition-all duration-150">
         Daftar
       </button>
     </form>
     <div class="bg-gray-100 p-4 text-center text-[13px] text-gray-500">
       Sudah punya akun? <a href="{{ route('login') }}"
-        class="text-purple-600 hover:underline font-semibold" id="btn-login-registrasi">Login</a>
+        class="text-blue-400 hover:underline font-semibold" id="btn-login-registrasi">Login</a>
     </div>
   </div>
 </div>

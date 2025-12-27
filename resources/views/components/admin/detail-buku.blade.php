@@ -1,25 +1,24 @@
-<div class="px-0 py-0">
+<div class="px-0 py-0 text-[clamp(13px,2.3vw,18px)] md:text-[clamp(15px,1.3vw,18px)]">
   <div class="flex flex-col md:flex-row gap-6 items-start">
     <div class="w-full md:w-1/3 flex flex-col items-center mb-4 md:mb-0">
       @if ($buku->cover)
         <img src="{{ asset('storage/' . $buku->cover) }}" alt="Cover Buku"
-          class="object-cover rounded-xl border shadow w-full max-w-[200px] max-h-[290px] mb-2 bg-white"
-          style="aspect-ratio: 2/3;" />
+          class="object-cover rounded-xl border shadow w-full max-w-[200px] max-h-[290px] mb-2 bg-white aspect-[2/3]" />
       @else
         <div
           class="w-full max-w-[200px] h-[290px] flex items-center justify-center rounded-xl border bg-gray-100 mb-2">
-          <span class="text-gray-400 text-sm">Tidak ada cover</span>
+          <span class="text-gray-400 text-xs md:text-sm">Tidak ada cover</span>
         </div>
       @endif
       {{-- Optional, tampilkan nama file cover --}}
       @if ($buku->cover)
-        <div class="text-xs text-center mt-1 text-gray-500 font-mono break-all">
+        <div class="text-[10px] md:text-xs text-center mt-1 text-gray-500 font-mono break-all">
           {{ $buku->cover }}
         </div>
       @endif
     </div>
     <div class="w-full md:w-2/3">
-      <table class="w-full text-sm table-auto">
+      <table class="w-full text-xs sm:text-sm md:text-base table-auto">
         <tbody class="divide-y divide-[#E5EAF3]">
           <tr>
             <td class="font-semibold py-2 w-40 text-[#394867]">Judul Buku</td>
@@ -87,9 +86,9 @@
   </div>
   <hr class="my-5 border-[#E5EAF3]">
   <div>
-    <span class="font-semibold text-[#394867]">Sinopsis:</span>
+    <span class="font-semibold text-[#394867] text-base md:text-lg">Sinopsis:</span>
     <div
-      class="mt-2 pl-1 pr-2 text-sm text-[#212A3E] bg-white rounded shadow-sm border border-[#E5EAF3] py-3 px-4"
+      class="mt-2 pl-1 pr-2 text-xs sm:text-sm md:text-base text-[#212A3E] bg-white rounded shadow-sm border border-[#E5EAF3] py-3 px-4"
       style="white-space: pre-line; min-height:48px">
       {{ !empty($buku->sinopsis) ? $buku->sinopsis : '-' }}
     </div>

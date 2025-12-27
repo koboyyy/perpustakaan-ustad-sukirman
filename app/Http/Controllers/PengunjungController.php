@@ -19,7 +19,7 @@ class PengunjungController extends Controller
     public function koleksiBuku()
     {
 
-        $dataBuku = Buku::with('kategori', 'penerbit')->paginate(16);
+        $dataBuku = Buku::with('kategori', 'penerbit')->paginate(18);
         $dataKategori = Kategori::all();
 
         return view('pengunjung.koleksiBuku', [
@@ -33,7 +33,7 @@ class PengunjungController extends Controller
 
         $dataBuku = Buku::with(['kategori', 'penerbit'])
             ->whereHas('kategori', fn($q) => $q->where('nama_kategori', $slug))
-            ->paginate(16);
+            ->paginate(18);
         $dataKategori = Kategori::all();
 
         return view('pengunjung.koleksiBuku', [
@@ -48,7 +48,7 @@ class PengunjungController extends Controller
 
         $dataBuku = Buku::when($search, function ($query, $search) {
             $query->where('judul_buku', 'like', "%{$search}%");
-        })->paginate(16);
+        })->paginate(18);
         $dataKategori = Kategori::all();
 
         return view('pengunjung.koleksiBuku', [
