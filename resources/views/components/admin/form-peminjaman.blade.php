@@ -1,6 +1,9 @@
-<div class="max-w-xl mx-auto bg-white rounded-lg shadow p-6 mt-6">
+<div class="max-w-xl mx-auto bg-white rounded-lg shadow p-6 ">
 
-  <div class="text-lg font-semibold mb-4 text-[#394867]">Formulir Peminjaman Buku</div>
+  <div class="text-lg font-semibold mb-4 text-[#394867]">
+    <i class="fa-solid fa-clipboard-list mr-2"></i>
+    Formulir Peminjaman Buku
+  </div>
 
   @if (session()->has('success'))
     <div class="bg-green-100 p-5 rounded-2xl font-semibold">

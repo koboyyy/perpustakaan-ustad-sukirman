@@ -18,7 +18,7 @@
 
   {{-- Title --}}
   <div class="font-semibold text-md mb-2 flex items-center gap-2">
-    <i class="fa-solid fa-user-plus text-purple-500"></i>
+    <i class="fa-solid fa-user-plus text-[#394867]"></i>
     Tambah Anggota
   </div>
 
@@ -32,7 +32,7 @@
         Lengkap:</label>
       <input type="text" id="nama_lengkap" name="nama_lengkap"
         placeholder="Masukkan nama lengkap"
-        class="border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
+        class="border border-gray-300 focus:border-[1px] focus:border-[rgb(255,109,31)] focus:ring-1 focus:ring-[rgb(255,109,31)] transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
         value="{{ old('nama_lengkap') }}" required>
       @error('nama_lengkap')
         <span class="text-red-500 text-[13px]">{{ $message }}</span>
@@ -45,7 +45,7 @@
         class="font-light text-sm text-gray-700 after:content-['*'] after:text-red-500 after:ml-1">Email:</label>
       <input type="email" id="email" name="email" autocomplete="email"
         placeholder="Masukkan email"
-        class="border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
+        class="border border-gray-300 focus:border-[1px] focus:border-[rgb(255,109,31)] focus:ring-1 focus:ring-[rgb(255,109,31)] transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
         value="{{ old('email') }}" required>
       @error('email')
         <span class="text-red-500 text-[13px]">{{ $message }}</span>
@@ -58,7 +58,7 @@
         class="font-light text-sm text-gray-700 after:content-['*'] after:text-red-500 after:ml-1">Username:</label>
       <input type="text" id="username" name="username" autocomplete="username"
         placeholder="Masukkan username"
-        class="border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
+        class="border border-gray-300 focus:border-[1px] focus:border-[rgb(255,109,31)] focus:ring-1 focus:ring-[rgb(255,109,31)] transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
         value="{{ old('username') }}" required>
       @error('username')
         <span class="text-red-500 text-[13px]">{{ $message }}</span>
@@ -71,7 +71,7 @@
         class="font-light text-sm text-gray-700 after:content-['*'] after:text-red-500 after:ml-1">Password:</label>
       <input type="password" id="password" name="password" autocomplete="new-password"
         placeholder="Buat password"
-        class="border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
+        class="border border-gray-300 focus:border-[1px] focus:border-[rgb(255,109,31)] focus:ring-1 focus:ring-[rgb(255,109,31)] transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
         required>
       @error('password')
         <span class="text-red-500 text-[13px]">{{ $message }}</span>
@@ -85,7 +85,7 @@
         Password:</label>
       <input type="password" id="password_confirmation" name="password_confirmation"
         autocomplete="new-password" placeholder="Ulangi password"
-        class="border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
+        class="border border-gray-300 focus:border-[1px] focus:border-[rgb(255,109,31)] focus:ring-1 focus:ring-[rgb(255,109,31)] transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
         required>
       @error('password_confirmation')
         <span class="text-red-500 text-[13px]">{{ $message }}</span>
@@ -99,7 +99,7 @@
         Lahir:</label>
       <input type="date" id="tanggal_lahir" name="tanggal_lahir"
         placeholder="Masukkan tanggal lahir"
-        class="border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
+        class="border border-gray-300 focus:border-[1px] focus:border-[rgb(255,109,31)] focus:ring-1 focus:ring-[rgb(255,109,31)] transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
         value="{{ old('tanggal_lahir') }}" required>
       @error('tanggal_lahir')
         <span class="text-red-500 text-[13px]">{{ $message }}</span>
@@ -111,7 +111,7 @@
       <label for="nik"
         class="font-light text-sm text-gray-700 after:content-['*'] after:text-red-500 after:ml-1">NIK:</label>
       <input type="number" id="nik" name="nik" placeholder="Masukkan NIK"
-        class="border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
+        class="border border-gray-300 focus:border-[1px] focus:border-[rgb(255,109,31)] focus:ring-1 focus:ring-[rgb(255,109,31)] transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
         pattern="[0-9]{10,15}" value="{{ old('nik') }}" required>
       @error('nik')
         <span class="text-red-500 text-[13px]">{{ $message }}</span>
@@ -124,7 +124,7 @@
         class="font-light text-sm text-gray-700 after:content-['*'] after:text-red-500 after:ml-1">Nomor
         HP:</label>
       <input type="tel" id="no_hp" name="no_hp" placeholder="Masukkan nomor HP"
-        class="border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
+        class="border border-gray-300 focus:border-[1px] focus:border-[rgb(255,109,31)] focus:ring-1 focus:ring-[rgb(255,109,31)] transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
         pattern="[0-9]{10,15}" value="{{ old('no_hp') }}" required>
       @error('no_hp')
         <span class="text-red-500 text-[13px]">{{ $message }}</span>
@@ -136,7 +136,7 @@
       <label for="alamat"
         class="font-light text-sm text-gray-700 after:content-['*'] after:text-red-500 after:ml-1">Alamat:</label>
       <textarea id="alamat" name="alamat" placeholder="Masukkan alamat lengkap"
-        class="border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
+        class="border border-gray-300 focus:border-[1px] focus:border-[rgb(255,109,31)] focus:ring-1 focus:ring-[rgb(255,109,31)] transition rounded-lg px-3 py-2 outline-none w-full shadow-sm"
         rows="3" required>{{ old('alamat') }}</textarea>
       @error('alamat')
         <span class="text-red-500 text-[13px]">{{ $message }}</span>
@@ -149,7 +149,7 @@
       <label for="setuju_syarat"
         class="text-sm font-light text-gray-600 cursor-pointer select-none">Saya setuju
         dengan
-        <a href="#" class="text-purple-600 hover:underline font-semibold">syarat &
+        <a href="#" class="text-blue-400 hover:underline font-semibold">syarat &
           ketentuan</a></label>
       @error('setuju_syarat')
         <span class="text-red-500 text-[13px]">{{ $message }}</span>
@@ -157,7 +157,7 @@
     </div>
 
     <button type="submit"
-      class="w-full h-11 bg-linear-to-r from-[#9370FF] to-[#FD5CAB] text-white font-bold text-[16px] rounded-lg shadow hover:scale-[1.03] transition-all duration-150">
+      class="w-full h-11 bg-[rgb(255,109,31)] text-white font-bold text-[16px] rounded-lg shadow hover:scale-[1.03] transition-all duration-150">
       Tambah Anggota
     </button>
   </form>

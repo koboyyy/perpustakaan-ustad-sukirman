@@ -1,23 +1,26 @@
 <x-admin.dashboard>
-  <div class="flex gap-5">
-
+  <div class="flex gap-5 flex-col md:flex-row">
     <x-admin.form-peminjaman></x-admin.form-peminjaman>
 
     <div class="flex flex-col gap-5 w-full">
       {{-- Pencarian --}}
-      <form action="#" class="w-full z-9999">
+      <form action="#" class="w-full">
         <label for="pencarian-peminjaman" class="mb-4">Pencarian Peminajaman</label>
+
         <div class="relative">
-          <div class="flex w-full h-11 border rounded-xl overflow-hidden">
+          <div
+            class="flex w-full border border-black/10 rounded-xl overflow-hidden bg-white py-1 px-1">
             <input type="text" id="pencarian-peminjaman" name="pencarian-peminjaman"
               placeholder="Cari nama peminjam.." class="w-full outline-0 px-4" autocomplete="off">
-            <button class="hover:bg-black w-11 h-11 transition duration-300 group">
-              <i class="fa-solid fa-magnifying-glass group-hover:text-white"></i>
+            <button
+              class="w-10 h-10 rounded-lg bg-[#394867] hover:bg-[#212A3E] flex items-center justify-center transition-colors text-white shrink-0"
+              type="submit">
+              <i class="fa-solid fa-magnifying-glass"></i>
             </button>
           </div>
 
           <div id="kotak-saran"
-            class="absolute top-full left-0 w-full bg-white border-black/30 hidden">
+            class="absolute top-full left-0 w-full bg-white hidden z-100 rounded-2xl border border-black/10 translate-y-2">
             {{-- Konten Dinamis --}}
           </div>
         </div>

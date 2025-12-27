@@ -3,11 +3,6 @@
 
 <x-admin.dashboard>
   <div class="w-full mb-100 lg:mb-0">
-    {{-- Title --}}
-    <div class="text-[16px] font-semibold mb-4 text-[#212A3E]">
-      <i class="fa-solid fa-chart-line"></i>
-      Analitik
-    </div>
 
     <style>
       .analitik-animated-box {
@@ -25,6 +20,13 @@
     </style>
 
     <div class="flex flex-col w-full space-y-[30px] max-w-[1690.7px] mx-auto">
+
+      {{-- Title --}}
+      <div class="text-[16px] font-semibold mb-4 text-[#212A3E]">
+        <i class="fa-solid fa-chart-line"></i>
+        Analitik
+      </div>
+
       {{-- Section A --}}
       <section class="w-full flex gap-[27px] flex-wrap lg:flex-nowrap">
         {{-- Box Total Judul Buku --}}
@@ -99,10 +101,9 @@
       {{-- Section B --}}
       <section
         class="lg:grid grid-cols-9 gap-[27px] grid-rows-6 flex flex-wrap w-full h-180 font-semibold">
-
         {{-- Box Distribusi Kategori --}}
         <div
-          class="analitik-animated-box relative flex flex-col items-center w-full col-span-3 row-span-6 justify-center rounded-[14px] p-[30px] overflow-hidden">
+          class="analitik-animated-box relative flex flex-col items-center w-full col-span-3 row-span-4 justify-center rounded-[14px] p-[30px] overflow-hidden">
           <div class="z-10 w-full rounded-[10px] flex flex-col items-center h-full overflow-auto">
             <div class="flex items-center flex-col">
               <div class="flex items-center gap-2 text-[#394867]">
@@ -115,6 +116,8 @@
             </div>
           </div>
         </div>
+
+        {{-- List Peminjaman --}}
 
         <x-admin.list-peminjaman :dataPeminjaman="$dataPeminjaman"></x-admin.list-peminjaman>
 
@@ -132,7 +135,6 @@
 
   document.addEventListener('DOMContentLoaded', function() {
     // Pie Chart Distribusi Kategori Buku
-
     if (pieKategori) {
       // Ganti dari pie menjadi doughnut supaya bulat tengahnya kosong
       new Chart(pieKategori, {

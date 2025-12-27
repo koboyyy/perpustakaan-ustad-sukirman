@@ -1,10 +1,8 @@
-{{-- List Peminjaman --}}
-
 {{-- MODAL DETAIL PEMINJAMAN --}}
 <div id="modal-detail-peminjaman"
-  class="w-full h-screen z-100 bg-black/10 fixed top-0 left-0 flex justify-center items-center hidden">
+  class="w-full h-screen z-9999 bg-black/10 fixed top-0 left-0 flex justify-center items-center hidden">
   <div
-    class="bg-white min-w-[500px] min-h-[300px] rounded-2xl z-100 p-5 text-center relative  max-h-[800px] overflow-auto">
+    class="bg-white mx-2 min-h-[300px] rounded-2xl z-100 p-5 text-center relative  max-h-[800px] overflow-auto">
 
     <div id="modal-detail-konten">
       {{-- Konten Di Load Di sini --}}
@@ -19,46 +17,44 @@
   </div>
 </div>
 
-<div
-  class="col-span-6 row-span-6 analitik-animated-box relative flex min-w-1/2 flex-col gap-6 w-full items-center rounded-[18px] p-[28px] overflow-auto bg-gradient-to-br from-[#F1F6F9] via-[#D6E4F0] to-[#9BA4B5] shadow-lg border border-[#D6E4F0]">
+<div class="col-span-6 row-span-6 relative flex min-w-1/2 flex-col gap-2 w-full">
 
   <div class="flex items-center gap-2 text-[#394867]">
     <i class="fa-solid fa-list"></i> Daftar Peminjaman
   </div>
 
   @foreach ($dataPeminjaman as $index => $peminjaman)
-    <div class="w-full py-1 flex justify-between border-b-[1px] font-medium">
-      <div>
-        <div class="font-semibold flex">
+    <div
+      class="w-full bg-white flex justify-between items-center font-medium border border-black/10 rounded-3xl px-4 py-3">
+      <div class="flex items-center">
+        <span
+          class="inline-flex items-center justify-center w-11 h-11 rounded-2xl bg-[#394867]/10 mr-3">
+          <i class="fa-solid fa-book-bookmark text-[#394867]"></i>
+        </span>
+        <div class="font-semibold flex flex-col text-xm">
           <div>
             {{ $peminjaman->anggota ? $peminjaman->anggota->nama_lengkap : ' Tidak di kenali ' }}
           </div>
 
-          <div class="border-l-1 ml-2 pl-2">
-            <div class="font-medium">{{ $peminjaman->detail_peminjaman->count() }} Buku
-            </div>
+          <div class="font-medium">{{ $peminjaman->tanggal_pinjam }}
           </div>
-        </div>
-        <div class="font-light">status : <span class="italic">{{ $peminjaman->status }}</span>
         </div>
       </div>
 
-      <div class="flex gap-4">
+      <div class="flex gap-1 items-center">
         <div>
           <button
             class="bg-[#394867] text-white px-3 py-1 rounded hover:bg-[#212A3E] transition duration-150 font-semibold flex items-center gap-1 h-fit btn-ubah-status"
             title="Ubah Status" type="button" data-id="{{ $peminjaman->id }}">
             <i class="fa-solid fa-arrows-rotate"></i>
-            Ubah Status
           </button>
         </div>
 
         <div>
           <button
-            class="bg-[#394867] text-white px-3 py-1 rounded hover:bg-[#212A3E] transition duration-150 font-semibold flex items-center gap-1 h-fit btn-detail-peminjaman"
+            class="text-[#394867] px-3 py-1 rounded hover:bg-[#212A3E] transition duration-150 font-semibold flex items-center gap-1 h-fit btn-detail-peminjaman"
             title="Detail Peminjaman" type="button" data-id="{{ $peminjaman->id }}">
-            <i class="fa-solid fa-circle-info"></i>
-            Detail
+            >
           </button>
         </div>
       </div>
@@ -129,6 +125,3 @@
     });
   });
 </script>
-
-{{-- Script Ubah Status --}}
-<script></script>

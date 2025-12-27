@@ -1,6 +1,6 @@
 <x-admin.dashboard>
 
-  <div class="w-full space-y-10 flex gap-5">
+  <div class="w-full space-y-10 flex gap-5 flex-col md:flex-row">
 
     {{-- Modal Konfirmasi Hapus --}}
     <div id="hapusModal"

@@ -17,7 +17,7 @@
             <i class="fa-solid fa-xmark"></i>
           </button>
           <div class="flex flex-col items-center gap-3">
-            <div class="rounded-full bg-red-100 text-red-600 p-4 shadow text-3xl mb-2">
+            <div class="rounded-full bg-red-100 text-red-700 p-4 shadow text-3xl mb-2">
               <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
             <div class="text-[18px] font-semibold text-[#394867] mb-2 text-center">Konfirmasi
@@ -30,7 +30,7 @@
               <button type="button" id="batalHapusBtn"
                 class="bg-[#F1F6F9] hover:bg-[#E9EDF3] text-[#394867] font-semibold px-5 py-2 rounded-lg transition">Batal</button>
               <button type="button" id="konfirmasiHapusBtn"
-                class="bg-red-500 hover:bg-red-600 text-white font-semibold px-5 py-2 rounded-lg transition flex items-center gap-2">
+                class="bg-red-700 hover:bg-red-600 text-white font-semibold px-5 py-2 rounded-lg transition flex items-center gap-2">
                 <span id="hapusBtnIcon"><i class="fa-solid fa-trash"></i></span>
                 <span id="hapusBtnText">Hapus</span>
                 <span id="hapusBtnLoader" class="hidden animate-spin"><i
@@ -96,7 +96,7 @@
                       <div class="flex justify-center gap-2">
                         {{-- Hapus --}}
                         <button type="button"
-                          class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition hapusKategoriBtn"
+                          class="bg-red-700 hover:bg-red-600 text-white px-3 py-1 rounded transition hapusKategoriBtn"
                           data-id="{{ $kategori->id }}"
                           data-route="{{ url('/admin/kategori/' . $kategori->id) }}"
                           title="Hapus Data">

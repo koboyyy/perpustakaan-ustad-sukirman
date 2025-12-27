@@ -1,6 +1,6 @@
 <div>
   {{-- title --}}
-  <div class="font-semibold text-2xl">Detail Peminjaman</div>
+  <div class="font-semibold text-xl md:text-2xl">Detail Peminjaman</div>
 
   {{-- konten --}}
   <div class="text-left mt-6">

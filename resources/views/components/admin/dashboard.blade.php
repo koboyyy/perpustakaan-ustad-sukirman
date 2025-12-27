@@ -10,7 +10,6 @@
 
   <!-- Font Awesome CDN -->
   <script src="https://kit.fontawesome.com/23275395bd.js" crossorigin="anonymous"></script>
-
 </head>
 
 <body class="bg-[#F1F6F9] font-poppins text-[16px]">
@@ -29,9 +28,9 @@
       </div>
 
       {{-- FOOTER --}}
-      <footer class="text-[#212A3E] text-xs sm:text-sm bg-[#F1F6F9] text-center px-2 py-2">
+      {{-- <footer class="text-[#212A3E] text-xs sm:text-sm bg-[#F1F6F9] text-center px-2 py-2">
         <div>&copy; Perpustakaan Ustad Sukirman 2025</div>
-      </footer>
+      </footer> --}}
       <div class="h-[64px] w-full lg:hidden block"></div>
     </main>
   </section>

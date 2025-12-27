@@ -1,6 +1,6 @@
 <x-admin.dashboard>
 
-  <div class="w-full flex gap-4 relative">
+  <div class="w-full flex gap-4 relative flex-col xl:flex-row">
 
     @if (session()->has('error-edit'))
       <div class="bg-pink-300 p-5 text-2xl font-bold">
@@ -16,7 +16,7 @@
 
       <!-- Tombol Tambah Penerbit -->
       <button
-        class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-lg transition"
+        class="bg-purple-700 hover:bg-purple-800 text-white font-semibold py-2 px-6 rounded-lg transition ml-2"
         onclick="document.querySelector('.form-tambah-penerbit').classList.remove('hidden')"
         type="button">
         <i class="fa-solid fa-building mr-2"></i> Tambah Penerbit
@@ -24,7 +24,7 @@
 
       <!-- Tombol Tambah Rak -->
       <button
-        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition ml-2"
+        class="bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-6 rounded-lg transition ml-2"
         onclick="document.querySelector('.form-tambah-rak').classList.remove('hidden')"
         type="button">
         <i class="fa-solid fa-layer-group mr-2"></i> Tambah Rak
@@ -32,7 +32,7 @@
 
       <!-- Tombol Tambah Kategori -->
       <button
-        class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg transition ml-2"
+        class="bg-green-700 hover:bg-green-800 text-white font-semibold py-2 px-6 rounded-lg transition ml-2"
         onclick="document.querySelector('.form-data').classList.remove('hidden')" type="button">
         <i class="fa-solid fa-tags mr-2"></i> Tambah Kategori
       </button>
@@ -92,7 +92,7 @@
         {{-- Field Pencarian --}}
         <div class="flex gap-3 items-center w-full">
           <form action="{{ route('pencarian-dashboard-buku') }}" method="GET"
-            class="w-full h-12 flex items-center rounded-lg shadow border border-[#9BA4B5] bg-white px-1"
+            class="w-full h-12 flex items-center rounded-lg border border-black/10 bg-white px-1"
             autocomplete="off">
             {{-- Input --}}
             <input type="text" name="pencarian" placeholder="Cari buku..." id="pencarian"
@@ -100,7 +100,7 @@
               class="w-full h-full px-4 outline-none text-base text-[#212A3E] bg-transparent" />
             {{-- Tombol --}}
             <button
-              class="w-10 h-10 rounded-lg bg-[#394867] hover:bg-[#212A3E] flex items-center justify-center transition-colors text-white"
+              class="w-10 h-10 rounded-lg bg-[#394867] hover:bg-[#212A3E] flex items-center justify-center transition-colors text-white shrink-0"
               type="submit">
               <i class="fa-solid fa-magnifying-glass"></i>
             </button>
@@ -109,7 +109,7 @@
 
         {{-- Hasil Pencarian --}}
         <div id="kotak-saran"
-          class="bg-white z-50 border border-[#9BA4B5] shadow rounded-xl w-full absolute top-14 py-2 hidden">
+          class="bg-white z-50 border border-black/10 shadow rounded-xl w-full absolute top-14 py-2 hidden">
           {{-- Konten Dinamis --}}
         </div>
       </div>
@@ -296,19 +296,19 @@
                       <div class="flex justify-center gap-2">
                         {{-- Detail --}}
                         <button type="button"
-                          class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded transition detailBukuBtn"
+                          class="bg-green-700 hover:bg-green-800 text-white px-3 py-1 rounded transition detailBukuBtn"
                           data-id="{{ $buku->id }}" title="Lihat Detail">
                           <i class="fa-solid fa-circle-info"></i>
                         </button>
                         {{-- Edit --}}
                         <button type="button"
-                          class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition editBukuBtn"
+                          class="bg-blue-700 hover:bg-blue-800 text-white px-3 py-1 rounded transition editBukuBtn"
                           data-id="{{ $buku->id }}" title="Edit Data">
                           <i class="fa-solid fa-pen"></i>
                         </button>
                         {{-- Hapus --}}
                         <button type="button"
-                          class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition hapusBukuBtn"
+                          class="bg-red-700 hover:bg-red-800 text-white px-3 py-1 rounded transition hapusBukuBtn"
                           data-id="{{ $buku->id }}"
                           data-route="{{ url('/admin/buku/' . $buku->id) }}" title="Hapus Data">
                           <i class="fa-solid fa-trash"></i>

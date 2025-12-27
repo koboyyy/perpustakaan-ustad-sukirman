@@ -1,4 +1,4 @@
-<section class="col-span-7 z-100 sticky top-0">
+<section class="col-span-7 z-100 sticky top-0 w-full">
   <div
     class="bg-white h-[69px] shadow-[0px_4px_4px_0px_rgba(57,72,103,0.08)] w-full flex justify-between items-center pl-[10px] pr-[10px] sm:pl-[19px] sm:pr-[24px] relative z-100">
 
@@ -22,7 +22,17 @@
       </div>
     </div>
 
-    <div class="hidden md:inline-block">
+    <div class="hidden md:flex">
+      {{-- Homepage --}}
+      <form method="get" action="{{ route('home') }}" class="inline-block">
+        @csrf
+        <button type="submit"
+          class="px-4 py-2 rounded-lg bg-[rgb(255,109,31)] text-[#F1F6F9] font-semibold shadow-md hover:bg-[#3170ad] transition-colors duration-300 flex items-center gap-1 ml-3">
+          <i class="fa-solid fa-sign-out-alt mr-2"></i>
+          <span class="xs:inline">Homepage</span>
+        </button>
+      </form>
+
       {{-- Logout --}}
       <form method="POST" action="{{ route('logout') }}" class="inline-block">
         @csrf
@@ -33,20 +43,11 @@
         </button>
       </form>
 
-      {{-- Homepage --}}
-      <form method="get" action="{{ route('home') }}" class="inline-block">
-        @csrf
-        <button type="submit"
-          class="px-4 py-2 rounded-lg bg-[#394867] text-[#F1F6F9] font-semibold shadow-md hover:bg-[#212A3E] transition-colors duration-300 flex items-center gap-1 ml-3">
-          <i class="fa-solid fa-sign-out-alt mr-2"></i>
-          <span class="xs:inline">Homepage</span>
-        </button>
-      </form>
     </div>
 
     {{-- Hamburger Menu --}}
     <button onclick="showMobileNavDashboard()" id="hamburger-btn"
-      class="text-[#212A3E] flex sm:hidden">
+      class="text-[#212A3E] flex md:hidden">
       <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
           d="M4 6h16M4 12h16M4 18h16" />
@@ -57,7 +58,7 @@
 
     {{-- mobileNav --}}
     <div id="mobileNav"
-      class="fixed inset-0 top-0 left-0 w-full h-full z-50 bg-[#F1F6F9] p-6 flex flex-col gap-4 sm:hidden transition-transform duration-300 translate-x-0"
+      class="fixed inset-0 top-0 left-0 w-full h-full z-50 bg-[#F1F6F9] p-6 flex flex-col gap-4 md:hidden transition-transform duration-300 translate-x-0"
       style="display: none;">
       {{-- Header --}}
       <div class="flex justify-between items-center mb-6">
