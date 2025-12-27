@@ -9,7 +9,7 @@
     <!-- Left: Logo -->
     <a href="{{ route('home') }}" class="flex items-center gap-3 min-w-fit z-20">
       <img src="{{ asset('img/logo.png') }}" alt="logo"
-        class="w-9 h-9 sm:w-12 sm:h-12 rounded-md shadow p-1 bg-[#fff] border border-[rgb(251,251,251)]">
+        class="w-9 h-9 sm:w-12 sm:h-12 rounded-md shadow p-1 bg-white border border-[rgb(251,251,251)]">
       <div class="leading-tight">
         <span class="font-poppins font-bold text-[18px] text-[rgb(251,251,251)]">PERPUSTAKAAN</span>
         <span class="block font-medium text-[12px] text-[rgb(251,251,251)]">
@@ -23,21 +23,21 @@
       class="hidden lg:flex absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 gap-6 items-center text-[16px] h-full z-10">
       <li>
         <a href="{{ route('home') }}"
-          class="transition-colors duration-200 font-bold px-3 py-2 rounded hover:text-[#394867] hover:text-[rgb(255,109,31)] @if (request()->routeIs('home')) text-[#394867] bg-[#F1F6F9] @endif">HOME</a>
+          class="transition-colors duration-200 font-bold px-3 py-2 rounded hover:text-[rgb(255,109,31)] @if (request()->routeIs('home')) text-[#394867] bg-[#F1F6F9] @endif">HOME</a>
       </li>
       <li>
         <a href="/profil"
-          class="transition-colors duration-200 font-bold px-3 py-2 rounded hover:text-[#394867] hover:text-[rgb(255,109,31)] {{ request()->is('profil') ? 'text-[#394867] bg-[#F1F6F9]' : '' }}">PROFIL</a>
+          class="transition-colors duration-200 font-bold px-3 py-2 rounded  hover:text-[rgb(255,109,31)] {{ request()->is('profil') ? 'text-[#394867] bg-[#F1F6F9]' : '' }}">PROFIL</a>
       </li>
       <li>
         @guest
           <a href="{{ route('login') }}"
-            class="transition-colors duration-200 font-bold px-3 py-2 rounded hover:text-[#394867] hover:text-[rgb(255,109,31)]">KOLEKSI
+            class="transition-colors duration-200 font-bold px-3 py-2 rounded  hover:text-[rgb(255,109,31)]">KOLEKSI
             BUKU</a>
         @endguest
         @auth
           <a href="/koleksi-buku"
-            class="transition-colors duration-200 font-bold px-3 py-2 rounded hover:text-[#394867] hover:text-[rgb(255,109,31)] {{ request()->is('koleksi-buku') ? 'text-[#394867] bg-[#F1F6F9]' : '' }}">KOLEKSI
+            class="transition-colors duration-200 font-bold px-3 py-2 rounded hover:text-[rgb(255,109,31)] {{ request()->is('koleksi-buku') ? 'text-[#394867] bg-[#F1F6F9]' : '' }}">KOLEKSI
             BUKU</a>
         @endauth
       </li>
@@ -62,7 +62,7 @@
 
       @can('admin')
         <a href="{{ route('analitik') }}"
-          class="px-4 py-2 rounded-md bg-[rgb(255,109,31)] text-white font-semibold shadow hover:bg-[#3170ad] transition flex items-center gap-2 hidden lg:inline-block">
+          class="px-4 py-2 rounded-md bg-[rgb(255,109,31)] text-white font-semibold shadow hover:bg-[#3170ad] transition lg:flex items-center gap-2 hidden">
           <i class="fa-solid fa-gauge"></i>
           <span>Dashboard Admin</span>
         </a>
@@ -98,7 +98,7 @@
 
     <!-- Mobile menu -->
     <div id="mobile-menu"
-      class="fixed top-0 left-0 w-full h-full z-[999] bg-[#F1F6F9] bg-opacity-98 backdrop-blur-xl transform -translate-x-full transition-transform duration-300 md:hidden flex flex-col"
+      class="fixed top-0 left-0 w-full h-full z-999 bg-[#F1F6F9] bg-opacity-98 backdrop-blur-xl transform -translate-x-full transition-transform duration-300 md:hidden flex flex-col"
       aria-modal="true" tabindex="-1" style="display: none;">
       <div
         class="flex items-center justify-between px-6 py-2 border-b border-[#E0E8EF] shadow-sm bg-[#212A3E]">
