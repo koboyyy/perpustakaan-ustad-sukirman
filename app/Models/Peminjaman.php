@@ -14,22 +14,21 @@ class Peminjaman extends Model
 
     protected $guarded = ['id'];
 
-    // fk id_peminjaman
+    // Relasi ke detail peminjaman (fk id_peminjaman)
     public function detail_peminjaman()
     {
         return $this->hasMany(DetailPeminjaman::class, 'id_peminjaman');
     }
 
-    // terhubung ke table anggota dengan fk id_anggota
+    // Relasi ke anggota (fk id_anggota)
     public function anggota()
     {
         return $this->belongsTo(Anggota::class, 'id_anggota');
     }
 
-    // terhubung ke table admin dengan fk id_admin
-    public function admin()
+    // Relasi satu peminjaman dimiliki oleh tabel pengembalian (satu-satu)
+    public function pengembalian()
     {
-        return $this->belongsTo(Admin::class, 'id_admin');
+        return $this->hasOne(Pengembalian::class, 'id_peminjaman');
     }
 }
-

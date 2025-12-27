@@ -15,7 +15,6 @@ return new class extends Migration {
             $table->foreignId('id_admin');
             $table->foreignId('id_peminjaman');
             $table->date('tanggal_kembali');
-            $table->integer('denda');
             $table->timestamps();
         });
     }

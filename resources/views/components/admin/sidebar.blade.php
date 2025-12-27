@@ -18,6 +18,10 @@
       <i class="fa-solid fa-arrow-right-arrow-left text-xl"></i>
     </x-admin.nav-link-admin>
 
+    <x-admin.nav-link-admin href="/dashboard/pengembalian" :active="collect(request()->segments())->last() === 'pengembalian'" title="Pengembalian">
+      <i class="fa-solid fa-arrow-rotate-left text-xl"></i>
+    </x-admin.nav-link-admin>
+
     {{-- Tambahan: Penerbit --}}
     <x-admin.nav-link-admin href="/dashboard/penerbit" :active="collect(request()->segments())->last() === 'penerbit'" title="Penerbit">
       <i class="fa-solid fa-building text-xl"></i>

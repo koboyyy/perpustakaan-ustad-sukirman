@@ -24,23 +24,6 @@
     </div>
 
     <div class="mb-3">
-      <span class="font-semibold">Denda:</span>
-      <span id="modal-denda">
-        @php
-          $today = \Carbon\Carbon::now()->format('Y-m-d');
-
-          $jatuh_tempo = $detailPeminjaman->created_at->addDays(7);
-          $denda = 0;
-          if (\Carbon\Carbon::now()->greaterThan($jatuh_tempo)) {
-              $hari_terlambat = \Carbon\Carbon::now()->diffInDays($jatuh_tempo);
-              $denda = $hari_terlambat * 1000;
-          }
-
-          echo 'Rp. ' . $denda;
-        @endphp
-      </span>
-    </div>
-    <div class="mb-3">
       <span class="font-semibold">Buku Dipinjam:</span>
       <ul id="modal-buku-dipinjam" class="list-disc pl-6">
         @if (!empty($detailPeminjaman->detail_peminjaman) && count($detailPeminjaman->detail_peminjaman))

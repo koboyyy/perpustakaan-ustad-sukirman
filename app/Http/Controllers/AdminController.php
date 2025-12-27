@@ -75,7 +75,12 @@ class AdminController extends Controller
 
     public function viewPengembalian(Request $request)
     {
-        return view('dashboard.pengembalian');
+        // Ambil data pengembalian beserta relasi peminjaman dan id_peminjaman (fk)
+        $dataPengembalian = Pengembalian::with('peminjaman')->get();
+
+        return view('dashboard.pengembalian', [
+            'dataPengembalian' => $dataPengembalian
+        ]);
     }
 
     public function pencarianBuku(Request $request)

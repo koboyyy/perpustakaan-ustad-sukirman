@@ -23,43 +23,58 @@
     <i class="fa-solid fa-list"></i> Daftar Peminjaman
   </div>
 
+  @php
+    // Hitung jumlah peminjaman dengan status 'Dipinjam'
+    $jumlahDipinjam = $dataPeminjaman
+        ->filter(function ($item) {
+            return strtolower($item->status ?? '') === 'dipinjam';
+        })
+        ->count();
+  @endphp
+
+  @if ($jumlahDipinjam === 0)
+    <div class="text-gray-400 py-4 text-center">Belum Ada Peminjaman</div>
+  @endif
+
   @foreach ($dataPeminjaman as $index => $peminjaman)
-    <div
-      class="w-full bg-white flex justify-between items-center font-medium border border-black/10 rounded-3xl px-4 py-3">
-      <div class="flex items-center">
-        <span
-          class="inline-flex items-center justify-center w-11 h-11 rounded-2xl bg-[#394867]/10 mr-3">
-          <i class="fa-solid fa-book-bookmark text-[#394867]"></i>
-        </span>
-        <div class="font-semibold flex flex-col text-xm">
+    @if (strtolower($peminjaman->status ?? '') === 'dipinjam')
+      <div
+        class="w-full bg-white flex justify-between items-center font-medium border border-black/10 rounded-3xl px-4 py-3">
+        <div class="flex items-center">
+          <span
+            class="inline-flex items-center justify-center w-11 h-11 rounded-2xl bg-[#394867]/10 mr-3">
+            <i class="fa-solid fa-book-bookmark text-[#394867]"></i>
+          </span>
+          <div class="font-semibold flex flex-col text-xm">
+            <div>
+              {{ $peminjaman->anggota ? $peminjaman->anggota->nama_lengkap : ' Tidak di kenali ' }}
+            </div>
+
+            <div class="font-medium">{{ $peminjaman->tanggal_pinjam }}
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-1 items-center">
           <div>
-            {{ $peminjaman->anggota ? $peminjaman->anggota->nama_lengkap : ' Tidak di kenali ' }}
+            <button
+              class="bg-[#394867] text-white px-3 py-1 rounded hover:bg-[#212A3E] transition duration-150 font-semibold flex items-center gap-1 h-fit btn-ubah-status"
+              title="Ubah Status" type="button" data-id="{{ $peminjaman->id }}">
+              <i class="fa-solid fa-arrows-rotate"></i>
+            </button>
           </div>
 
-          <div class="font-medium">{{ $peminjaman->tanggal_pinjam }}
+          <div>
+            <button
+              class="text-[#394867] px-3 py-1 rounded hover:bg-[#212A3E] transition duration-150 font-semibold flex items-center gap-1 h-fit btn-detail-peminjaman"
+              title="Detail Peminjaman" type="button" data-id="{{ $peminjaman->id }}">
+              >
+            </button>
           </div>
         </div>
+
       </div>
-
-      <div class="flex gap-1 items-center">
-        <div>
-          <button
-            class="bg-[#394867] text-white px-3 py-1 rounded hover:bg-[#212A3E] transition duration-150 font-semibold flex items-center gap-1 h-fit btn-ubah-status"
-            title="Ubah Status" type="button" data-id="{{ $peminjaman->id }}">
-            <i class="fa-solid fa-arrows-rotate"></i>
-          </button>
-        </div>
-
-        <div>
-          <button
-            class="text-[#394867] px-3 py-1 rounded hover:bg-[#212A3E] transition duration-150 font-semibold flex items-center gap-1 h-fit btn-detail-peminjaman"
-            title="Detail Peminjaman" type="button" data-id="{{ $peminjaman->id }}">
-            >
-          </button>
-        </div>
-      </div>
-
-    </div>
+    @endif
   @endforeach
 
   {{ $dataPeminjaman->links() }}

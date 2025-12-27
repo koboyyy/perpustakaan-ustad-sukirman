@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DetailPeminjaman;
 use App\Models\Peminjaman;
+use App\Models\Pengembalian;
 use Illuminate\Http\Request;
-use PhpParser\Node\Expr\FuncCall;
+use App\Models\DetailPeminjaman;
+use Illuminate\Support\Facades\Auth; // Tambahkan ini untuk memastikan Auth dapat digunakan
 
 class PeminjamanController extends Controller
 {
@@ -17,9 +18,6 @@ class PeminjamanController extends Controller
             'anggota',
             'detail_peminjaman',
         ])->findOrFail($id);
-
-
-        // $dataPeminjaman = Peminjaman::with('anggota', 'detail_peminjaman')->where('id', $id)->get();
 
         // Render view detail buku dan kembalikan sebagai HTML
         return view('components.admin.detail-peminjaman', [
@@ -38,7 +36,8 @@ class PeminjamanController extends Controller
 
         Peminjaman::create([
             'id_anggota' => $dataPeminjaman['id_anggota'],
-            'id_admin' => 1,
+            // Auth::user()->id dipakai jika ingin mengambil id admin yang sedang login
+            'id_admin' => Auth::check() ? Auth::user()->id : 1, // fallback ke 1 jika belum login
             'tanggal_pinjam' => $dataPeminjaman['tanggal_peminjaman']
         ]);
 
@@ -65,13 +64,24 @@ class PeminjamanController extends Controller
     public function update($id)
     {
         $peminjaman = Peminjaman::findOrFail($id);
-        // Contoh: Toggle status antara "dipinjam" dan "dikembalikan"
+
+        // Cek jika status sebelumnya adalah 'dipinjam', maka lakukan pengembalian
         if ($peminjaman->status === 'dipinjam') {
             $peminjaman->status = 'dikembalikan';
+            $peminjaman->save();
+
+            // Tambahkan data pengembalian ke tabel pengembalian
+            // Pastikan Auth sudah diimport dan sudah login, supaya method user() dikenali
+            Pengembalian::create([
+                'id_admin' => Auth::check() ? Auth::user()->id : 1, // fallback ke 1 jika belum login
+                'id_peminjaman' => $peminjaman->id,
+                'tanggal_kembali' => now()->toDateString(),
+            ]);
         } else {
+            // Jika ingin membalik status jadi dipinjam lagi (logikanya mungkin perlu dibatasi di aplikasi nyata)
             $peminjaman->status = 'dipinjam';
+            $peminjaman->save();
         }
-        $peminjaman->save();
 
         return response()->json(['success' => true, 'status' => $peminjaman->status]);
     }
