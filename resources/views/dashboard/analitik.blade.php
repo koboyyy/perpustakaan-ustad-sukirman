@@ -113,16 +113,6 @@
                 <canvas id="pie-distribusi-kategori-buku"></canvas>
               </div>
             </div>
-
-            <div class="flex items-center flex-col h-full gap-2">
-              <div class="flex items-center gap-2 text-[#394867]">
-                <i class="fa-solid fa-chart-pie"></i> Trend Peminjaman
-              </div>
-
-              <div class="h-[250px]">
-                <canvas id="trend-peminjaman"></canvas>
-              </div>
-            </div>
           </div>
         </div>
 
