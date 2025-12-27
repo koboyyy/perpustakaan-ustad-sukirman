@@ -3,7 +3,7 @@
     <div class="w-full md:w-1/3 flex flex-col items-center mb-4 md:mb-0">
       @if ($buku->cover)
         <img src="{{ asset('storage/' . $buku->cover) }}" alt="Cover Buku"
-          class="object-cover rounded-xl border shadow w-full max-w-[200px] max-h-[290px] mb-2 bg-white aspect-[2/3]" />
+          class="object-cover rounded-xl border shadow w-full max-w-[200px] max-h-[290px] mb-2 bg-white aspect-2/3" />
       @else
         <div
           class="w-full max-w-[200px] h-[290px] flex items-center justify-center rounded-xl border bg-gray-100 mb-2">

@@ -25,7 +25,7 @@
     <div
       class="w-full sm:w-64 md:w-72 lg:w-80 bg-white/80 backdrop-blur-md rounded-3xl shadow-lg border-b-4 border-[#638ECB] dark:border-[#9BA4B5] p-5 sm:p-7 flex flex-col items-center group transition-all duration-300 hover:-translate-y-3 hover:scale-105 hover:shadow-[0_8px_48px_0_rgba(75,110,182,0.18)]">
       <div
-        class="text-3xl sm:text-5xl w-16 h-16 sm:w-20 sm:h-20 flex justify-center items-center rounded-2xl mb-2 sm:mb-3 group-hover:bg-gradient-to-tr group-hover:from-[#394867] group-hover:to-[#638ECB] group-hover:text-white bg-[#F1F6F9] text-[#394867] shadow-inner transition-all duration-300">
+        class="text-3xl sm:text-5xl w-16 h-16 sm:w-20 sm:h-20 flex justify-center items-center rounded-2xl mb-2 sm:mb-3 group-hover:bg-linear-to-tr group-hover:from-[#394867] group-hover:to-[#638ECB] group-hover:text-white bg-[#F1F6F9] text-[#394867] shadow-inner transition-all duration-300">
         <i class="fa-solid fa-building-circle-arrow-right"></i>
       </div>
       <div class="font-semibold text-base sm:text-xl text-[#212A3E] group-hover:text-[#638ECB]">
@@ -37,7 +37,7 @@
     <div
       class="w-full sm:w-64 md:w-72 lg:w-80 bg-white/80 backdrop-blur-md rounded-3xl shadow-lg border-b-4 border-[#638ECB] dark:border-[#9BA4B5] p-5 sm:p-7 flex flex-col items-center group transition-all duration-300 hover:-translate-y-3 hover:scale-105 hover:shadow-[0_8px_48px_0_rgba(75,110,182,0.18)]">
       <div
-        class="text-3xl sm:text-5xl w-16 h-16 sm:w-20 sm:h-20 flex justify-center items-center rounded-2xl mb-2 sm:mb-3 group-hover:bg-gradient-to-tr group-hover:from-[#394867] group-hover:to-[#638ECB] group-hover:text-white bg-[#F1F6F9] text-[#394867] shadow-inner transition-all duration-300">
+        class="text-3xl sm:text-5xl w-16 h-16 sm:w-20 sm:h-20 flex justify-center items-center rounded-2xl mb-2 sm:mb-3 group-hover:bg-linear-to-tr group-hover:from-[#394867] group-hover:to-[#638ECB] group-hover:text-white bg-[#F1F6F9] text-[#394867] shadow-inner transition-all duration-300">
         <i class="fa-solid fa-asterisk"></i>
       </div>
       <div class="font-semibold text-base sm:text-xl text-[#212A3E] group-hover:text-[#638ECB]">
@@ -49,7 +49,7 @@
     <div
       class="w-full sm:w-64 md:w-72 lg:w-80 bg-white/80 backdrop-blur-md rounded-3xl shadow-lg border-b-4 border-[#638ECB] dark:border-[#9BA4B5] p-5 sm:p-7 flex flex-col items-center group transition-all duration-300 hover:-translate-y-3 hover:scale-105 hover:shadow-[0_8px_48px_0_rgba(75,110,182,0.18)]">
       <div
-        class="text-3xl sm:text-5xl w-16 h-16 sm:w-20 sm:h-20 flex justify-center items-center rounded-2xl mb-2 sm:mb-3 group-hover:bg-gradient-to-tr group-hover:from-[#394867] group-hover:to-[#638ECB] group-hover:text-white bg-[#F1F6F9] text-[#394867] shadow-inner transition-all duration-300">
+        class="text-3xl sm:text-5xl w-16 h-16 sm:w-20 sm:h-20 flex justify-center items-center rounded-2xl mb-2 sm:mb-3 group-hover:bg-linear-to-tr group-hover:from-[#394867] group-hover:to-[#638ECB] group-hover:text-white bg-[#F1F6F9] text-[#394867] shadow-inner transition-all duration-300">
         <i class="fa-solid fa-book-atlas"></i>
       </div>
       <div class="font-semibold text-base sm:text-xl text-[#212A3E] group-hover:text-[#638ECB]">

@@ -75,7 +75,7 @@
                   class="w-full rounded-xl overflow-hidden shadow hover:shadow-lg transition group p-1.5 bg-white
                   sm:p-2 md:rounded-2xl">
                   {{-- Cover Buku --}}
-                  <div class="rounded-lg md:rounded-xl overflow-hidden relative aspect-[3/4]">
+                  <div class="rounded-lg md:rounded-xl overflow-hidden relative aspect-3/4">
                     <div
                       class="absolute top-2 right-2 bg-[#F1F6F9] px-2 py-0.5 rounded-full text-xs md:text-sm lg:text-base">
                       <div class="text-[#212A3E]">

@@ -13,7 +13,7 @@
 
   {{-- Gambar Slider lg --}}
   <div
-    class="w-130 lg:w-180 xl:w-220 h-[220px] lg:h-[250px] absolute bottom-14 right-12 lg:right-3 2xl:hidden rounded-2xl md:rounded-none md:rounded-l-2xl flex flex-col overflow-hidden hidden md:inline-block">
+    class="w-130 lg:w-180 xl:w-220 h-[220px] lg:h-[250px] absolute bottom-14 right-12 lg:right-3 2xl:hidden rounded-2xl md:rounded-none md:rounded-l-2xl md:flex flex-col overflow-hidden hidden">
     <div class="flex overflow-hidden gap-4 h-full" id="carousel-buku"
       style="scroll-behavior: smooth;">
       @foreach ($dataBuku->take(10) as $buku)
@@ -81,42 +81,6 @@
 
   {{-- Main --}}
   <div class="p-5 px-10 z-10 text-[rgb(251,251,251)] 2xl:text-black space-y-10">
-    {{-- bar navigasi --}}
-    <div id="navbar"
-      class="bg-white w-full h-[60px] px-2 rounded-full flex justify-evenly items-center border border-black/10 max-w-300 mx-auto hidden">
-
-      {{-- logo --}}
-      <div
-        class="flex items-center w-11 h-11 rounded-full shadow justify-center mr-2 border border-black/10">
-        <a href="{{ route('home') }}" class="flex items-center gap-2 justify-center">
-          <img src="{{ asset('img/logo.png') }}" alt="logo" class="w-8 h-8">
-        </a>
-      </div>
-
-      <a class="transition-all duration-300 font-bold py-2 px-2 hover:text-[#394867] rounded-full grow justify-center flex {{ request()->is('/') ? 'active' : '' }}"
-        href="{{ route('home') }}">Home</a>
-      <a class="transition-all duration-300 font-bold py-2 px-2 hover:text-[#394867] rounded-full grow justify-center flex {{ request()->is('profil') ? 'active' : '' }}"
-        href="/profil">Profil</a>
-      @guest
-        <a class="transition-all duration-300 font-bold py-2 px-2 hover:text-[#394867] rounded-full grow justify-center flex {{ request()->is('login') ? 'active' : '' }}"
-          href="/login">Koleksi Buku</a>
-      @endguest
-      @auth
-        <a class="transition-all duration-300 font-bold py-2 px-2 hover:text-[#394867] rounded-full grow justify-center flex {{ request()->is('koleksi-buku') ? 'active' : '' }}"
-          href="/koleksi-buku">Koleksi Buku</a>
-      @endauth
-
-      <style>
-        #navbar a {
-          transition: all 300ms ease;
-        }
-
-        .active {
-          background: black;
-          color: white;
-        }
-      </style>
-    </div>
 
     {{-- Title --}}
     <div
@@ -186,7 +150,7 @@
 
     {{-- Gambar Slider --}}
     <div id="gambar-slider"
-      class="w-150 h-[225px] absolute bottom-17 right-145 rounded-2xl flex flex-col overflow-hidden hidden 2xl:inline-block">
+      class="w-150 h-[225px] absolute bottom-17 right-145 rounded-2xl 2xl:flex flex-col overflow-hidden hidden">
 
       <div class="flex overflow-hidden gap-4 h-full" id="carousel-buku-2"
         style="scroll-behavior: smooth;">

@@ -1,5 +1,5 @@
 <div
-  class="bg-gradient-to-br from-[#EEF3F7] via-[#B0C4D9]/60 to-[#9BA4B5]/40 py-10 sm:py-14 md:py-16 relative overflow-hidden">
+  class="bg-linear-to-br from-[#EEF3F7] via-[#B0C4D9]/60 to-[#9BA4B5]/40 py-10 sm:py-14 md:py-16 relative overflow-hidden">
   <!-- Dekorasi Bulat, menyatu tema -->
   <div
     class="absolute left-0 -top-16 w-52 h-52 sm:w-72 sm:h-72 bg-[#9BA4B5] opacity-20 rounded-full blur-3xl z-0">
@@ -19,7 +19,7 @@
           <img src="https://picsum.photos/seed/book1/500/700" alt="Cover Buku 1"
             class="w-[130px] xs:w-[150px] sm:w-[170px] md:w-[200px] h-[180px] xs:h-[200px] sm:h-[240px] md:h-[280px] object-cover rounded-lg xs:rounded-xl mb-4 xs:mb-5 shadow-md group-hover:ring-4 group-hover:ring-[#9BA4B5]/40 transition-all duration-300" />
           <span
-            class="absolute -top-3 xs:-top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#394867] to-[#638ECB] text-white px-2 xs:px-3 py-0.5 xs:py-1 rounded-full text-xs font-bold drop-shadow-lg shadow-lg">Baru!</span>
+            class="absolute -top-3 xs:-top-4 left-1/2 -translate-x-1/2 bg-linear-to-r from-[#394867] to-[#638ECB] text-white px-2 xs:px-3 py-0.5 xs:py-1 rounded-full text-xs font-bold drop-shadow-lg shadow-lg">Baru!</span>
         </div>
         <div
           class="font-bold text-base xs:text-lg sm:text-xl text-[#394867] mb-1 text-center group-hover:text-[#638ECB] transition-colors duration-300">
@@ -38,7 +38,7 @@
           <img src="https://picsum.photos/seed/book2/500/700" alt="Cover Buku 2"
             class="w-[130px] xs:w-[150px] sm:w-[170px] md:w-[200px] h-[180px] xs:h-[200px] sm:h-[240px] md:h-[280px] object-cover rounded-lg xs:rounded-xl mb-4 xs:mb-5 shadow-md group-hover:ring-4 group-hover:ring-[#9BA4B5]/40 transition-all duration-300" />
           <span
-            class="absolute -top-3 xs:-top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#394867] to-[#638ECB] text-white px-2 xs:px-3 py-0.5 xs:py-1 rounded-full text-xs font-bold drop-shadow-lg shadow-lg">Baru!</span>
+            class="absolute -top-3 xs:-top-4 left-1/2 -translate-x-1/2 bg-linear-to-r from-[#394867] to-[#638ECB] text-white px-2 xs:px-3 py-0.5 xs:py-1 rounded-full text-xs font-bold drop-shadow-lg shadow-lg">Baru!</span>
         </div>
         <div
           class="font-bold text-base xs:text-lg sm:text-xl text-[#394867] mb-1 text-center group-hover:text-[#638ECB] transition-colors duration-300">
@@ -57,7 +57,7 @@
           <img src="https://picsum.photos/seed/book3/500/700" alt="Cover Buku 3"
             class="w-[130px] xs:w-[150px] sm:w-[170px] md:w-[200px] h-[180px] xs:h-[200px] sm:h-[240px] md:h-[280px] object-cover rounded-lg xs:rounded-xl mb-4 xs:mb-5 shadow-md group-hover:ring-4 group-hover:ring-[#9BA4B5]/40 transition-all duration-300" />
           <span
-            class="absolute -top-3 xs:-top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#394867] to-[#638ECB] text-white px-2 xs:px-3 py-0.5 xs:py-1 rounded-full text-xs font-bold drop-shadow-lg shadow-lg">Baru!</span>
+            class="absolute -top-3 xs:-top-4 left-1/2 -translate-x-1/2 bg-linear-to-r from-[#394867] to-[#638ECB] text-white px-2 xs:px-3 py-0.5 xs:py-1 rounded-full text-xs font-bold drop-shadow-lg shadow-lg">Baru!</span>
         </div>
         <div
           class="font-bold text-base xs:text-lg sm:text-xl text-[#394867] mb-1 text-center group-hover:text-[#638ECB] transition-colors duration-300">
@@ -72,7 +72,7 @@
     </div>
     <div class="flex justify-center mt-8 sm:mt-10 md:mt-12">
       <a href="/koleksi-buku"
-        class="inline-block font-semibold bg-gradient-to-r from-[#394867] to-[#638ECB] text-white px-6 xs:px-8 py-2 xs:py-3 rounded-full shadow hover:scale-105 hover:from-[#212A3E] hover:to-[#394867] transition-all duration-300 text-base xs:text-lg">
+        class="inline-block font-semibold bg-linear-to-r from-[#394867] to-[#638ECB] text-white px-6 xs:px-8 py-2 xs:py-3 rounded-full shadow hover:scale-105 hover:from-[#212A3E] hover:to-[#394867] transition-all duration-300 text-base xs:text-lg">
         Lihat Semua Buku
         <i class="fa-solid fa-arrow-right ml-2"></i>
       </a>

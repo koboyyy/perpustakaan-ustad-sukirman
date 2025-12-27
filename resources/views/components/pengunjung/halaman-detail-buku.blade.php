@@ -23,8 +23,7 @@
       </div>
 
       {{-- Judul, Pengarang, Penerbit --}}
-      <div
-        class="border-b border-black/10 flex flex-col justify-between w-1/3 hidden md:inline-block relative">
+      <div class="border-b border-black/10 md:flex flex-col justify-between w-1/3 hidden relative">
         <div class="space-y-5">
           <div class="font-semibold text-[clamp(22px,5vw,48px)]">
             {{ $dataBuku->judul_buku }}
