@@ -1,47 +1,6 @@
 <x-admin.dashboard>
 
   <div class="w-full space-y-10 flex gap-5 flex-col md:flex-row">
-
-    {{-- Modal Konfirmasi Hapus --}}
-    <div id="hapusModal"
-      class="fixed inset-0 z-9999 bg-black/40 flex items-center justify-center hidden">
-      <div
-        class="bg-white w-full max-w-sm rounded-2xl shadow-lg relative flex flex-col px-6 py-8 animate-fade-in">
-        <button id="closeHapusModal"
-          class="absolute top-3 right-4 text-gray-400 hover:text-gray-900 text-lg" type="button">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-        <div class="flex flex-col items-center gap-3">
-          <div class="rounded-full bg-red-100 text-red-600 p-4 shadow text-3xl mb-2">
-            <i class="fa-solid fa-triangle-exclamation"></i>
-          </div>
-          <div class="text-[18px] font-semibold text-[#394867] mb-2 text-center">Konfirmasi Hapus
-            Anggota</div>
-          <div class="text-[#6B7280] text-center mb-5">Apakah Anda yakin ingin menghapus anggota
-            ini?
-            Proses ini tidak bisa dibatalkan.</div>
-          <div class="flex gap-3 items-center justify-center w-full">
-            <button type="button" id="batalHapusBtn"
-              class="bg-[#F1F6F9] hover:bg-[#E9EDF3] text-[#394867] font-semibold px-5 py-2 rounded-lg transition">Batal</button>
-            <button type="button" id="konfirmasiHapusBtn"
-              class="bg-red-500 hover:bg-red-600 text-white font-semibold px-5 py-2 rounded-lg transition flex items-center gap-2">
-              <span id="hapusBtnIcon"><i class="fa-solid fa-trash"></i></span>
-              <span id="hapusBtnText">Hapus</span>
-              <span id="hapusBtnLoader" class="hidden animate-spin"><i
-                  class="fa-solid fa-spinner"></i></span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    {{-- Modal/Snackbar Success --}}
-    <div id="hapusSuccessSnackbar"
-      class="fixed left-1/2 -translate-x-1/2 bottom-8 z-9999 bg-green-500 text-white px-5 py-3 rounded-lg flex items-center gap-2 shadow-lg hidden animate-bounce-in">
-      <i class="fa-solid fa-check-circle text-2xl"></i>
-      <span>Anggota berhasil dihapus!</span>
-    </div>
-
     {{-- Modal Detail Anggota --}}
     <div id="detailAnggotaModal"
       class="fixed inset-0 z-9999 bg-black/40 flex items-center justify-center hidden">
@@ -64,6 +23,10 @@
               <div>
                 <span class="text-[#6B7280]">Nama Lengkap:</span>
                 <span class="font-medium text-[#394867]" id="anggotaDetailNama">-</span>
+              </div>
+              <div>
+                <span class="text-[#6B7280]">Username:</span>
+                <span class="font-medium text-[#394867]" id="anggotaDetailUsername">-</span>
               </div>
               <div>
                 <span class="text-[#6B7280]">Email:</span>
@@ -132,14 +95,6 @@
                         data-id="{{ $anggota->id }}" title="Lihat Detail">
                         <i class="fa-solid fa-eye"></i>
                       </button>
-
-                      {{-- Hapus --}}
-                      {{-- <button type="button"
-                        class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition hapusAnggotaBtn"
-                        data-id="{{ $anggota->id }}"
-                        data-route="{{ url('/admin/anggota/' . $anggota->id) }}" title="Hapus Data">
-                        <i class="fa-solid fa-trash"></i>
-                      </button> --}}
                     </div>
                   </td>
                 </tr>
@@ -217,17 +172,6 @@
       hapusBtnText.classList.add('hidden');
       hapusBtnLoader.classList.remove('hidden');
 
-      // Kode berikut digunakan untuk menghapus data anggota dari tabel secara asynchronous/melalui AJAX.
-      // Penjelasan langkah-per-langkah:
-      // 1. fetch() dipanggil ke URL (hapusFormAction) yang merupakan endpoint penghapusan/DELETE anggota.
-      // 2. Metode yang digunakan adalah POST, tapi pada body dikirim _method: 'DELETE' agar Laravel memprosesnya sebagai DELETE (standar Laravel).
-      // 3. Header 'X-CSRF-TOKEN' berisi token CSRF untuk keamanan permintaan (agar request valid & tidak rentan CSRF).
-      // 4. Setelah fetch, .then(res => {...}) dipakai untuk menangani respon.
-      //    - Jika respon gagal (!res.ok), maka error dilempar ke catch().
-      //    - Jika sukses, baris anggota langsung dihapus (hapusRow.remove()), modal hapus ditutup, dan nomor urut pada tabel diperbarui.
-      //    - Selain itu, snackbar notifikasi sukses (hapusSuccessSnackbar) ditampilkan sementara, lalu disembunyikan setelah 1.8 detik.
-      // 5. Jika error, tombol dan loader direset ke semula dan alert "Gagal menghapus data" ditampilkan.
-
       fetch(hapusFormAction, {
           method: 'POST',
           headers: {
@@ -252,8 +196,7 @@
             }
             throw new Error(errorMsg);
           }
-          // Jika berhasil, baris anggota dihapus dari DOM/tabel, modal ditutup, nomor tabel diupdate,
-          // dan snackbar notifikasi sukses ditampilkan sementara.
+
           hapusRow.remove();
           hapusModal.classList.add('hidden');
           updateNomorAnggotaTable();
@@ -266,7 +209,6 @@
           }
         })
         .catch((e) => {
-          // Jika gagal: tombol "hapus" diaktifkan kembali, loader disembunyikan, dan alert error ditampilkan.
           konfirmasiHapusBtn.disabled = false;
           hapusBtnText.classList.remove('hidden');
           hapusBtnLoader.classList.add('hidden');
@@ -282,12 +224,13 @@
     const detailAnggotaModal = document.getElementById("detailAnggotaModal");
     const closeDetailAnggotaModal = document.getElementById("closeDetailAnggotaModal");
     const anggotaDetailNama = document.getElementById("anggotaDetailNama");
+    const anggotaDetailUsername = document.getElementById("anggotaDetailUsername");
     const anggotaDetailEmail = document.getElementById("anggotaDetailEmail");
     const anggotaDetailNoHP = document.getElementById("anggotaDetailNoHP");
     const anggotaDetailTanggal = document.getElementById("anggotaDetailTanggal");
     const anggotaDetailError = document.getElementById("anggotaDetailError");
 
-    // Delegasi tombol detail - pastikan setiap baris ada tombol .detailAnggotaBtn dengan data-id
+    // Delegasi tombol detail 
     document.body.addEventListener("click", async function(e) {
       if (e.target.closest('.detailAnggotaBtn')) {
         const id = e.target.closest('.detailAnggotaBtn').getAttribute('data-id');
@@ -308,6 +251,7 @@
 
           const anggota = data.data;
           anggotaDetailNama.textContent = anggota.nama_lengkap ?? "-";
+          anggotaDetailUsername.textContent = anggota.username ?? "-";
           anggotaDetailEmail.textContent = anggota.email ?? "-";
           anggotaDetailNoHP.textContent = anggota.no_hp ?? "-";
           // Format tanggal daftar jika ada

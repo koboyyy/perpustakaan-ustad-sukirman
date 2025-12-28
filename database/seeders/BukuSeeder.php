@@ -16,43 +16,43 @@ class BukuSeeder extends Seeder
      */
     public function run(): void
     {
-        Penerbit::factory()->count(5)->create();
-        // Seeder untuk tabel penerbit
-        Kategori::create([
-            'nama_kategori' => 'Sains'
-        ]);
+        // Penerbit::factory()->count(5)->create();
+        // // Seeder untuk tabel penerbit
+        // Kategori::create([
+        //     'nama_kategori' => 'Sains'
+        // ]);
 
-        Kategori::create([
-            'nama_kategori' => 'Komedi'
-        ]);
+        // Kategori::create([
+        //     'nama_kategori' => 'Komedi'
+        // ]);
 
-        Kategori::create([
-            'nama_kategori' => 'Novel'
-        ]);
+        // Kategori::create([
+        //     'nama_kategori' => 'Novel'
+        // ]);
 
-        Kategori::create([
-            'nama_kategori' => 'Hiburan'
-        ]);
+        // Kategori::create([
+        //     'nama_kategori' => 'Hiburan'
+        // ]);
 
-        Penerbit::create([
-            'nama_penerbit' => 'Robert C. Martin'
-        ]);
+        // Penerbit::create([
+        //     'nama_penerbit' => 'Robert C. Martin'
+        // ]);
 
-        Rak::create([
-            'no_rak' => 'J02'
-        ]);
+        // Rak::create([
+        //     'no_rak' => 'J02'
+        // ]);
 
-        Sumber::create([
-            'nama_sumber' => 'Sumbangan'
-        ]);
+        // Sumber::create([
+        //     'nama_sumber' => 'Sumbangan'
+        // ]);
 
-        Sumber::create([
-            'nama_sumber' => 'Pembelian'
-        ]);
+        // Sumber::create([
+        //     'nama_sumber' => 'Pembelian'
+        // ]);
 
-        Sumber::create([
-            'nama_sumber' => 'Hibah'
-        ]);
+        // Sumber::create([
+        //     'nama_sumber' => 'Hibah'
+        // ]);
 
 
         // Seeder untuk tabel kategori
@@ -62,7 +62,7 @@ class BukuSeeder extends Seeder
         // Rak::factory()->count(5)->create();
 
         // Seeder untuk tabel buku
-        Buku::factory()->count(100)->create();
+        // Buku::factory()->count(100)->create();
 
         // Seeder untuk tabel sumber
         // Sumber::factory()->count(10)->create();

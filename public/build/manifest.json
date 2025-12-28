@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-BDt7FuJ9.css",
+    "file": "assets/app-HpZuYV-x.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -8,10 +8,31 @@
       "app.css"
     ]
   },
+  "resources/js/analitik.js": {
+    "file": "assets/analitik-CZoXGLJ2.js",
+    "name": "analitik",
+    "src": "resources/js/analitik.js",
+    "isEntry": true
+  },
   "resources/js/app.js": {
-    "file": "assets/app-CAiCLEjY.js",
+    "file": "assets/app-vXxwagmv.js",
     "name": "app",
     "src": "resources/js/app.js",
+    "isEntry": true,
+    "imports": [
+      "resources/js/bootstrap.js"
+    ]
+  },
+  "resources/js/bootstrap.js": {
+    "file": "assets/bootstrap-CAiCLEjY.js",
+    "name": "bootstrap",
+    "src": "resources/js/bootstrap.js",
+    "isEntry": true
+  },
+  "resources/js/pengunjung.js": {
+    "file": "assets/pengunjung-mZV_vCag.js",
+    "name": "pengunjung",
+    "src": "resources/js/pengunjung.js",
     "isEntry": true
   },
   "resources/js/table.js": {
