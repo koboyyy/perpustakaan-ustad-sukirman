@@ -1,21 +1,29 @@
 <x-pengunjung.layout-pengunjung title="Koleksi Buku">
   @auth
-    <section class="container mx-auto font-dm-sans px-2 md:px-0">
-      {{-- Hero --}}
-      <div class="py-16 px-5 md:px-0 md:mb-2 relative z-10">
-        <div class="mx-auto max-w-3xl text-center">
-          <h1
-            class="text-2xl md:text-4xl sm:text-5xl xl:text-6xl font-extrabold bg-linear-to-r from-[#212A3E] via-[#394867] to-[#9BA4B5] bg-clip-text text-transparent leading-tight drop-shadow-xl mb-4 tracking-tight">
-            Daftar Lengkap Buku <br>
-            <span class="text-[#394867]">Perpustakaan Ustadz Sukirman</span>
-          </h1>
-          <p class="sm:text-xl text-[#212A3E]/90 font-medium mb-0 mt-2">
-            Jelajahi koleksi buku terbaik yang ada di
-            <span class="font-semibold text-[#394867]">Perpustakaan Digital Ustadz Sukirman</span>.
-          </p>
-        </div>
-      </div>
 
+    {{-- Hero --}}
+    <div class="py-16 px-5 md:px-0 md:mb-5 relative z-10 overflow-hidden">
+
+      <div class="absolute inset-0 b z-10 bg-[rgb(57,72,103,0.7)]">
+
+      </div>
+      <img src="img/library3.jpg" alt="" class="object-cover object-center absolute inset-0">
+
+      <div class="mx-auto max-w-3xl text-center z-30 relative">
+        <h1 class="text-2xl md:text-4xl sm:text-5xl xl:text-6xl font-extrabold"
+          style="color: rgb(251,251,251); background-clip: text;">
+          Daftar Lengkap Buku <br>
+          <span style="color: rgb(251,251,251);">Perpustakaan Ustadz Sukirman</span>
+        </h1>
+        <p class="sm:text-xl font-medium mb-0 mt-2" style="color: rgb(251,251,251);">
+          Jelajahi koleksi buku terbaik yang tersedia di
+          <span class="font-semibold" style="color: rgb(251,251,251);">Perpustakaan Digital Ustadz
+            Sukirman</span>.
+        </p>
+      </div>
+    </div>
+
+    <section class="container mx-auto font-dm-sans px-2 md:px-0">
       {{-- Pencarian --}}
       <div class="flex flex-col justify-between md:w-1/2 items-start mb-10 mx-auto relative px-4">
         {{-- Field Pencarian --}}
@@ -47,17 +55,26 @@
       <div class="flex gap-5 flex-col md:flex-row mb-10 px-4">
 
         {{-- List Kategori --}}
-        <aside class="w-full md:w-80 h-fit rounded-md shadow p-6 bg-[#212A3E] ">
-          <div
-            class="font-bold text-[rgb(251,251,251)] text-[18px] mb-4 tracking-wide flex items-center gap-2">
-            <i class="fa-solid fa-layer-group text-[rgb(251,251,251)]"></i>
+        <aside class="w-full md:w-80 rounded-2xl shadow p-6 bg-white">
+          <div class="font-bold text-[18px] mb-4 tracking-wide flex items-center gap-2">
+            <i class="fa-solid fa-layer-group"></i>
             KATEGORI
           </div>
           <div id="kategori" class="flex md:flex-col gap-2 flex-wrap">
+
+            @php
+              // Ambil nama kategori dari URL /koleksi-buku/kategori/{slug} jika ada
+              $kategoriAktif = request()->routeIs('kategoriBuku') ? request()->route('slug') : null;
+            @endphp
+
+            <a href="/koleksi-buku"
+              class="rounded-md px-3 border border-black/10 hover:bg-[#F1F6F9] {{ is_null($kategoriAktif) ? 'bg-[rgb(255,109,31)] text-white font-bold' : '' }}">
+              Semua buku
+            </a>
             {{-- Content Dinamis --}}
             @foreach ($dataKategori as $kategori)
               <a href="{{ route('kategoriBuku', ['slug' => $kategori->nama_kategori]) }}"
-                class="bg-[rgb(255,109,31)] rounded-md px-3 py-1 text-[rgb(251,251,251)] hover:bg-[rgb(255,109,31,0.7)]">
+                class="rounded-md px-3 border border-black/10 hover:bg-[#F1F6F9] {{ $kategoriAktif === $kategori->nama_kategori ? 'bg-[rgb(255,109,31)] text-white font-bold' : '' }}">
                 {{ $kategori->nama_kategori }}
               </a>
             @endforeach
@@ -69,31 +86,34 @@
 
           @if ($dataBuku->count() > 0)
             <div
-              class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-2 md:gap-4 w-full">
+              class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-2 md:gap-4 w-full">
               @foreach ($dataBuku as $buku)
                 <div
                   class="w-full rounded-xl overflow-hidden shadow hover:shadow-lg transition group p-1.5 bg-white
                   sm:p-2 md:rounded-2xl">
                   {{-- Cover Buku --}}
                   <div class="rounded-lg md:rounded-xl overflow-hidden relative aspect-3/4">
+                    {{-- Label kategori --}}
                     <div
-                      class="absolute top-2 right-2 bg-[#F1F6F9] px-2 py-0.5 rounded-full text-xs md:text-sm lg:text-base">
-                      <div class="text-[#212A3E]">
+                      class="absolute top-2 right-2 bg-[#3170ad] px-2 py-0.5 rounded-full text-xs md:text-sm lg:text-base transition-all duration-300 z-50 group-hover:opacity-25">
+                      <div class="text-[rgb(251,251,251)]">
                         {{ $buku->kategori->nama_kategori }}
                       </div>
                     </div>
 
+                    {{-- Cover buku --}}
                     @if ($buku->cover)
                       <img
-                        class="buku w-full h-full object-cover object-center opacity-70 transition-transform duration-300 group-hover:scale-105"
+                        class="buku w-full h-full object-cover object-center opacity-100 transition-transform duration-300 group-hover:scale-105"
                         src="{{ asset('storage/' . $buku->cover) }}" alt="{{ $buku->judul_buku }}">
                     @else
                       <img
-                        class="buku w-full h-full object-cover object-center opacity-70 transition-transform duration-300 group-hover:scale-105"
+                        class="buku w-full h-full object-cover object-center opacity-100 transition-transform duration-300 group-hover:scale-105"
                         src="{{ asset('img/default-cover.jpg') }}" alt="No Cover">
                     @endif
                   </div>
 
+                  {{-- Title --}}
                   <div
                     class="flex items-center justify-between gap-2 px-1.5 py-2 md:px-2 md:py-2 flex-wrap">
                     <div class="flex flex-col gap-0.5 min-w-0">
@@ -108,8 +128,10 @@
                         {{ $buku->penerbit->nama_penerbit ?? ' ' }}
                       </div>
                     </div>
+
+                    {{-- Tombol --}}
                     <a href="{{ route('detail-buku', ['id' => $buku->id]) }}"
-                      class="border border-black/10 rounded-2xl px-2 py-1 text-[10px] md:text-xs lg:text-sm transition whitespace-nowrap hover:bg-black hover:text-white mt-auto">
+                      class="border border-black/10 rounded-2xl px-5 py-1 text-[10px] md:text-xs lg:text-sm transition whitespace-nowrap hover:bg-[#394867] hover:text-white mt-auto">
                       Detail Buku
                     </a>
                   </div>

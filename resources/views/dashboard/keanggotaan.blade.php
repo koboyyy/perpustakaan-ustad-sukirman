@@ -52,7 +52,8 @@
           <i class="fa-solid fa-xmark"></i>
         </button>
         <div class="flex flex-col gap-3 items-center">
-          <div class="rounded-full bg-blue-100 text-blue-600 p-4 shadow text-3xl mb-2">
+          <div
+            class="rounded-full bg-blue-100 text-blue-600 p-4 shadow text-3xl mb-2 w-15 h-15 flex items-center justify-center shrink-0">
             <i class="fa-solid fa-user"></i>
           </div>
           <div class="text-[18px] font-semibold text-[#394867] mb-2 text-center">

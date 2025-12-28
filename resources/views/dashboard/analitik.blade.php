@@ -29,70 +29,70 @@
 
       {{-- Section A --}}
       <section class="w-full flex gap-[27px] flex-wrap lg:flex-nowrap">
-        {{-- Box Total Judul Buku --}}
+        {{-- Box Total Judul Buku (Hijau 700) --}}
         <div
           class="analitik-animated-box relative flex w-full items-center rounded-[14px] p-[20px] overflow-hidden">
           <div class="flex flex-col gap-[14px] font-bold relative z-10 p-0 m-0 rounded-[10px]">
-            <div class="flex items-center gap-2 text-[#394867]">
+            <div class="flex items-center gap-2 text-green-700">
               <i class="fa-solid fa-book"></i> Total Judul Buku
             </div>
             <div class="flex gap-[14px] items-center">
               <div
-                class="bg-[#394867] w-10 h-10 flex justify-center items-center text-white rounded-[6px] shadow-md">
+                class="bg-green-700 w-10 h-10 flex justify-center items-center text-white rounded-[6px] shadow-md">
                 <i class="fa-solid fa-book"></i>
               </div>
-              <div class="text-[#394867]">{{ $dataBuku->count() }}</div>
+              <div class="text-green-700">{{ $dataBuku->count() }}</div>
             </div>
           </div>
         </div>
 
-        {{-- Box Total Buku --}}
+        {{-- Box Total Buku (Biru 700) --}}
         <div
           class="analitik-animated-box relative flex w-full items-center rounded-[14px] p-[20px] overflow-hidden">
           <div class="flex flex-col gap-[14px] font-bold relative z-10 p-0 m-0 rounded-[10px]">
-            <div class="flex items-center gap-2 text-[#394867]">
+            <div class="flex items-center gap-2 text-blue-700">
               <i class="fa-solid fa-copy"></i> Total Buku
             </div>
             <div class="flex gap-[14px] items-center">
               <div
-                class="bg-[#394867] w-10 h-10 flex justify-center items-center text-white rounded-[6px] shadow-md">
+                class="bg-blue-700 w-10 h-10 flex justify-center items-center text-white rounded-[6px] shadow-md">
                 <i class="fa-solid fa-copy"></i>
               </div>
-              <div class="text-[#394867]">{{ $dataBuku->sum('eksemplar') }}</div>
+              <div class="text-blue-700">{{ $dataBuku->sum('eksemplar') }}</div>
             </div>
           </div>
         </div>
 
-        {{-- Box Total Peminjaman --}}
+        {{-- Box Total Peminjaman (Ungu 700) --}}
         <div
           class="analitik-animated-box relative flex w-full items-center rounded-[14px] p-[20px] overflow-hidden">
           <div class="flex flex-col gap-[14px] font-bold relative z-10 p-0 m-0 rounded-[10px]">
-            <div class="flex items-center gap-2 text-[#394867]">
-              <i class="fa-solid fa-user"></i> Total Peminjaman
+            <div class="flex items-center gap-2 text-purple-700">
+              <i class="fa-solid fa-arrow-right-arrow-left"></i> Total Transaksi
             </div>
             <div class="flex gap-[14px] items-center">
               <div
-                class="bg-[#394867] w-10 h-10 flex justify-center items-center text-white rounded-[6px] shadow-md">
-                <i class="fa-solid fa-user"></i>
+                class="bg-purple-700 w-10 h-10 flex justify-center items-center text-white rounded-[6px] shadow-md">
+                <i class="fa-solid fa-arrow-right-arrow-left"></i>
               </div>
-              <div class="text-[#394867]">{{ $dataPeminjaman->count() }}</div>
+              <div class="text-purple-700">{{ $dataPeminjaman->count() }}</div>
             </div>
           </div>
         </div>
 
-        {{-- Box Total Pengembalian --}}
+        {{-- Box Total Pengembalian (Orange 700) --}}
         <div
           class="analitik-animated-box relative flex w-full items-center rounded-[14px] p-[20px] overflow-hidden">
           <div class="flex flex-col gap-[14px] font-bold relative z-10 p-0 m-0 rounded-[10px]">
-            <div class="flex items-center gap-2 text-[#394867]">
+            <div class="flex items-center gap-2 text-orange-700">
               <i class="fa-solid fa-book-open-reader"></i> Total Pengembalian
             </div>
             <div class="flex gap-[14px] items-center">
               <div
-                class="bg-[#394867] w-10 h-10 flex justify-center items-center text-white rounded-[6px] shadow-md">
+                class="bg-orange-700 w-10 h-10 flex justify-center items-center text-white rounded-[6px] shadow-md">
                 <i class="fa-solid fa-book-open-reader"></i>
               </div>
-              <div class="text-[#394867]">{{ $dataPengembalian->count() }}</div>
+              <div class="text-orange-700">{{ $dataPengembalian->count() }}</div>
             </div>
           </div>
         </div>

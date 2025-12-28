@@ -242,40 +242,75 @@ class BukuController extends Controller
             'nama_penerbit' => 'required|string|max:255'
         ]);
 
-        Penerbit::create($validatedData);
+        // Cek apakah penerbit dengan nama sama sudah ada di database (case insensitive)
+        $nama = trim($validatedData['nama_penerbit']);
+        $penerbitExist = Penerbit::whereRaw('LOWER(nama_penerbit) = ?', [strtolower($nama)])->exists();
+
+        if ($penerbitExist) {
+            return back()->with('error', 'Penerbit dengan nama tersebut sudah ada.');
+        }
+
+        Penerbit::create(['nama_penerbit' => $nama]);
 
         return back()->with('success', 'Berhasil menambahkan penerbit');
     }
 
+    // Tambah Rak
     public function tambahRak(Request $request)
     {
         $validatedData = $request->validate([
             'no_rak' => 'required|string|max:255'
         ]);
 
-        Rak::create($validatedData);
+        // Cek apakah rak dengan nomor sama sudah ada di database (case insensitive)
+        $no_rak = trim($validatedData['no_rak']);
+        $rakExist = Rak::whereRaw('LOWER(no_rak) = ?', [strtolower($no_rak)])->exists();
+
+        if ($rakExist) {
+            return back()->with('error', 'Rak dengan nomor tersebut sudah ada.');
+        }
+
+        Rak::create(['no_rak' => $no_rak]);
 
         return back()->with('success', 'Berhasil menambahkan lokasi rak');
     }
 
+    // Tambah Sumber
     public function tambahSumber(Request $request)
     {
         $validatedData = $request->validate([
             'nama_sumber' => 'required|string|max:255'
         ]);
 
-        Sumber::create($validatedData);
+        // Cek apakah sumber dengan nama sama sudah ada di database (case insensitive)
+        $nama_sumber = trim($validatedData['nama_sumber']);
+        $sumberExist = Sumber::whereRaw('LOWER(nama_sumber) = ?', [strtolower($nama_sumber)])->exists();
+
+        if ($sumberExist) {
+            return back()->with('error', 'Sumber dengan nama tersebut sudah ada.');
+        }
+
+        Sumber::create(['nama_sumber' => $nama_sumber]);
 
         return back()->with('success', 'Berhasil menambahkan sumber');
     }
 
+    // Tambah Kategori
     public function tambahKategori(Request $request)
     {
         $validatedData = $request->validate([
             'nama_kategori' => 'required|string|max:255'
         ]);
 
-        Kategori::create($validatedData);
+        // Cek apakah kategori dengan nama sama sudah ada di database (case insensitive)
+        $nama_kategori = trim($validatedData['nama_kategori']);
+        $kategoriExist = Kategori::whereRaw('LOWER(nama_kategori) = ?', [strtolower($nama_kategori)])->exists();
+
+        if ($kategoriExist) {
+            return back()->with('error', 'Kategori dengan nama tersebut sudah ada.');
+        }
+
+        Kategori::create(['nama_kategori' => $nama_kategori]);
 
         return back()->with('success', 'Berhasil menambahkan kategori');
     }

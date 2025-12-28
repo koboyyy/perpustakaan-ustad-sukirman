@@ -1,6 +1,6 @@
 <section class="col-span-7 z-100 sticky top-0 w-full">
   <div
-    class="bg-white h-[69px] shadow-[0px_4px_4px_0px_rgba(57,72,103,0.08)] w-full flex justify-between items-center pl-[10px] pr-[10px] sm:pl-[19px] sm:pr-[24px] relative z-100">
+    class="bg-white h-[69px] shadow-[0px_4px_4px_0px_rgba(57,72,103,0.08)] w-full flex justify-between items-center pl-[15px] pr-[15px] sm:pl-[15px] sm:pr-[20px] relative z-100">
 
     {{-- Logo dan Title --}}
     <div class="flex just gap-[10px] items-center">
@@ -12,7 +12,7 @@
           <div class="flex flex-col items-start">
             <h1
               class="text-[14px] sm:text-[17px] font-extrabold text-[#394867] leading-none whitespace-nowrap">
-              Perpustakaan Ustad Sukirman
+              Perpustakaan Ustadz Sukirman
             </h1>
             <span
               class="text-[11px] sm:text-[12px] text-start text-[#9BA4B5] font-semibold mt-0.5 py-0.5">Dashboard
@@ -28,8 +28,8 @@
         @csrf
         <button type="submit"
           class="px-4 py-2 rounded-lg bg-[rgb(255,109,31)] text-[#F1F6F9] font-semibold shadow-md hover:bg-[#3170ad] transition-colors duration-300 flex items-center gap-1 ml-3">
-          <i class="fa-solid fa-sign-out-alt mr-2"></i>
-          <span class="xs:inline">Homepage</span>
+          <i class="fa-solid fa-house mr-2"></i>
+          <span class="xs:inline">Home</span>
         </button>
       </form>
 
@@ -76,7 +76,7 @@
       </div>
 
       {{-- Profile Mobile --}}
-      <div class="flex items-center gap-4 border-t border-[#D9E4EC] pt-5">
+      {{-- <div class="flex items-center gap-4 border-t border-[#D9E4EC] pt-5">
         <div
           class="bg-linear-to-tr from-[#394867] to-[#9BA4B5] w-[40px] h-[40px] rounded-full flex items-center justify-center shadow-inner">
           <span class="text-white font-bold text-lg">JD</span>
@@ -85,15 +85,15 @@
           <h1 class="text-sm font-bold text-[#394867]">John Doe</h1>
           <p class="text-xs text-[#9BA4B5] font-medium tracking-wide">admin</p>
         </div>
-      </div>
+      </div> --}}
 
       {{-- Homepage --}}
       <form method="get" action="{{ route('home') }}" class="inline-block">
         @csrf
         <button type="submit"
           class="w-full px-4 py-2 rounded-lg bg-[rgb(255,109,31)] hover:bg-[#3170ad] text-[#F1F6F9] font-semibold shadow-md transition-colors duration-300 flex items-center gap-1">
-          <i class="fa-solid fa-sign-out-alt mr-2"></i>
-          <span class="xs:inline">Homepage</span>
+          <i class="fa-solid fa-house mr-2"></i>
+          <span class="xs:inline">Home</span>
         </button>
       </form>
 

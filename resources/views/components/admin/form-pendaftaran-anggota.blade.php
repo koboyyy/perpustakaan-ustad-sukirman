@@ -1,24 +1,51 @@
 <div class="w-full max-w-150 bg-white rounded-2xl p-6">
 
   @if (session('success'))
-    <div class="bg-green-400 p-5 rounded-2xl text-white mb-4">
-      {{ session('success') }}
+    <div
+      class="relative px-4 py-3 mb-4 rounded-xl bg-green-100 border border-green-400 text-green-800 flex items-center"
+      role="alert" id="success-message">
+      <i class="fa-solid fa-check-circle mr-2 text-green-600 text-xl"></i>
+      <span class="block">{{ session('success') }}</span>
+      <button type="button" onclick="this.parentElement.style.display='none'"
+        class="absolute top-2 right-3 text-green-900 hover:text-green-600 font-bold text-xl focus:outline-none"
+        aria-label="close">&times;</button>
     </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+          var msg = document.getElementById('success-message');
+          if (msg) {
+            msg.style.transition = "opacity 0.5s";
+            msg.style.opacity = 0;
+            setTimeout(function() {
+              msg.style.display = "none";
+            }, 500);
+          }
+        }, 3000);
+      });
+    </script>
   @endif
 
   @if ($errors->any())
-    <div class="bg-red-400 p-5 rounded-2xl text-white mb-4">
-      <ul class="list-disc pl-5 text-[14px]">
-        @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-        @endforeach
-      </ul>
+    <div class="relative px-4 py-3 mb-4 rounded-xl bg-red-100 border border-red-400 text-red-800"
+      role="alert" id="error-message">
+      <div class="flex items-start gap-2">
+        <i class="fa-solid fa-circle-exclamation text-red-600 text-xl mt-1"></i>
+        <div class="list-disc pl-1 text-[14px]">
+          @foreach ($errors->all() as $error)
+            <div>{{ $error }}</div>
+          @endforeach
+        </div>
+      </div>
+      <button type="button" onclick="this.parentElement.style.display='none'"
+        class="absolute top-2 right-3 text-red-900 hover:text-red-600 font-bold text-xl focus:outline-none"
+        aria-label="close">&times;</button>
     </div>
   @endif
 
   {{-- Title --}}
-  <div class="font-semibold text-md mb-2 flex items-center gap-2">
-    <i class="fa-solid fa-user-plus text-[#394867]"></i>
+  <div class="font-semibold text-md mb-2 flex items-center gap-2 text-[#394867]">
+    <i class="fa-solid fa-user-plus "></i>
     Tambah Anggota
   </div>
 

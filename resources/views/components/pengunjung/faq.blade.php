@@ -15,18 +15,14 @@
       jawaban="Silakan hubungi admin atau petugas perpustakaan untuk bantuan lebih lanjut." />
 
     <x-pengunjung.jawaban-pertannya-faq pertanyaan="Apakah saya bisa memesan buku terlebih dahulu?"
-      jawaban="Ya, pengguna dapat melakukan pemesanan buku jika fitur tersedia atau melalui petugas perpustakaan." />
-
-    <x-pengunjung.jawaban-pertannya-faq
-      pertanyaan="Apakah website menampilkan jumlah buku yang tersedia?"
-      jawaban="Ya, sistem menampilkan status ketersediaan buku (tersedia/dipinjam)." />
+      jawaban="Saat ini layanan pemesanan buku belum tersedia. Peminjaman dilakukan secara langsung di perpustakaan." />
 
     <x-pengunjung.jawaban-pertannya-faq pertanyaan="Apa manfaat menggunakan website perpustakaan?"
       jawaban="Pengguna dapat mencari buku lebih cepat, melihat status pinjaman, dan mendapatkan informasi perpustakaan secara mudah." />
 
     <x-pengunjung.jawaban-pertannya-faq
       pertanyaan="Apakah ada batas jumlah buku yang bisa dipinjam?"
-      jawaban="Ya, pengguna biasanya dibatasi maksimal 2–3 buku dalam satu periode peminjaman." />
+      jawaban="Ya, pengguna dibatasi maksimal 2 buku dalam satu periode peminjaman." />
 
     <x-pengunjung.jawaban-pertannya-faq pertanyaan="Apakah website ini gratis digunakan?"
       jawaban="Ya, website perpustakaan gratis untuk seluruh pengguna." />

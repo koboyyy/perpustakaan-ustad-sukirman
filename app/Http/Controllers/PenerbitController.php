@@ -18,16 +18,25 @@ class PenerbitController extends Controller
 
     public function destroy($id)
     {
-
-        // return 'ini hapus';
-
+        // Cari penerbit
         $penerbit = Penerbit::findOrFail($id);
 
-        // Optional: You may want to check if related books exist and prevent deletion
+        // Cek jika penerbit ini masih punya relasi dengan buku
+        $jumlahBuku = $penerbit->buku()->count();
+        if ($jumlahBuku > 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Penerbit tidak bisa dihapus karena masih digunakan pada data buku!'
+            ], 422);
+        }
 
+        // Hapus penerbit bila tidak terkait ke buku manapun
         $penerbit->delete();
 
         // Return JSON suitable for AJAX request
-        return response()->json(['success' => true, 'message' => 'Data penerbit berhasil dihapus.']);
+        return response()->json([
+            'success' => true,
+            'message' => 'Data penerbit berhasil dihapus.'
+        ]);
     }
 }

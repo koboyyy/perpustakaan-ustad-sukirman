@@ -41,22 +41,22 @@
     </div>
   @endif
 
-  <div class="mb-6">
+  {{-- <div class="mb-6">
     <ul class="text-sm text-gray-600 list-disc pl-5 space-y-0.5">
-      <li>Field bertanda <span class="text-[#394867]">*</span> wajib diisi.</li>
+      <li>Field bertanda <span class="text-[rgb(255,109,31)]">*</span> wajib diisi.</li>
       <li>Ukuran file cover maksimal 2MB, format jpg/jpeg/png.</li>
       <li>Judul buku harus unik.</li>
       <li>Tahun terbit mulai dari 1950 hingga tahun sekarang.</li>
       <li>Jumlah eksemplar minimal 1.</li>
       <li>Jika upload cover gagal atau format salah, buku tidak akan disimpan.</li>
     </ul>
-  </div>
+  </div> --}}
 
   @csrf
   <div class="flex flex-col md:flex-row gap-8">
 
     {{-- Cover Preview & Upload --}}
-    <div class="flex flex-col items-center w-fit mb-6">
+    <div class="flex flex-col items-center w-fit">
       <div
         class="w-40 h-56 bg-gray-100 rounded-lg mb-2 flex items-center justify-center overflow-hidden border border-[#9BA4B5]">
         <img id="coverPreview" src="{{ asset('storage/cover-buku/buku-tanpa-cover.jpeg') }}"
@@ -81,7 +81,7 @@
       {{-- Judul Buku --}}
       <div class="flex flex-col gap-1">
         <label for="judul_buku"
-          class="text-[14px] after:content-['*'] after:text-[#394867] after:ml-1">
+          class="text-[14px] after:content-['*'] after:text-[rgb(255,109,31)] after:ml-1">
           Judul Buku:
         </label>
         <input type="text" id="judul_buku" name="judul_buku"
@@ -95,7 +95,7 @@
       {{-- Pengarang --}}
       <div class="flex flex-col gap-1">
         <label for="pengarang"
-          class="text-[14px] after:content-['*'] after:text-[#394867] after:ml-1">
+          class="text-[14px] after:content-['*'] after:text-[rgb(255,109,31)] after:ml-1">
           Pengarang:
         </label>
         <input type="text" id="pengarang" name="pengarang"
@@ -109,7 +109,7 @@
       {{-- Penerbit --}}
       <div class="flex flex-col gap-1">
         <label for="penerbit"
-          class="text-[14px] after:content-['*'] after:text-[#394867] after:ml-1">
+          class="text-[14px] after:content-['*'] after:text-[rgb(255,109,31)] after:ml-1">
           Penerbit:
         </label>
         <select name="penerbit" id="penerbit"
@@ -132,7 +132,7 @@
       {{-- Kategori --}}
       <div class="flex flex-col gap-1">
         <label for="kategori"
-          class="text-[14px] after:content-['*'] after:text-[#394867] after:ml-1">
+          class="text-[14px] after:content-['*'] after:text-[rgb(255,109,31)] after:ml-1">
           Kategori:
         </label>
         <select id="kategori" name="kategori"
@@ -155,7 +155,7 @@
       {{-- Tahun Terbit --}}
       <div class="flex flex-col gap-1">
         <label for="tahun_terbit"
-          class="text-[14px] after:content-['*'] after:text-[#394867] after:ml-1">
+          class="text-[14px] after:content-['*'] after:text-[rgb(255,109,31)] after:ml-1">
           Tahun Terbit:
         </label>
         <select id="tahun_terbit" name="tahun_terbit"
@@ -180,7 +180,7 @@
       {{-- Eksemplar --}}
       <div class="flex flex-col gap-1">
         <label for="eksemplar"
-          class="text-[14px] after:content-['*'] after:text-[#394867] after:ml-1">
+          class="text-[14px] after:content-['*'] after:text-[rgb(255,109,31)] after:ml-1">
           Jumlah Eksemplar:
         </label>
         <input type="number" min="1" id="eksemplar" name="eksemplar"
@@ -194,7 +194,7 @@
       {{-- Sumber --}}
       <div class="flex flex-col gap-1">
         <label for="sumber"
-          class="text-[14px] after:content-['*'] after:text-[#394867] after:ml-1">
+          class="text-[14px] after:content-['*'] after:text-[rgb(255,109,31)] after:ml-1">
           Sumber:
         </label>
         <select name="sumber" id="sumber"
@@ -217,7 +217,7 @@
       {{-- Rak --}}
       <div class="flex flex-col gap-1">
         <label for="rak"
-          class="text-[14px] after:content-['*'] after:text-[#394867] after:ml-1">
+          class="text-[14px] after:content-['*'] after:text-[rgb(255,109,31)] after:ml-1">
           Rak:
         </label>
         <select name="rak" id="rak"
@@ -238,10 +238,12 @@
 
       {{-- Tanggal Terima --}}
       <div class="flex flex-col gap-1">
-        <label for="tanggal_terima" class="text-[14px]">Tanggal Terima:</label>
+        <label for="tanggal_terima"
+          class="text-[14px] after:content-['*'] after:text-[rgb(255,109,31)] after:ml-1">Tanggal
+          Terima:</label>
         <input type="date" id="tanggal_terima" name="tanggal_terima"
           class="w-full border border-[#9BA4B5] rounded px-3 py-2 focus:border-[#394867] focus:ring-[#394867] @error('tanggal_terima') border-red-500 @enderror"
-          value="{{ old('tanggal_terima') }}" />
+          value="{{ old('tanggal_terima') }}" required />
         @error('tanggal_terima')
           <span class="text-red-500 text-xs">{{ $message }}</span>
         @enderror

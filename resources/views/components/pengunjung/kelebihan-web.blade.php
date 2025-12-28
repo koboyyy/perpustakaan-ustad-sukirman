@@ -1,7 +1,7 @@
 <div class="font-bold flex flex-col items-center w-full px-2 sm:px-6">
 
-  <x-pengunjung.sub-title title="Kelebihan Situs Web"
-    subtitle="Berikut ini adalah kelebihan dari situs web perpustakaan ustadz sukirman"></x-pengunjung.sub-title>
+  <x-pengunjung.sub-title title="Keunggulan Layanan Digital"
+    subtitle="Berikut adalah berbagai keunggulan yang ditawarkan oleh website Perpustakaan Ustadz Sukirman."></x-pengunjung.sub-title>
 
   <div class="container max-w-6xl mx-auto w-full">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">

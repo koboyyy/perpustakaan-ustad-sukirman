@@ -33,7 +33,7 @@
   @endphp
 
   @if ($jumlahDipinjam === 0)
-    <div class="text-gray-400 py-4 text-center">Belum Ada Peminjaman</div>
+    <div class="text-gray-400 py-4 text-center">Tidak Ada Peminjaman</div>
   @endif
 
   @foreach ($dataPeminjaman as $index => $peminjaman)

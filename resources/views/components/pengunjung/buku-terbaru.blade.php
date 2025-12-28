@@ -9,7 +9,8 @@
   </div>
 
   <div class="max-w-7xl mx-auto relative z-10 px-3 sm:px-4 md:px-8">
-    <x-pengunjung.sub-title title="Buku Terbaru" subtitle="Daftar Buku Terbaru" color="[#394867]" />
+    <x-pengunjung.sub-title title="Buku Terbaru"
+      subtitle="Koleksi buku terbaru yang tersedia di perpustakaan kami." color="[#394867]" />
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10 xl:gap-14">
       <!-- Card 1 -->

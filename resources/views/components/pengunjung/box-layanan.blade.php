@@ -15,7 +15,7 @@
     </div>
     <div
       class="text-base sm:text-lg md:text-2xl text-[rgb(251,251,251,0.6)] font-semibold text-center mt-2 max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto leading-snug sm:leading-normal">
-      Layanan Kunjungan
+      Solusi layanan perpustakaan untuk akses informasi yang mudah dan berkelanjutan.
     </div>
   </div>
 

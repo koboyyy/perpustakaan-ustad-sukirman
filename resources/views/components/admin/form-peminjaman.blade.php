@@ -5,9 +5,46 @@
     Formulir Peminjaman Buku
   </div>
 
-  @if (session()->has('success'))
-    <div class="bg-green-100 p-5 rounded-2xl font-semibold">
-      {{ session('success') }}
+  @if (session('success'))
+    <div
+      class="relative px-4 py-3 mb-4 rounded-xl bg-green-100 border border-green-400 text-green-800 flex items-center"
+      role="alert" id="success-message">
+      <i class="fa-solid fa-check-circle mr-2 text-green-600 text-xl"></i>
+      <span class="block">{{ session('success') }}</span>
+      <button type="button" onclick="this.parentElement.style.display='none'"
+        class="absolute top-2 right-3 text-green-900 hover:text-green-600 font-bold text-xl focus:outline-none"
+        aria-label="close">&times;</button>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+          var msg = document.getElementById('success-message');
+          if (msg) {
+            msg.style.transition = "opacity 0.5s";
+            msg.style.opacity = 0;
+            setTimeout(function() {
+              msg.style.display = "none";
+            }, 500);
+          }
+        }, 3000);
+      });
+    </script>
+  @endif
+
+  @if ($errors->any())
+    <div class="relative px-4 py-3 mb-4 rounded-xl bg-red-100 border border-red-400 text-red-800"
+      role="alert" id="error-message">
+      <div class="flex items-start gap-2">
+        <i class="fa-solid fa-circle-exclamation text-red-600 text-xl mt-1"></i>
+        <div class="list-disc pl-1 text-[14px]">
+          @foreach ($errors->all() as $error)
+            <div>{{ $error }}</div>
+          @endforeach
+        </div>
+      </div>
+      <button type="button" onclick="this.parentElement.style.display='none'"
+        class="absolute top-2 right-3 text-red-900 hover:text-red-600 font-bold text-xl focus:outline-none"
+        aria-label="close">&times;</button>
     </div>
   @endif
 
@@ -15,10 +52,12 @@
     @csrf
     {{-- Informasi Anggota --}}
     <div class="relative">
-      <label for="nama_lengkap" class="block mb-1 text-sm">ID/Nama Anggota/Username<span
-          class="text-[#394867]">*</span></label>
+      <label for="nama_lengkap" class="block mb-1 text-sm">Nama Anggota/Username
+        <span class="font-bold" style="color: rgb(255,109,31);">*</span>
+      </label>
       <input type="text" id="nama_lengkap" name="nama_lengkap" required autocomplete="off"
-        autocapitalize="off" spellcheck="false" class="w-full border rounded px-2 py-1" readonly
+        autocapitalize="off" spellcheck="false"
+        class="w-full border border-black/10 rounded px-2 py-1 focus:outline-none" readonly
         onfocus="this.removeAttribute('readonly');">
 
       <div id="sugestion-anggota"
@@ -28,11 +67,12 @@
     </div>
 
     <div>
-      <label for="id_anggota" class="block mb-1 text-sm">ID Anggota<span
-          class="text-[#394867]">*</span></label>
+      <label for="id_anggota" class="block mb-1 text-sm">ID Anggota
+        <span class="font-bold" style="color: rgb(255,109,31);">*</span>
+      </label>
       <input type="text" id="id_anggota" name="id_anggota" required
-        class="w-full border rounded px-2 py-1 bg-gray-100 cursor-not-allowed" placeholder=""
-        readonly>
+        class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed focus:outline-none"
+        placeholder="" readonly>
     </div>
 
     <div class="flex w-full gap-3">
@@ -40,10 +80,11 @@
       <div class="grow">
         <div>Buku Satu</div>
         <div class="relative">
-          <label for="judul_buku" class="block mb-1 text-sm">Judul Buku<span
-              class="text-[#394867]">*</span></label>
+          <label for="judul_buku" class="block mb-1 text-sm">Judul Buku
+            <span class="font-bold" style="color: rgb(255,109,31);">*</span>
+          </label>
           <input type="text" id="judul_buku" name="judul_buku" required
-            class="w-full border rounded px-2 py-1"
+            class="w-full border border-black/10 rounded px-2 py-1 focus:outline-none"
             placeholder="Judul buku, pisahkan dengan koma jika lebih dari satu" autocomplete="off"
             autocapitalize="off" spellcheck="false">
 
@@ -53,35 +94,39 @@
         </div>
 
         <div>
-          <label for="id_buku" class="block mb-1 text-sm">ID Buku<span
-              class="text-[#394867]">*</span></label>
+          <label for="id_buku" class="block mb-1 text-sm">ID Buku
+            <span class="font-bold" style="color: rgb(255,109,31);">*</span>
+          </label>
           <input type="text" id="id_buku" name="id_buku" required
-            class="w-full border rounded px-2 py-1 bg-gray-100 cursor-not-allowed" placeholder=""
-            readonly>
+            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed focus:outline-none"
+            placeholder="" readonly>
         </div>
 
         <div>
-          <label for="pengarang" class="block mb-1 text-sm">Pengarang<span
-              class="text-[#394867]">*</span></label>
+          <label for="pengarang" class="block mb-1 text-sm">Pengarang
+            <span class="font-bold" style="color: rgb(255,109,31);">*</span>
+          </label>
           <input type="text" id="pengarang" name="pengarang" required
-            class="w-full border rounded px-2 py-1 bg-gray-100 cursor-not-allowed" placeholder=""
-            readonly>
+            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed focus:outline-none"
+            placeholder="" readonly>
         </div>
 
         <div>
-          <label for="penerbit" class="block mb-1 text-sm">Penerbit<span
-              class="text-[#394867]">*</span></label>
+          <label for="penerbit" class="block mb-1 text-sm">Penerbit
+            <span class="font-bold" style="color: rgb(255,109,31);">*</span>
+          </label>
           <input type="text" id="penerbit" name="penerbit" required
-            class="w-full border rounded px-2 py-1 bg-gray-100 cursor-not-allowed" placeholder=""
-            readonly>
+            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed focus:outline-none"
+            placeholder="" readonly>
         </div>
 
         <div>
-          <label for="tahun_terbit" class="block mb-1 text-sm">Tahun Terbit<span
-              class="text-[#394867]">*</span></label>
+          <label for="tahun_terbit" class="block mb-1 text-sm">Tahun Terbit
+            <span class="font-bold" style="color: rgb(255,109,31);">*</span>
+          </label>
           <input type="text" id="tahun_terbit" name="tahun_terbit" required
-            class="w-full border rounded px-2 py-1 bg-gray-100 cursor-not-allowed" placeholder=""
-            readonly>
+            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed focus:outline-none"
+            placeholder="" readonly>
         </div>
       </div>
 
@@ -89,65 +134,72 @@
       <div class="grow">
         <div>Buku Dua</div>
         <div class="relative">
-          <label for="judul_buku_2" class="block mb-1 text-sm">Judul Buku<span
-              class="text-[#394867]">*</span></label>
+          <label for="judul_buku_2" class="block mb-1 text-sm">Judul Buku
+            <span class="font-bold" style="color: rgb(255,109,31);">*</span>
+          </label>
           <input type="text" id="judul_buku_2" name="judul_buku_2"
-            class="w-full border rounded px-2 py-1"
+            class="w-full border border-black/10 rounded px-2 py-1 focus:outline-none"
             placeholder="Judul buku, pisahkan dengan koma jika lebih dari satu" autocomplete="off"
             autocapitalize="off" spellcheck="false">
 
-          <div id="sugestion-buku-2" class="border hidden absolute top-full left-0 w-full bg-white">
+          <div id="sugestion-buku-2"
+            class="border hidden absolute top-full left-0 w-full bg-white">
             {{-- Saran Buku --}}
           </div>
         </div>
 
         <div>
-          <label for="id_buku_2" class="block mb-1 text-sm">ID Buku<span
-              class="text-[#394867]">*</span></label>
+          <label for="id_buku_2" class="block mb-1 text-sm">ID Buku
+            <span class="font-bold" style="color: rgb(255,109,31);">*</span>
+          </label>
           <input type="text" id="id_buku_2" name="id_buku_2" required
-            class="w-full border rounded px-2 py-1 bg-gray-100 cursor-not-allowed" placeholder=""
-            readonly>
+            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed focus:outline-none"
+            placeholder="" readonly>
         </div>
 
         <div>
-          <label for="pengarang_2" class="block mb-1 text-sm">Pengarang<span
-              class="text-[#394867]">*</span></label>
+          <label for="pengarang_2" class="block mb-1 text-sm">Pengarang
+            <span class="font-bold" style="color: rgb(255,109,31);">*</span>
+          </label>
           <input type="text" id="pengarang_2" name="pengarang_2" required
-            class="w-full border rounded px-2 py-1 bg-gray-100 cursor-not-allowed" placeholder=""
-            readonly>
+            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed focus:outline-none"
+            placeholder="" readonly>
         </div>
 
         <div>
-          <label for="penerbit" class="block mb-1 text-sm">Penerbit<span
-              class="text-[#394867]">*</span></label>
+          <label for="penerbit" class="block mb-1 text-sm">Penerbit
+            <span class="font-bold" style="color: rgb(255,109,31);">*</span>
+          </label>
           <input type="text" id="penerbit_2" name="penerbit_2" required
-            class="w-full border rounded px-2 py-1 bg-gray-100 cursor-not-allowed" placeholder=""
-            readonly>
+            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed focus:outline-none"
+            placeholder="" readonly>
         </div>
 
         <div>
-          <label for="tahun_terbit_2" class="block mb-1 text-sm">Tahun Terbit<span
-              class="text-[#394867]">*</span></label>
+          <label for="tahun_terbit_2" class="block mb-1 text-sm">Tahun Terbit
+            <span class="font-bold" style="color: rgb(255,109,31);">*</span>
+          </label>
           <input type="text" id="tahun_terbit_2" name="tahun_terbit_2" required
-            class="w-full border rounded px-2 py-1 bg-gray-100 cursor-not-allowed" placeholder=""
-            readonly>
+            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed focus:outline-none"
+            placeholder="" readonly>
         </div>
       </div>
     </div>
 
     {{-- Tanggal Pinjam --}}
     <div>
-      <label for="tanggal_peminjaman" class="block mb-1 text-sm">Tanggal Peminjaman<span
-          class="text-[#394867]">*</span></label>
+      <label for="tanggal_peminjaman" class="block mb-1 text-sm">Tanggal Peminjaman
+        <span class="font-bold" style="color: rgb(255,109,31);">*</span>
+      </label>
       <input type="date" id="tanggal_peminjaman" name="tanggal_peminjaman" required
-        class="w-full border rounded px-2 py-1">
+        class="w-full border border-black/10 rounded px-2 py-1 focus:outline-none">
     </div>
 
     {{-- Catatan --}}
     <div>
       <label for="catatan_2" class="block mb-1 text-sm">Catatan (opsional)</label>
       <textarea id="catatan_2" name="catatan_2" rows="2"
-        class="w-full border rounded px-2 py-1"></textarea>
+        class="w-full border border-black/10 rounded px-2 py-1 focus:outline-none"></textarea>
     </div>
     {{-- Tombol Simpan --}}
     <button type="submit"
@@ -188,6 +240,8 @@
                 fieldAnggota.value = anggota.nama_lengkap;
                 fieldIdAnggota.value = anggota.id;
                 sugestionAnggota.innerHTML = '';
+                sugestionAnggota.classList.add(
+                  'hidden'); // Tutup kotak sugesti setelah dipilih
               };
               sugestionAnggota.appendChild(div);
             });
@@ -274,7 +328,39 @@
       sugestionAnggota.classList.add('hidden');
       sugestionAnggota.innerHTML = '';
     }
-  })
+  });
+
+  // Tambah fungsi: klik di luar input dan sugestion box, tutup sugestion box
+  document.addEventListener('click', function(event) {
+    // Untuk anggota
+    if (
+      !fieldAnggota.contains(event.target) &&
+      !sugestionAnggota.contains(event.target)
+    ) {
+      sugestionAnggota.classList.add('hidden');
+      sugestionAnggota.innerHTML = '';
+    }
+    // Untuk buku 1
+    if (
+      typeof fieldBuku !== 'undefined' &&
+      typeof sugestionBuku !== 'undefined' &&
+      !fieldBuku.contains(event.target) &&
+      !sugestionBuku.contains(event.target)
+    ) {
+      sugestionBuku.classList.add('hidden');
+      sugestionBuku.innerHTML = '';
+    }
+    // Untuk buku 2
+    if (
+      typeof fieldBukuDua !== 'undefined' &&
+      typeof sugestionBukuDua !== 'undefined' &&
+      !fieldBukuDua.contains(event.target) &&
+      !sugestionBukuDua.contains(event.target)
+    ) {
+      sugestionBukuDua.classList.add('hidden');
+      sugestionBukuDua.innerHTML = '';
+    }
+  });
 </script>
 
 {{-- Script Sugestion Buku 1 --}}
@@ -285,7 +371,6 @@
   const fieldPengarang = document.getElementById('pengarang')
   const fieldPenerbit = document.getElementById('penerbit')
   const fieldTahunTerbit = document.getElementById('tahun_terbit')
-
 
   // Fungsi Live Search
   fieldBuku.addEventListener('keyup', function(e) {
@@ -317,7 +402,8 @@
                 fieldPenerbit.value = buku.penerbit.nama_penerbit;
                 fieldTahunTerbit.value = buku.tahun_terbit;
                 sugestionBuku.innerHTML = '';
-                sugestionBuku.classList.add('hidden')
+                sugestionBuku.classList.add(
+                  'hidden'); // Tutup kotak sugesti setelah dipilih
               };
               sugestionBuku.appendChild(div);
             });
@@ -361,7 +447,7 @@
       listEls[activeIndex].classList.add('bg-[#9BA4B5]/20', 'font-bold');
       // scroll jika perlu
       const $active = listEls[activeIndex];
-      const $parent = sugestionAnggota;
+      const $parent = sugestionBuku;
       const activeTop = $active.offsetTop;
       const activeBottom = activeTop + $active.offsetHeight;
       const parentScroll = $parent.scrollTop;
@@ -404,7 +490,7 @@
       sugestionBuku.classList.add('hidden');
       sugestionBuku.innerHTML = '';
     }
-  })
+  });
 </script>
 
 {{-- Script Sugestion Buku 2 --}}
@@ -440,14 +526,14 @@
               div.className = 'cursor-pointer py-2 hover:bg-[#F1F6F9] px-4';
               div.textContent =
                 `${buku.judul_buku ?? ''} (${buku.pengarang ?? ''}) - ID: ${buku.tahun_terbit ?? ''}`;
+
+              // Tidak perlu menutup di sini, karena penutupan akan dilakukan di event click global
               div.onclick = function() {
                 fieldBukuDua.value = buku.judul_buku;
                 fieldIdBukuDua.value = buku.id;
                 fieldPengarangDua.value = buku.pengarang;
                 fieldPenerbitDua.value = buku.penerbit.nama_penerbit;
                 fieldTahunTerbitDua.value = buku.tahun_terbit;
-                sugestionBukuDua.innerHTML = '';
-                sugestionBukuDua.classList.add('hidden')
               };
               sugestionBukuDua.appendChild(div);
             });
@@ -529,10 +615,51 @@
       e.preventDefault();
       if (activeIndex >= 0 && activeIndex < listEls.length) {
         listEls[activeIndex].click();
+        sugestionBukuDua.classList.add('hidden'); // Pastikan tertutup juga di keyboard enter
       }
     } else if (e.key === 'Escape') {
       sugestionBukuDua.classList.add('hidden');
       sugestionBukuDua.innerHTML = '';
     }
   });
+
+  // Jika klik pada kotak saran (bukan di luar), tutup kotak saran
+  sugestionBukuDua.addEventListener('click', function(e) {
+    // Tutup kotak saran apapun yang diklik di dalam box (div saran)
+    sugestionBukuDua.classList.add('hidden');
+    sugestionBukuDua.innerHTML = '';
+  });
+
+  // Jika klik di luar input maupun saran, tutup kotak saran (tidak mengganggu klik pada saran)
+  document.addEventListener('click', function(event) {
+    // Pastikan klik bukan pada input atau kotak saran itu sendiri
+    if (
+      !fieldBukuDua.contains(event.target) &&
+      !sugestionBukuDua.contains(event.target)
+    ) {
+      sugestionBukuDua.classList.add('hidden');
+    }
+  });
+</script>
+</script>
+<!-- Outline dan border focus berwarna rgb(255,109,31) -->
+<style>
+  input:focus,
+  textarea:focus {
+    outline: 1.5px solid rgb(255, 109, 31);
+    outline-offset: 1px;
+    border-color: rgb(255, 109, 31) !important;
+    box-shadow: none !important;
+  }
+
+  input[type="date"]:focus {
+    outline: 1.5px solid rgb(255, 109, 31);
+    outline-offset: 1px;
+    border-color: rgb(255, 109, 31) !important;
+    box-shadow: none !important;
+  }
+</style>
+<!-- End outline tipis dan border focus -->
+</script>
+</script>
 </script>

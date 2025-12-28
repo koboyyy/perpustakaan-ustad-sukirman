@@ -1,9 +1,138 @@
 <x-admin.dashboard>
 
+  {{-- 
+    ===== Modal declarations always on top, so they're not cut off or z-indexed below overlays ===== 
+  --}}
+
+  <!-- Modal Tambah Penerbit -->
+  <div
+    class="flex fixed top-0 left-0 w-full h-screen justify-center items-center form-tambah-penerbit hidden"
+    style="z-index:9999;">
+    <!-- overlay -->
+    <div class="absolute inset-0 bg-black/30"></div>
+    <div class="z-9999 w-full flex justify-center">
+      <x-admin.form-tambah-penerbit />
+    </div>
+  </div>
+
+  <!-- Modal Tambah Rak -->
+  <div
+    class="flex fixed top-0 left-0 w-full h-screen justify-center items-center form-tambah-rak hidden"
+    style="z-index:9999;">
+    <div class="absolute inset-0 bg-black/30"></div>
+    <div class="z-9999 w-full flex justify-center">
+      <x-admin.form-tambah-rak />
+    </div>
+  </div>
+
+  <!-- Modal Tambah Sumber -->
+  <div
+    class="flex fixed top-0 left-0 w-full h-screen justify-center items-center form-tambah-sumber hidden"
+    style="z-index:9999;">
+    <div class="absolute inset-0 bg-black/30"></div>
+    <div class="z-9999 w-full flex justify-center">
+      <x-admin.form-tambah-sumber />
+    </div>
+  </div>
+
+  <!-- Modal Tambah Kategori -->
+  <div class="flex fixed top-0 left-0 w-full h-screen justify-center items-center form-data hidden"
+    style="z-index:9999;">
+    <div class="absolute inset-0 bg-black/30"></div>
+    <div class="z-9999 w-full flex justify-center">
+      <x-admin.form-tambah-kategori />
+    </div>
+  </div>
+
+  {{-- Modal Konfirmasi Hapus --}}
+  <div id="hapusModal"
+    class="fixed inset-0 z-9999 bg-black/40 flex items-center justify-center hidden">
+    <div
+      class="bg-white w-full max-w-sm rounded-2xl shadow-lg relative flex flex-col px-6 py-8 animate-fade-in">
+      <button id="closeHapusModal"
+        class="absolute top-3 right-4 text-gray-400 hover:text-gray-900 text-lg" type="button">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="flex flex-col items-center gap-3">
+        <div class="rounded-full bg-red-100 text-red-600 p-4 shadow text-3xl mb-2">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <div class="text-[18px] font-semibold text-[#394867] mb-2 text-center">Konfirmasi
+          Hapus
+          Buku</div>
+        <div class="text-[#6B7280] text-center mb-5">Apakah Anda yakin ingin menghapus buku
+          ini?
+          Proses ini tidak bisa dibatalkan.</div>
+        <div class="flex gap-3 items-center justify-center w-full">
+          <button type="button" id="batalHapusBtn"
+            class="bg-[#F1F6F9] hover:bg-[#E9EDF3] text-[#394867] font-semibold px-5 py-2 rounded-lg transition">Batal</button>
+          <button type="button" id="konfirmasiHapusBtn"
+            class="bg-red-500 hover:bg-red-600 text-white font-semibold px-5 py-2 rounded-lg transition flex items-center gap-2">
+            <span id="hapusBtnIcon"><i class="fa-solid fa-trash"></i></span>
+            <span id="hapusBtnText">Hapus</span>
+            <span id="hapusBtnLoader" class="hidden animate-spin"><i
+                class="fa-solid fa-spinner"></i></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{-- Modal/Snackbar Success --}}
+  <div id="hapusSuccessSnackbar"
+    class="fixed left-1/2 -translate-x-1/2 bottom-8 z-9999 bg-green-500 text-white px-5 py-3 rounded-lg flex items-center gap-2 shadow-lg hidden animate-bounce-in">
+    <i class="fa-solid fa-check-circle text-2xl"></i>
+    <span>Buku berhasil dihapus!</span>
+  </div>
+
+  {{-- Modal Edit Buku --}}
+  <div id="editModal"
+    class="fixed inset-0 z-9999 bg-black/40 flex items-center justify-center hidden">
+    <div
+      class="bg-white w-full max-w-2xl max-h-[96vh] my-6 rounded-2xl shadow-lg relative flex flex-col"
+      style="max-height: 96vh;">
+      <button id="closeEditModal"
+        class="absolute top-3 right-4 text-gray-400 hover:text-gray-900 text-lg" type="button">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="px-6 py-4 border-b font-bold text-[#394867] flex items-center gap-2">
+        <i class="fa-solid fa-pen-to-square"></i> Edit Data Buku
+      </div>
+      <div class="px-6 py-6 overflow-auto" id="editModalForm" style="max-height: 70vh;">
+        {{-- Form edit akan di-load via AJAX --}}
+        <div class="flex justify-center items-center text-[#394867] py-10">
+          Memuat formulir...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{-- Modal Detail Buku --}}
+  <div id="detailModal"
+    class="fixed inset-0 z-50 bg-black/40 flex items-center justify-center overflow-auto hidden"
+    style="padding-top: 3vh; padding-bottom: 3vh;">
+    <div class="bg-white w-full max-w-2xl rounded-2xl shadow-lg relative my-8"
+      style="max-height: 94vh; display: flex; flex-direction: column;">
+      <button id="closeDetailModal"
+        class="absolute top-3 right-4 text-gray-400 hover:text-gray-900 text-lg" type="button">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="px-6 py-4 border-b font-bold text-[#394867] flex items-center gap-2">
+        <i class="fa-solid fa-circle-info"></i> Detail Buku
+      </div>
+      <div class="px-6 py-6 overflow-auto" id="detailModalContent" style="max-height: 70vh;">
+        {{-- Detail buku akan di-load via AJAX --}}
+        <div class="flex justify-center items-center text-[#394867] py-10">
+          Memuat detail...
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="w-full flex gap-4 relative flex-col xl:flex-row">
 
     @if (session()->has('error-edit'))
-      <div class="bg-pink-300 p-5 text-2xl font-bold">
+      <div class="bg-red-700 p-5 text-2xl font-bold">
         {{ session('error-edit') }}
       </div>
     @endif
@@ -45,43 +174,6 @@
         <i class="fa-solid fa-gift mr-2"></i> Tambah Sumber
       </button>
 
-      <!-- Modal Tambah Penerbit -->
-      <div
-        class="flex fixed top-0 left-0 w-full h-screen justify-center items-center form-tambah-penerbit hidden">
-        <!-- overlay -->
-        <div class="absolute inset-0 bg-black/30"></div>
-        <div class="z-9999 w-full flex justify-center">
-          <x-admin.form-tambah-penerbit />
-        </div>
-      </div>
-
-      <!-- Modal Tambah Rak -->
-      <div
-        class="flex fixed top-0 left-0 w-full h-screen justify-center items-center form-tambah-rak hidden">
-        <div class="absolute inset-0 bg-black/30"></div>
-        <div class="z-9999 w-full flex justify-center">
-          <x-admin.form-tambah-rak />
-        </div>
-      </div>
-
-      <!-- Modal Tambah Sumber -->
-      <div
-        class="flex fixed top-0 left-0 w-full h-screen justify-center items-center form-tambah-sumber hidden">
-        <div class="absolute inset-0 bg-black/30"></div>
-        <div class="z-9999 w-full flex justify-center">
-          <x-admin.form-tambah-sumber />
-        </div>
-      </div>
-
-      <!-- Modal Tambah Kategori -->
-      <div
-        class="flex fixed top-0 left-0 w-full h-screen justify-center items-center form-data hidden">
-        <div class="absolute inset-0 bg-black/30"></div>
-        <div class="z-9999 w-full flex justify-center">
-          <x-admin.form-tambah-kategori />
-        </div>
-      </div>
-
       {{-- icon dan judul --}}
       <div class="text-[16px] font-semibold text-[#394867]">
         <i class="fa-solid fa-book"></i> Data-data Buku
@@ -111,92 +203,6 @@
         <div id="kotak-saran"
           class="bg-white z-50 border border-black/10 shadow rounded-xl w-full absolute top-14 py-2 hidden">
           {{-- Konten Dinamis --}}
-        </div>
-      </div>
-
-      {{-- Modal Konfirmasi Hapus --}}
-      <div id="hapusModal"
-        class="fixed inset-0 z-9999 bg-black/40 flex items-center justify-center hidden">
-        <div
-          class="bg-white w-full max-w-sm rounded-2xl shadow-lg relative flex flex-col px-6 py-8 animate-fade-in">
-          <button id="closeHapusModal"
-            class="absolute top-3 right-4 text-gray-400 hover:text-gray-900 text-lg" type="button">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-          <div class="flex flex-col items-center gap-3">
-            <div class="rounded-full bg-red-100 text-red-600 p-4 shadow text-3xl mb-2">
-              <i class="fa-solid fa-triangle-exclamation"></i>
-            </div>
-            <div class="text-[18px] font-semibold text-[#394867] mb-2 text-center">Konfirmasi
-              Hapus
-              Buku</div>
-            <div class="text-[#6B7280] text-center mb-5">Apakah Anda yakin ingin menghapus buku
-              ini?
-              Proses ini tidak bisa dibatalkan.</div>
-            <div class="flex gap-3 items-center justify-center w-full">
-              <button type="button" id="batalHapusBtn"
-                class="bg-[#F1F6F9] hover:bg-[#E9EDF3] text-[#394867] font-semibold px-5 py-2 rounded-lg transition">Batal</button>
-              <button type="button" id="konfirmasiHapusBtn"
-                class="bg-red-500 hover:bg-red-600 text-white font-semibold px-5 py-2 rounded-lg transition flex items-center gap-2">
-                <span id="hapusBtnIcon"><i class="fa-solid fa-trash"></i></span>
-                <span id="hapusBtnText">Hapus</span>
-                <span id="hapusBtnLoader" class="hidden animate-spin"><i
-                    class="fa-solid fa-spinner"></i></span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {{-- Modal/Snackbar Success --}}
-      <div id="hapusSuccessSnackbar"
-        class="fixed left-1/2 -translate-x-1/2 bottom-8 z-9999 bg-green-500 text-white px-5 py-3 rounded-lg flex items-center gap-2 shadow-lg hidden animate-bounce-in">
-        <i class="fa-solid fa-check-circle text-2xl"></i>
-        <span>Buku berhasil dihapus!</span>
-      </div>
-
-      {{-- Modal Edit Buku --}}
-      <div id="editModal"
-        class="fixed inset-0 z-9999 bg-black/40 flex items-center justify-center hidden">
-        <div
-          class="bg-white w-full max-w-2xl max-h-[96vh] my-6 rounded-2xl shadow-lg relative flex flex-col"
-          style="max-height: 96vh;">
-          <button id="closeEditModal"
-            class="absolute top-3 right-4 text-gray-400 hover:text-gray-900 text-lg" type="button">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-          <div class="px-6 py-4 border-b font-bold text-[#394867] flex items-center gap-2">
-            <i class="fa-solid fa-pen-to-square"></i> Edit Data Buku
-          </div>
-          <div class="px-6 py-6 overflow-auto" id="editModalForm" style="max-height: 70vh;">
-            {{-- Form edit akan di-load via AJAX --}}
-            <div class="flex justify-center items-center text-[#394867] py-10">
-              Memuat formulir...
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {{-- Modal Detail Buku --}}
-      <div id="detailModal"
-        class="fixed inset-0 z-50 bg-black/40 flex items-center justify-center overflow-auto hidden"
-        style="padding-top: 3vh; padding-bottom: 3vh;">
-        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-lg relative my-8"
-          style="max-height: 94vh; display: flex; flex-direction: column;">
-          <button id="closeDetailModal"
-            class="absolute top-3 right-4 text-gray-400 hover:text-gray-900 text-lg"
-            type="button">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-          <div class="px-6 py-4 border-b font-bold text-[#394867] flex items-center gap-2">
-            <i class="fa-solid fa-circle-info"></i> Detail Buku
-          </div>
-          <div class="px-6 py-6 overflow-auto" id="detailModalContent" style="max-height: 70vh;">
-            {{-- Detail buku akan di-load via AJAX --}}
-            <div class="flex justify-center items-center text-[#394867] py-10">
-              Memuat detail...
-            </div>
-          </div>
         </div>
       </div>
 
@@ -335,361 +341,359 @@
     @vite('resources/js/table.js')
   </div>
 
-</x-admin.dashboard>
+  {{-- Fitur Pencarian --}}
+  <script>
+    let activeSuggestionIndex = -1;
+    let suggestionData = [];
 
-{{-- Fitur Pencarian --}}
-<script>
-  let activeSuggestionIndex = -1;
-  let suggestionData = [];
+    function showSuggestionBox() {
+      const hasil = document.getElementById('kotak-saran');
+      hasil.classList.remove('hidden');
+      hasil.classList.add('block');
+    }
 
-  function showSuggestionBox() {
-    const hasil = document.getElementById('kotak-saran');
-    hasil.classList.remove('hidden');
-    hasil.classList.add('block');
-  }
+    function hideSuggestionBox() {
+      const hasil = document.getElementById('kotak-saran');
+      hasil.classList.remove('block');
+      hasil.classList.add('hidden');
+      activeSuggestionIndex = -1;
+    }
 
-  function hideSuggestionBox() {
-    const hasil = document.getElementById('kotak-saran');
-    hasil.classList.remove('block');
-    hasil.classList.add('hidden');
-    activeSuggestionIndex = -1;
-  }
+    function updateActiveSuggestion() {
+      // Highlight suggestion yang aktif, clear yang lain
+      const listEls = document.querySelectorAll('#kotak-saran div');
+      listEls.forEach((div, idx) => {
+        div.classList.remove('bg-[#9BA4B5]/20', 'font-bold');
+        if (idx === activeSuggestionIndex) {
+          div.classList.add('bg-[#9BA4B5]/20', 'font-bold');
+        }
+      });
+    }
 
-  function updateActiveSuggestion() {
-    // Highlight suggestion yang aktif, clear yang lain
-    const listEls = document.querySelectorAll('#kotak-saran div');
-    listEls.forEach((div, idx) => {
-      div.classList.remove('bg-[#9BA4B5]/20', 'font-bold');
-      if (idx === activeSuggestionIndex) {
-        div.classList.add('bg-[#9BA4B5]/20', 'font-bold');
+    // Bugfix: Pakai 'input' event untuk fetch saran/jalankan pencarian, bukan 'keydown'
+    document.getElementById('pencarian').addEventListener('input', function(e) {
+      var keyword = this.value;
+      const kotakSaran = document.getElementById('kotak-saran');
+
+      if (keyword.length > 0) {
+        fetch(`/live-search-buku?keyword=${encodeURIComponent(keyword)}`)
+          .then(response => response.json())
+          .then(data => {
+            kotakSaran.innerHTML = '';
+            suggestionData = data || [];
+            activeSuggestionIndex = -1;
+
+            if (suggestionData.length > 0) {
+              showSuggestionBox();
+              suggestionData.forEach(function(item, idx) {
+                const div = document.createElement('div');
+                div.className =
+                  'py-3 px-9 hover:bg-[#9BA4B5]/10 cursor-pointer text-[#212A3E]';
+                div.setAttribute('data-idx', idx);
+                div.setAttribute('data-judul', item.judul_buku);
+                div.innerHTML = `<span class="font-semibold">${item.judul_buku}</span>`;
+                kotakSaran.appendChild(div);
+              });
+              updateActiveSuggestion();
+            } else {
+              hideSuggestionBox();
+            }
+          })
+          .catch(() => {
+            kotakSaran.innerHTML = '';
+            hideSuggestionBox();
+          });
+      } else {
+        hideSuggestionBox();
+        kotakSaran.innerHTML = '';
       }
     });
-  }
 
-  // Bugfix: Pakai 'input' event untuk fetch saran/jalankan pencarian, bukan 'keydown'
-  document.getElementById('pencarian').addEventListener('input', function(e) {
-    var keyword = this.value;
-    const kotakSaran = document.getElementById('kotak-saran');
+    // Arrow navigation dan enter support
+    document.getElementById('pencarian').addEventListener('keydown', function(e) {
+      const listEls = Array.from(document.querySelectorAll('#kotak-saran div'));
+      if (!listEls.length) return;
 
-    if (keyword.length > 0) {
-      fetch(`/live-search-buku?keyword=${encodeURIComponent(keyword)}`)
-        .then(response => response.json())
-        .then(data => {
-          kotakSaran.innerHTML = '';
-          suggestionData = data || [];
-          activeSuggestionIndex = -1;
-
-          if (suggestionData.length > 0) {
-            showSuggestionBox();
-            suggestionData.forEach(function(item, idx) {
-              const div = document.createElement('div');
-              div.className =
-                'py-3 px-9 hover:bg-[#9BA4B5]/10 cursor-pointer text-[#212A3E]';
-              div.setAttribute('data-idx', idx);
-              div.setAttribute('data-judul', item.judul_buku);
-              div.innerHTML = `<span class="font-semibold">${item.judul_buku}</span>`;
-              kotakSaran.appendChild(div);
-            });
-            updateActiveSuggestion();
-          } else {
-            hideSuggestionBox();
-          }
-        })
-        .catch(() => {
-          kotakSaran.innerHTML = '';
-          hideSuggestionBox();
-        });
-    } else {
-      hideSuggestionBox();
-      kotakSaran.innerHTML = '';
-    }
-  });
-
-  // Arrow navigation dan enter support
-  document.getElementById('pencarian').addEventListener('keydown', function(e) {
-    const listEls = Array.from(document.querySelectorAll('#kotak-saran div'));
-    if (!listEls.length) return;
-
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      if (activeSuggestionIndex < listEls.length - 1) {
-        activeSuggestionIndex++;
-        updateActiveSuggestion();
-        // Scroll ke elemen yang aktif jika di luar view
-        const active = listEls[activeSuggestionIndex];
-        const parent = document.getElementById('kotak-saran');
-        const activeTop = active.offsetTop;
-        const activeBottom = activeTop + active.offsetHeight;
-        const parentScroll = parent.scrollTop;
-        if (activeBottom > parent.clientHeight + parentScroll) {
-          parent.scrollTop = parentScroll + (activeBottom - parent.clientHeight);
-        } else if (activeTop < parentScroll) {
-          parent.scrollTop = activeTop;
-        }
-      }
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      if (activeSuggestionIndex > 0) {
-        activeSuggestionIndex--;
-        updateActiveSuggestion();
-        const active = listEls[activeSuggestionIndex];
-        const parent = document.getElementById('kotak-saran');
-        const activeTop = active.offsetTop;
-        const parentScroll = parent.scrollTop;
-        if (activeTop < parentScroll) {
-          parent.scrollTop = activeTop;
-        }
-      }
-    } else if (e.key === 'Enter') {
-      if (activeSuggestionIndex >= 0 && activeSuggestionIndex < suggestionData.length) {
+      if (e.key === 'ArrowDown') {
         e.preventDefault();
-        const selected = suggestionData[activeSuggestionIndex];
-        document.getElementById('pencarian').value = selected.judul_buku;
+        if (activeSuggestionIndex < listEls.length - 1) {
+          activeSuggestionIndex++;
+          updateActiveSuggestion();
+          // Scroll ke elemen yang aktif jika di luar view
+          const active = listEls[activeSuggestionIndex];
+          const parent = document.getElementById('kotak-saran');
+          const activeTop = active.offsetTop;
+          const activeBottom = activeTop + active.offsetHeight;
+          const parentScroll = parent.scrollTop;
+          if (activeBottom > parent.clientHeight + parentScroll) {
+            parent.scrollTop = parentScroll + (activeBottom - parent.clientHeight);
+          } else if (activeTop < parentScroll) {
+            parent.scrollTop = activeTop;
+          }
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (activeSuggestionIndex > 0) {
+          activeSuggestionIndex--;
+          updateActiveSuggestion();
+          const active = listEls[activeSuggestionIndex];
+          const parent = document.getElementById('kotak-saran');
+          const activeTop = active.offsetTop;
+          const parentScroll = parent.scrollTop;
+          if (activeTop < parentScroll) {
+            parent.scrollTop = activeTop;
+          }
+        }
+      } else if (e.key === 'Enter') {
+        if (activeSuggestionIndex >= 0 && activeSuggestionIndex < suggestionData.length) {
+          e.preventDefault();
+          const selected = suggestionData[activeSuggestionIndex];
+          document.getElementById('pencarian').value = selected.judul_buku;
+          hideSuggestionBox();
+        }
+      } else if (e.key === 'Escape') {
         hideSuggestionBox();
       }
-    } else if (e.key === 'Escape') {
-      hideSuggestionBox();
-    }
-  });
-
-  // Click pada suggestion (event delegation)
-  document.getElementById('kotak-saran').addEventListener('mousedown', function(e) {
-    let target = e.target;
-    while (target && target !== this && !target.hasAttribute('data-idx')) {
-      target = target.parentElement;
-    }
-    if (target && target.hasAttribute('data-judul')) {
-      let judul = target.getAttribute('data-judul');
-      document.getElementById('pencarian').value = judul;
-      hideSuggestionBox();
-      document.getElementById('pencarian').focus();
-      e.preventDefault();
-    }
-  });
-
-  // Hover mouse mengubah highlight aktif
-  document.getElementById('kotak-saran').addEventListener('mousemove', function(e) {
-    let target = e.target;
-    while (target && target !== this && !target.hasAttribute('data-idx')) {
-      target = target.parentElement;
-    }
-    if (target && target.hasAttribute('data-idx')) {
-      activeSuggestionIndex = parseInt(target.getAttribute('data-idx'), 10);
-      updateActiveSuggestion();
-    }
-  });
-
-  // Opsi: Tutup box saat klik di luar pencarian
-  document.addEventListener('mousedown', function(e) {
-    const pencarian = document.getElementById('pencarian');
-    const kotakSaran = document.getElementById('kotak-saran');
-    if (!pencarian.contains(e.target) && !kotakSaran.contains(e.target)) {
-      hideSuggestionBox();
-    }
-  });
-
-  // Opsi: Saat input blur, simpan sebentar supaya klik pada list bisa terproses
-  document.getElementById('pencarian').addEventListener('blur', function() {
-    setTimeout(hideSuggestionBox, 150);
-  });
-</script>
-
-<script>
-  // ==============================
-  // Modal Edit Hapus & Detail Buku
-  // ==============================
-
-  // --- Modal Edit & Detail Buku ---
-  const editModal = document.getElementById('editModal');
-  const closeEditModal = document.getElementById('closeEditModal');
-  const editModalForm = document.getElementById('editModalForm');
-
-  const detailModal = document.getElementById('detailModal');
-  const closeDetailModal = document.getElementById('closeDetailModal');
-  const detailModalContent = document.getElementById('detailModalContent');
-
-  // --- Modal Hapus Buku ---
-  const hapusModal = document.getElementById('hapusModal');
-  const closeHapusModal = document.getElementById('closeHapusModal');
-  const batalHapusBtn = document.getElementById('batalHapusBtn');
-  const konfirmasiHapusBtn = document.getElementById('konfirmasiHapusBtn');
-  const hapusBtnLoader = document.getElementById('hapusBtnLoader');
-  const hapusBtnText = document.getElementById('hapusBtnText');
-  const hapusSuccessSnackbar = document.getElementById('hapusSuccessSnackbar');
-  let bukuHapusFormAction = '';
-  let bukuHapusRow = null;
-
-  // Event delegation untuk tombol edit, detail, hapus
-  document.body.addEventListener('click', function(e) {
-    // Edit
-    if (e.target.closest('.editBukuBtn')) {
-      const button = e.target.closest('.editBukuBtn');
-      const bukuId = button.getAttribute('data-id');
-
-      editModal.classList.remove('hidden');
-      editModalForm.innerHTML =
-        '<div class="flex justify-center items-center text-[#394867] py-10">Memuat formulir...</div>';
-
-      fetch(`/admin/buku/${bukuId}/edit`)
-        .then(response => response.text())
-        .then(html => {
-          editModalForm.innerHTML = html;
-        })
-        .catch(() => {
-          editModalForm.innerHTML =
-            '<div class="text-red-500 py-10 text-center">Gagal memuat data.</div>';
-        });
-    }
-
-    // Detail
-    if (e.target.closest('.detailBukuBtn')) {
-      const button = e.target.closest('.detailBukuBtn');
-      const bukuId = button.getAttribute('data-id');
-      detailModal.classList.remove('hidden');
-      detailModalContent.innerHTML =
-        '<div class="flex justify-center items-center text-[#394867] py-10">Memuat detail...</div>';
-
-      fetch(`/admin/buku/${bukuId}`)
-        .then(response => response.text())
-        .then(html => {
-          detailModalContent.innerHTML = html;
-        })
-        .catch(() => {
-          detailModalContent.innerHTML =
-            '<div class="text-red-500 py-10 text-center">Gagal memuat detail.</div>';
-        });
-    }
-
-    // Hapus
-    if (e.target.closest('.hapusBukuBtn')) {
-      const btn = e.target.closest('.hapusBukuBtn');
-      bukuHapusFormAction = btn.getAttribute('data-route');
-      // Simpan TR row supaya bisa remove
-      bukuHapusRow = btn.closest('tr');
-      hapusModal.classList.remove('hidden');
-    }
-  });
-
-  function resetHapusModalBtn() {
-    if (hapusBtnLoader && hapusBtnText && konfirmasiHapusBtn) {
-      hapusBtnLoader.classList.add('hidden');
-      hapusBtnText.classList.remove('hidden');
-      konfirmasiHapusBtn.disabled = false;
-    }
-  }
-
-  if (closeHapusModal) {
-    closeHapusModal.addEventListener('click', function() {
-      hapusModal.classList.add('hidden');
-      resetHapusModalBtn();
     });
-  }
-  if (batalHapusBtn) {
-    batalHapusBtn.addEventListener('click', function() {
-      hapusModal.classList.add('hidden');
-      resetHapusModalBtn();
+
+    // Click pada suggestion (event delegation)
+    document.getElementById('kotak-saran').addEventListener('mousedown', function(e) {
+      let target = e.target;
+      while (target && target !== this && !target.hasAttribute('data-idx')) {
+        target = target.parentElement;
+      }
+      if (target && target.hasAttribute('data-judul')) {
+        let judul = target.getAttribute('data-judul');
+        document.getElementById('pencarian').value = judul;
+        hideSuggestionBox();
+        document.getElementById('pencarian').focus();
+        e.preventDefault();
+      }
     });
-  }
 
-  if (konfirmasiHapusBtn) {
-    konfirmasiHapusBtn.addEventListener('click', function() {
-      if (!bukuHapusFormAction || !bukuHapusRow) return;
-      konfirmasiHapusBtn.disabled = true;
-      hapusBtnText.classList.add('hidden');
-      hapusBtnLoader.classList.remove('hidden');
+    // Hover mouse mengubah highlight aktif
+    document.getElementById('kotak-saran').addEventListener('mousemove', function(e) {
+      let target = e.target;
+      while (target && target !== this && !target.hasAttribute('data-idx')) {
+        target = target.parentElement;
+      }
+      if (target && target.hasAttribute('data-idx')) {
+        activeSuggestionIndex = parseInt(target.getAttribute('data-idx'), 10);
+        updateActiveSuggestion();
+      }
+    });
 
-      fetch(bukuHapusFormAction, {
-          method: 'POST',
-          headers: {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            'X-Requested-With': 'XMLHttpRequest',
-            Accept: 'application/json',
-          },
-          body: new URLSearchParams({
-            _method: 'DELETE',
-          }),
-        })
-        .then(response => {
-          if (!response.ok) throw new Error();
-          return response.json ? response.json() : {};
-        })
-        .then(() => {
-          // Animasi fade out row
-          bukuHapusRow.classList.add('animate-fade-out');
-          setTimeout(() => {
-            bukuHapusRow.remove();
-            // Tampilkan snackbar success
-            hapusSuccessSnackbar.classList.remove('hidden');
-            // Hide modal
-            hapusModal.classList.add('hidden');
-            resetHapusModalBtn();
+    // Opsi: Tutup box saat klik di luar pencarian
+    document.addEventListener('mousedown', function(e) {
+      const pencarian = document.getElementById('pencarian');
+      const kotakSaran = document.getElementById('kotak-saran');
+      if (!pencarian.contains(e.target) && !kotakSaran.contains(e.target)) {
+        hideSuggestionBox();
+      }
+    });
 
+    // Opsi: Saat input blur, simpan sebentar supaya klik pada list bisa terproses
+    document.getElementById('pencarian').addEventListener('blur', function() {
+      setTimeout(hideSuggestionBox, 150);
+    });
+  </script>
+
+  <script>
+    // ==============================
+    // Modal Edit Hapus & Detail Buku
+    // ==============================
+
+    // --- Modal Edit & Detail Buku ---
+    const editModal = document.getElementById('editModal');
+    const closeEditModal = document.getElementById('closeEditModal');
+    const editModalForm = document.getElementById('editModalForm');
+
+    const detailModal = document.getElementById('detailModal');
+    const closeDetailModal = document.getElementById('closeDetailModal');
+    const detailModalContent = document.getElementById('detailModalContent');
+
+    // --- Modal Hapus Buku ---
+    const hapusModal = document.getElementById('hapusModal');
+    const closeHapusModal = document.getElementById('closeHapusModal');
+    const batalHapusBtn = document.getElementById('batalHapusBtn');
+    const konfirmasiHapusBtn = document.getElementById('konfirmasiHapusBtn');
+    const hapusBtnLoader = document.getElementById('hapusBtnLoader');
+    const hapusBtnText = document.getElementById('hapusBtnText');
+    const hapusSuccessSnackbar = document.getElementById('hapusSuccessSnackbar');
+    let bukuHapusFormAction = '';
+    let bukuHapusRow = null;
+
+    // Event delegation untuk tombol edit, detail, hapus
+    document.body.addEventListener('click', function(e) {
+      // Edit
+      if (e.target.closest('.editBukuBtn')) {
+        const button = e.target.closest('.editBukuBtn');
+        const bukuId = button.getAttribute('data-id');
+
+        editModal.classList.remove('hidden');
+        editModalForm.innerHTML =
+          '<div class="flex justify-center items-center text-[#394867] py-10">Memuat formulir...</div>';
+
+        fetch(`/admin/buku/${bukuId}/edit`)
+          .then(response => response.text())
+          .then(html => {
+            editModalForm.innerHTML = html;
+          })
+          .catch(() => {
+            editModalForm.innerHTML =
+              '<div class="text-red-500 py-10 text-center">Gagal memuat data.</div>';
+          });
+      }
+
+      // Detail
+      if (e.target.closest('.detailBukuBtn')) {
+        const button = e.target.closest('.detailBukuBtn');
+        const bukuId = button.getAttribute('data-id');
+        detailModal.classList.remove('hidden');
+        detailModalContent.innerHTML =
+          '<div class="flex justify-center items-center text-[#394867] py-10">Memuat detail...</div>';
+
+        fetch(`/admin/buku/${bukuId}`)
+          .then(response => response.text())
+          .then(html => {
+            detailModalContent.innerHTML = html;
+          })
+          .catch(() => {
+            detailModalContent.innerHTML =
+              '<div class="text-red-500 py-10 text-center">Gagal memuat detail.</div>';
+          });
+      }
+
+      // Hapus
+      if (e.target.closest('.hapusBukuBtn')) {
+        const btn = e.target.closest('.hapusBukuBtn');
+        bukuHapusFormAction = btn.getAttribute('data-route');
+        // Simpan TR row supaya bisa remove
+        bukuHapusRow = btn.closest('tr');
+        hapusModal.classList.remove('hidden');
+      }
+    });
+
+    function resetHapusModalBtn() {
+      if (hapusBtnLoader && hapusBtnText && konfirmasiHapusBtn) {
+        hapusBtnLoader.classList.add('hidden');
+        hapusBtnText.classList.remove('hidden');
+        konfirmasiHapusBtn.disabled = false;
+      }
+    }
+
+    if (closeHapusModal) {
+      closeHapusModal.addEventListener('click', function() {
+        hapusModal.classList.add('hidden');
+        resetHapusModalBtn();
+      });
+    }
+    if (batalHapusBtn) {
+      batalHapusBtn.addEventListener('click', function() {
+        hapusModal.classList.add('hidden');
+        resetHapusModalBtn();
+      });
+    }
+
+    if (konfirmasiHapusBtn) {
+      konfirmasiHapusBtn.addEventListener('click', function() {
+        if (!bukuHapusFormAction || !bukuHapusRow) return;
+        konfirmasiHapusBtn.disabled = true;
+        hapusBtnText.classList.add('hidden');
+        hapusBtnLoader.classList.remove('hidden');
+
+        fetch(bukuHapusFormAction, {
+            method: 'POST',
+            headers: {
+              'X-CSRF-TOKEN': '{{ csrf_token() }}',
+              'X-Requested-With': 'XMLHttpRequest',
+              Accept: 'application/json',
+            },
+            body: new URLSearchParams({
+              _method: 'DELETE',
+            }),
+          })
+          .then(response => {
+            if (!response.ok) throw new Error();
+            return response.json ? response.json() : {};
+          })
+          .then(() => {
+            // Animasi fade out row
+            bukuHapusRow.classList.add('animate-fade-out');
             setTimeout(() => {
-              hapusSuccessSnackbar.classList.add('hidden');
-            }, 1700);
+              bukuHapusRow.remove();
+              // Tampilkan snackbar success
+              hapusSuccessSnackbar.classList.remove('hidden');
+              // Hide modal
+              hapusModal.classList.add('hidden');
+              resetHapusModalBtn();
 
-            // Jika tabel kosong tampilkan pesan
-            const table = document.getElementById('tabel-buku-admin');
-            const tbody = table.querySelector('tbody');
-            const visibleRows = Array.from(tbody.querySelectorAll('tr')).filter(
-              row => row.offsetParent !== null && row.id !== 'no-data-buku-admin'
-            );
-            // update nomor setelah hapus
-            updateNomorBukuTable();
+              setTimeout(() => {
+                hapusSuccessSnackbar.classList.add('hidden');
+              }, 1700);
 
-            if (visibleRows.length === 0) {
-              let noRow = document.getElementById('no-data-buku-admin');
-              if (!noRow) {
-                noRow = document.createElement('tr');
-                noRow.id = 'no-data-buku-admin';
-                let td = document.createElement('td');
-                td.colSpan = 5;
-                td.className = 'text-center py-10 text-[#9BA4B5]';
-                td.innerText = 'Tidak ada data buku.';
-                noRow.appendChild(td);
-                tbody.appendChild(noRow);
-              } else {
-                noRow.style.display = '';
+              // Jika tabel kosong tampilkan pesan
+              const table = document.getElementById('tabel-buku-admin');
+              const tbody = table.querySelector('tbody');
+              const visibleRows = Array.from(tbody.querySelectorAll('tr')).filter(
+                row => row.offsetParent !== null && row.id !== 'no-data-buku-admin'
+              );
+              // update nomor setelah hapus
+              updateNomorBukuTable();
+
+              if (visibleRows.length === 0) {
+                let noRow = document.getElementById('no-data-buku-admin');
+                if (!noRow) {
+                  noRow = document.createElement('tr');
+                  noRow.id = 'no-data-buku-admin';
+                  let td = document.createElement('td');
+                  td.colSpan = 5;
+                  td.className = 'text-center py-10 text-[#9BA4B5]';
+                  td.innerText = 'Tidak ada data buku.';
+                  noRow.appendChild(td);
+                  tbody.appendChild(noRow);
+                } else {
+                  noRow.style.display = '';
+                }
               }
-            }
-          }, 400); // sesuai animasi
-        })
-        .catch(() => {
-          resetHapusModalBtn();
-          konfirmasiHapusBtn.classList.add('shake'); // animasi gagal
-          setTimeout(() => konfirmasiHapusBtn.classList.remove('shake'), 650);
-        });
+            }, 400); // sesuai animasi
+          })
+          .catch(() => {
+            resetHapusModalBtn();
+            konfirmasiHapusBtn.classList.add('shake'); // animasi gagal
+            setTimeout(() => konfirmasiHapusBtn.classList.remove('shake'), 650);
+          });
+      });
+    }
+
+    // Optional: Tutup modal jika klik di luar konten
+    editModal.addEventListener('click', function(e) {
+      if (e.target === editModal) {
+        editModal.classList.add('hidden');
+      }
     });
-  }
+    detailModal.addEventListener('click', function(e) {
+      if (e.target === detailModal) {
+        detailModal.classList.add('hidden');
+      }
+    });
+    hapusModal.addEventListener('click', function(e) {
+      if (e.target === hapusModal) {
+        hapusModal.classList.add('hidden');
+        resetHapusModalBtn();
+      }
+    });
 
-  // Optional: Tutup modal jika klik di luar konten
-  editModal.addEventListener('click', function(e) {
-    if (e.target === editModal) {
+    closeEditModal?.addEventListener('click', function() {
       editModal.classList.add('hidden');
-    }
-  });
-  detailModal.addEventListener('click', function(e) {
-    if (e.target === detailModal) {
+    });
+    closeDetailModal?.addEventListener('click', function() {
       detailModal.classList.add('hidden');
-    }
-  });
-  hapusModal.addEventListener('click', function(e) {
-    if (e.target === hapusModal) {
-      hapusModal.classList.add('hidden');
-      resetHapusModalBtn();
-    }
-  });
+    });
 
-  closeEditModal?.addEventListener('click', function() {
-    editModal.classList.add('hidden');
-  });
-  closeDetailModal?.addEventListener('click', function() {
-    detailModal.classList.add('hidden');
-  });
-
-  // CSS Animasi (Tambahkan jika belum ada)
-  const styleFade = document.createElement('style');
-  styleFade.innerHTML = `
+    // CSS Animasi (Tambahkan jika belum ada)
+    const styleFade = document.createElement('style');
+    styleFade.innerHTML = `
         @keyframes fadeOutRow { from {opacity:1; transform: scale(1);} to {opacity:0; transform: scale(0.95);} }
         .animate-fade-out { animation: fadeOutRow 0.4s forwards; }
         @keyframes fadeInModal { from{opacity:0;transform:scale(0.97);} to{opacity:1;transform:scale(1);} }
@@ -699,7 +703,6 @@
         @keyframes shakeX { 8%,41% {transform:translateX(-8px)} 25%,58%{transform:translateX(6px)} 75%{transform:translateX(-4px)} 92%{transform:translateX(2px)} 100%{transform:translateX(0)} }
         .shake { animation: shakeX .65s; }
       `;
-  document.head.appendChild(styleFade);
-</script>
-</div>
-</script>
+    document.head.appendChild(styleFade);
+  </script>
+</x-admin.dashboard>

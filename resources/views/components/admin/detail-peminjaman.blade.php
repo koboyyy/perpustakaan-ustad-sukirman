@@ -19,7 +19,7 @@
     <div class="mb-3">
       <span class="font-semibold">Tanggal Kembali:</span>
       <span id="modal-tanggal-kembali">
-        {{ $detailPeminjaman->created_at->format('Y-m-d') ?? '-' }}
+        {{ optional($detailPeminjaman->tanggal_pinjam ? \Carbon\Carbon::parse($detailPeminjaman->tanggal_pinjam) : null)?->addDays(7)->format('Y-m-d') ?? '-' }}
       </span>
     </div>
 
@@ -41,12 +41,6 @@
       <span class="font-semibold">Status:</span>
       <span id="modal-status">
         {{ ucfirst($detailPeminjaman->status ?? '-') }}
-      </span>
-    </div>
-    <div class="mb-3">
-      <span class="font-semibold">Admin:</span>
-      <span id="modal-admin">
-        {{ $detailPeminjaman->admin_nama ?? '-' }}
       </span>
     </div>
   </div>
