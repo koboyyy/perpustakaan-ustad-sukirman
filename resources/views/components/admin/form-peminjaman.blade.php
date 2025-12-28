@@ -57,7 +57,7 @@
       </label>
       <input type="text" id="nama_lengkap" name="nama_lengkap" required autocomplete="off"
         autocapitalize="off" spellcheck="false"
-        class="w-full border border-black/10 rounded px-2 py-1 focus:outline-none" readonly
+        class="w-full border border-black/10 rounded px-2 py-1" readonly
         onfocus="this.removeAttribute('readonly');">
 
       <div id="sugestion-anggota"
@@ -67,12 +67,13 @@
     </div>
 
     <div>
-      <label for="id_anggota" class="block mb-1 text-sm">ID Anggota
+      {{-- Lepas atribut for pada label untuk input readonly --}}
+      <label class="block mb-1 text-sm">ID Anggota
         <span class="font-bold" style="color: rgb(255,109,31);">*</span>
       </label>
       <input type="text" id="id_anggota" name="id_anggota" required
-        class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed focus:outline-none"
-        placeholder="" readonly>
+        class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed select-none"
+        placeholder="" readonly tabindex="-1">
     </div>
 
     <div class="flex w-full gap-3">
@@ -84,49 +85,54 @@
             <span class="font-bold" style="color: rgb(255,109,31);">*</span>
           </label>
           <input type="text" id="judul_buku" name="judul_buku" required
-            class="w-full border border-black/10 rounded px-2 py-1 focus:outline-none"
+            class="w-full border border-black/10 rounded px-2 py-1"
             placeholder="Judul buku, pisahkan dengan koma jika lebih dari satu" autocomplete="off"
             autocapitalize="off" spellcheck="false">
 
-          <div id="sugestion-buku" class="border hidden absolute top-full left-0 w-full bg-white">
+          <div id="sugestion-buku"
+            class="border border-black/10 hidden absolute top-full left-0 w-full bg-white rounded">
             {{-- Saran Buku --}}
           </div>
         </div>
 
         <div>
-          <label for="id_buku" class="block mb-1 text-sm">ID Buku
+          {{-- Lepas atribut for pada label untuk input readonly --}}
+          <label class="block mb-1 text-sm">ID Buku
             <span class="font-bold" style="color: rgb(255,109,31);">*</span>
           </label>
           <input type="text" id="id_buku" name="id_buku" required
-            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed focus:outline-none"
-            placeholder="" readonly>
+            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed select-none"
+            placeholder="" readonly tabindex="-1">
         </div>
 
         <div>
-          <label for="pengarang" class="block mb-1 text-sm">Pengarang
+          {{-- Lepas atribut for pada label untuk input readonly --}}
+          <label class="block mb-1 text-sm">Pengarang
             <span class="font-bold" style="color: rgb(255,109,31);">*</span>
           </label>
           <input type="text" id="pengarang" name="pengarang" required
-            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed focus:outline-none"
-            placeholder="" readonly>
+            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed select-none"
+            placeholder="" readonly tabindex="-1">
         </div>
 
         <div>
-          <label for="penerbit" class="block mb-1 text-sm">Penerbit
+          {{-- Lepas atribut for pada label untuk input readonly --}}
+          <label class="block mb-1 text-sm">Penerbit
             <span class="font-bold" style="color: rgb(255,109,31);">*</span>
           </label>
           <input type="text" id="penerbit" name="penerbit" required
-            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed focus:outline-none"
-            placeholder="" readonly>
+            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed select-none"
+            placeholder="" readonly tabindex="-1">
         </div>
 
         <div>
-          <label for="tahun_terbit" class="block mb-1 text-sm">Tahun Terbit
+          {{-- Lepas atribut for pada label untuk input readonly --}}
+          <label class="block mb-1 text-sm">Tahun Terbit
             <span class="font-bold" style="color: rgb(255,109,31);">*</span>
           </label>
           <input type="text" id="tahun_terbit" name="tahun_terbit" required
-            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed focus:outline-none"
-            placeholder="" readonly>
+            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed select-none"
+            placeholder="" readonly tabindex="-1">
         </div>
       </div>
 
@@ -138,7 +144,7 @@
             <span class="font-bold" style="color: rgb(255,109,31);">*</span>
           </label>
           <input type="text" id="judul_buku_2" name="judul_buku_2"
-            class="w-full border border-black/10 rounded px-2 py-1 focus:outline-none"
+            class="w-full border border-black/10 rounded px-2 py-1"
             placeholder="Judul buku, pisahkan dengan koma jika lebih dari satu" autocomplete="off"
             autocapitalize="off" spellcheck="false">
 
@@ -149,39 +155,43 @@
         </div>
 
         <div>
-          <label for="id_buku_2" class="block mb-1 text-sm">ID Buku
+          {{-- Lepas atribut for pada label untuk input readonly --}}
+          <label class="block mb-1 text-sm">ID Buku
             <span class="font-bold" style="color: rgb(255,109,31);">*</span>
           </label>
           <input type="text" id="id_buku_2" name="id_buku_2" required
-            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed focus:outline-none"
-            placeholder="" readonly>
+            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed select-none"
+            placeholder="" readonly tabindex="-1">
         </div>
 
         <div>
-          <label for="pengarang_2" class="block mb-1 text-sm">Pengarang
+          {{-- Lepas atribut for pada label untuk input readonly --}}
+          <label class="block mb-1 text-sm">Pengarang
             <span class="font-bold" style="color: rgb(255,109,31);">*</span>
           </label>
           <input type="text" id="pengarang_2" name="pengarang_2" required
-            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed focus:outline-none"
-            placeholder="" readonly>
+            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed select-none"
+            placeholder="" readonly tabindex="-1">
         </div>
 
         <div>
-          <label for="penerbit" class="block mb-1 text-sm">Penerbit
+          {{-- Lepas atribut for pada label untuk input readonly --}}
+          <label class="block mb-1 text-sm">Penerbit
             <span class="font-bold" style="color: rgb(255,109,31);">*</span>
           </label>
           <input type="text" id="penerbit_2" name="penerbit_2" required
-            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed focus:outline-none"
-            placeholder="" readonly>
+            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed select-none"
+            placeholder="" readonly tabindex="-1">
         </div>
 
         <div>
-          <label for="tahun_terbit_2" class="block mb-1 text-sm">Tahun Terbit
+          {{-- Lepas atribut for pada label untuk input readonly --}}
+          <label class="block mb-1 text-sm">Tahun Terbit
             <span class="font-bold" style="color: rgb(255,109,31);">*</span>
           </label>
           <input type="text" id="tahun_terbit_2" name="tahun_terbit_2" required
-            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed focus:outline-none"
-            placeholder="" readonly>
+            class="w-full border border-black/10 rounded px-2 py-1 bg-gray-100 cursor-not-allowed select-none"
+            placeholder="" readonly tabindex="-1">
         </div>
       </div>
     </div>
@@ -192,20 +202,49 @@
         <span class="font-bold" style="color: rgb(255,109,31);">*</span>
       </label>
       <input type="date" id="tanggal_peminjaman" name="tanggal_peminjaman" required
-        class="w-full border border-black/10 rounded px-2 py-1 focus:outline-none">
+        class="w-full border border-black/10 rounded px-2 py-1">
     </div>
 
     {{-- Catatan --}}
     <div>
       <label for="catatan_2" class="block mb-1 text-sm">Catatan (opsional)</label>
       <textarea id="catatan_2" name="catatan_2" rows="2"
-        class="w-full border border-black/10 rounded px-2 py-1 focus:outline-none"></textarea>
+        class="w-full border border-black/10 rounded px-2 py-1"></textarea>
     </div>
     {{-- Tombol Simpan --}}
     <button type="submit"
       class="w-full bg-[#394867] text-white py-2 rounded hover:bg-[#212A3E] transition">Simpan</button>
   </form>
+  {{-- 
+  <style>
+    /* Custom style for fields that are readonly/disabled:
+       visually cannot be edited, not focusable, and remove outline. */
+    input[readonly].cursor-not-allowed,
+    input[readonly][tabindex="-1"],
+    input.bg-gray-100.cursor-not-allowed,
+    input.bg-gray-100.cursor-not-allowed:focus,
+    input.select-none,
+    input[tabindex="-1"].cursor-not-allowed,
+    input[readonly]:focus,
+    input[tabindex="-1"]:focus,
+    input.bg-gray-100:focus,
+    input.select-none:focus {
+      outline: none !important;
+      box-shadow: none !important;
+      pointer-events: none;
+    }
 
+    input[readonly] {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    input[tabindex="-1"] {
+      outline: none !important;
+      box-shadow: none !important;
+      pointer-events: none;
+    }
+  </style> --}}
 </div>
 
 {{-- Script Sugestion Anggota --}}
@@ -630,36 +669,23 @@
     sugestionBukuDua.innerHTML = '';
   });
 
-  // Jika klik di luar input maupun saran, tutup kotak saran (tidak mengganggu klik pada saran)
-  document.addEventListener('click', function(event) {
-    // Pastikan klik bukan pada input atau kotak saran itu sendiri
-    if (
-      !fieldBukuDua.contains(event.target) &&
-      !sugestionBukuDua.contains(event.target)
-    ) {
-      sugestionBukuDua.classList.add('hidden');
-    }
-  });
+  // DOC: Tutup semua sugestion box jika klik di luar semuanya (sudah ditangani di script sugestion anggota)
+  // (Tidak perlu lagi di sini, supaya tidak double.)
 </script>
-</script>
-<!-- Outline dan border focus berwarna rgb(255,109,31) -->
+<!-- Fokus orange dihilangkan -->
 <style>
+  /* Hilangkan outline/border focus default tailwind/orange */
   input:focus,
   textarea:focus {
-    outline: 1.5px solid rgb(255, 109, 31);
-    outline-offset: 1px;
-    border-color: rgb(255, 109, 31) !important;
+    outline: none !important;
+    border-color: initial !important;
     box-shadow: none !important;
   }
 
   input[type="date"]:focus {
-    outline: 1.5px solid rgb(255, 109, 31);
-    outline-offset: 1px;
-    border-color: rgb(255, 109, 31) !important;
+    outline: none !important;
+    border-color: initial !important;
     box-shadow: none !important;
   }
 </style>
-<!-- End outline tipis dan border focus -->
-</script>
-</script>
-</script>
+<!-- End no outline/orange focus -->
