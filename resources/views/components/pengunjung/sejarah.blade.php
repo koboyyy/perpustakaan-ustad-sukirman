@@ -14,12 +14,12 @@
         Sejarah Perpustakaan
       </h2>
       <div class="text-[#212A3E] leading-relaxed text-justify">
-        <span class="font-semibold text-blue-400">Perpustakaan Ustadz Sukirman</span> mengambil
+        <span class="font-semibold">Perpustakaan Ustadz Sukirman</span> mengambil
         nama dari <span class="font-semibold">Sukirman</span>, sosok perintis yang
         membuka lahan pertama kali di Wonosari. Nama ini dipilih untuk memudahkan masyarakat dalam
         mengingat keberadaan <span class="font-semibold">Perpustakaan Desa Wonosari</span>. <br><br>
-        Perpustakaan ini diresmikan secara resmi oleh <span class="font-semibold ">Bupati
-          Bengkalis</span> pada <span class="font-semibold text-blue-400">17 Desember 2019</span>.
+        Perpustakaan ini diresmikan secara resmi oleh <span class="font-semibold">Bupati
+          Bengkalis</span> pada <span class="font-semibold">17 Desember 2019</span>.
       </div>
     </div>
   </div>

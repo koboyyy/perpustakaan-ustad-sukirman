@@ -12,7 +12,7 @@
 
     <x-pengunjung.jam-oprasioanl></x-pengunjung.jam-oprasioanl>
 
-    <x-pengunjung.buku-terbaru></x-pengunjung.buku-terbaru>
+    <x-pengunjung.buku-terbaru :dataBuku="$dataBuku"></x-pengunjung.buku-terbaru>
 
     <x-pengunjung.faq></x-pengunjung.faq>
 

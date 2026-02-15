@@ -1,10 +1,10 @@
 <x-pengunjung.layout-pengunjung title="halaman detail buku">
-  <div class="container mx-auto mb-20 text-[clamp(13px,2.5vw,18px)]">
+  <div class="container mx-auto mb-20 text-[clamp(13px,2.5vw,18px)] px-5">
     {{-- Cover dan judul, pengarang, penerbit --}}
     <div class="w-full h-100 flex justify-center gap-20 100 translate-y-25 relative">
 
       {{-- Tombol Kembali --}}
-      <div class="absolute left-0 top-1/2 -translate-y-1/2 hidden md:inline-block">
+      <div class="absolute left-0 -top-15 -translate-y-1/2 hidden md:inline-block">
         <a href="/koleksi-buku"
           class="flex items-center text-[#394867] hover:text-[#638ECB] transition-colors group">
           <i
@@ -16,7 +16,7 @@
 
       {{-- Cover --}}
       <div class="">
-        <div class="bg-pink-100 w-75 h-full shadow-[-20px_30px_20px_0px_rgb(0,0,0,0.1)]">
+        <div class="bg-pink-100 w-75 h-full shadow-[-15px_20px_20px_0px_rgb(0,0,0,0.3)]">
           <img src="{{ asset('storage/' . $dataBuku->cover) }}" alt=""
             class="object-cover w-full h-full">
         </div>

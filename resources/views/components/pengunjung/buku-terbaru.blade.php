@@ -13,63 +13,44 @@
       subtitle="Koleksi buku terbaru yang tersedia di perpustakaan kami." color="[#394867]" />
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10 xl:gap-14">
-      <!-- Card 1 -->
-      <div
-        class="bg-white/90 backdrop-blur-md rounded-2xl xs:rounded-3xl shadow-xl border-b-4 border-[#638ECB] dark:border-[#9BA4B5] px-3 xs:px-5 sm:px-7 py-6 flex flex-col items-center group hover:scale-[1.02] hover:shadow-[0_8px_48px_0_rgba(99,142,203,0.12)] transition-all duration-300 cursor-pointer">
-        <div class="relative w-full flex justify-center">
-          <img src="https://picsum.photos/seed/book1/500/700" alt="Cover Buku 1"
-            class="w-[130px] xs:w-[150px] sm:w-[170px] md:w-[200px] h-[180px] xs:h-[200px] sm:h-[240px] md:h-[280px] object-cover rounded-lg xs:rounded-xl mb-4 xs:mb-5 shadow-md group-hover:ring-4 group-hover:ring-[#9BA4B5]/40 transition-all duration-300" />
-          <span
-            class="absolute -top-3 xs:-top-4 left-1/2 -translate-x-1/2 bg-linear-to-r from-[#394867] to-[#638ECB] text-white px-2 xs:px-3 py-0.5 xs:py-1 rounded-full text-xs font-bold drop-shadow-lg shadow-lg">Baru!</span>
+      @php
+        // Ambil 3 buku terbaru
+        $bukuTerbaru = $dataBuku->sortByDesc('created_at')->take(3);
+      @endphp
+      @foreach ($bukuTerbaru as $buku)
+        <div
+          class="bg-white/90 backdrop-blur-md rounded-2xl xs:rounded-3xl shadow-xl border-b-4 border-[#638ECB] dark:border-[#9BA4B5] px-3 xs:px-5 sm:px-7 py-6 flex flex-col items-center group hover:scale-[1.02] hover:shadow-[0_8px_48px_0_rgba(99,142,203,0.12)] transition-all duration-300 cursor-pointer">
+          <div class="relative w-full flex justify-center">
+            @if ($buku->cover)
+              <img src="{{ asset('storage/' . $buku->cover) }}"
+                alt="Cover Buku {{ $buku->judul_buku }}"
+                class="w-[130px] xs:w-[150px] sm:w-[170px] md:w-[200px] h-[180px] xs:h-[200px] sm:h-[240px] md:h-[280px] object-cover rounded-lg xs:rounded-xl mb-4 xs:mb-5 shadow-md group-hover:ring-4 group-hover:ring-[#9BA4B5]/40 transition-all duration-300" />
+            @else
+              <img src="{{ asset('img/default-cover.jpg') }}" alt="No Cover"
+                class="w-[130px] xs:w-[150px] sm:w-[170px] md:w-[200px] h-[180px] xs:h-[200px] sm:h-[240px] md:h-[280px] object-cover rounded-lg xs:rounded-xl mb-4 xs:mb-5 shadow-md group-hover:ring-4 group-hover:ring-[#9BA4B5]/40 transition-all duration-300" />
+            @endif
+            <span
+              class="absolute -top-3 xs:-top-4 left-1/2 -translate-x-1/2 bg-linear-to-r from-[#394867] to-[#638ECB] text-white px-2 xs:px-3 py-0.5 xs:py-1 rounded-full text-xs font-bold drop-shadow-lg shadow-lg">Baru!</span>
+          </div>
+          <div
+            class="font-bold text-base xs:text-lg sm:text-xl text-[#394867] mb-1 text-center group-hover:text-[#638ECB] transition-colors duration-300">
+            {{ $buku->judul_buku }}</div>
+          <div
+            class="text-[#638ECB] font-medium text-xs xs:text-sm sm:text-[15px] mb-1 text-center">
+            {{ $buku->penulis ?? ($buku->pengarang ?? '-') }}
+          </div>
+          <div class="text-xs text-[#9BA4B5] mb-2 xs:mb-3 italic text-center">
+            @if (isset($buku->kategori) && isset($buku->kategori->nama_kategori))
+              {{ $buku->kategori->nama_kategori }}
+            @else
+              -
+            @endif
+          </div>
+          <div
+            class="px-3 py-[2px] xs:px-4 xs:py-[4px] bg-[#EEF3F7] text-[#394867] rounded-full font-semibold text-xs xs:text-sm shadow text-center w-min whitespace-nowrap">
+            {{ $buku->tahun_terbit ?? '-' }}</div>
         </div>
-        <div
-          class="font-bold text-base xs:text-lg sm:text-xl text-[#394867] mb-1 text-center group-hover:text-[#638ECB] transition-colors duration-300">
-          Laskar Pelangi</div>
-        <div class="text-[#638ECB] font-medium text-xs xs:text-sm sm:text-[15px] mb-1 text-center">
-          Andrea Hirata</div>
-        <div class="text-xs text-[#9BA4B5] mb-2 xs:mb-3 italic text-center">Fiksi, Inspirasi</div>
-        <div
-          class="px-3 py-[2px] xs:px-4 xs:py-[4px] bg-[#EEF3F7] text-[#394867] rounded-full font-semibold text-xs xs:text-sm shadow text-center w-min whitespace-nowrap">
-          2005</div>
-      </div>
-      <!-- Card 2 -->
-      <div
-        class="bg-white/90 backdrop-blur-md rounded-2xl xs:rounded-3xl shadow-xl border-b-4 border-[#638ECB] dark:border-[#9BA4B5] px-3 xs:px-5 sm:px-7 py-6 flex flex-col items-center group hover:scale-[1.02] hover:shadow-[0_8px_48px_0_rgba(99,142,203,0.12)] transition-all duration-300 cursor-pointer">
-        <div class="relative w-full flex justify-center">
-          <img src="https://picsum.photos/seed/book2/500/700" alt="Cover Buku 2"
-            class="w-[130px] xs:w-[150px] sm:w-[170px] md:w-[200px] h-[180px] xs:h-[200px] sm:h-[240px] md:h-[280px] object-cover rounded-lg xs:rounded-xl mb-4 xs:mb-5 shadow-md group-hover:ring-4 group-hover:ring-[#9BA4B5]/40 transition-all duration-300" />
-          <span
-            class="absolute -top-3 xs:-top-4 left-1/2 -translate-x-1/2 bg-linear-to-r from-[#394867] to-[#638ECB] text-white px-2 xs:px-3 py-0.5 xs:py-1 rounded-full text-xs font-bold drop-shadow-lg shadow-lg">Baru!</span>
-        </div>
-        <div
-          class="font-bold text-base xs:text-lg sm:text-xl text-[#394867] mb-1 text-center group-hover:text-[#638ECB] transition-colors duration-300">
-          Negeri 5 Menara</div>
-        <div class="text-[#638ECB] font-medium text-xs xs:text-sm sm:text-[15px] mb-1 text-center">
-          Ahmad Fuadi</div>
-        <div class="text-xs text-[#9BA4B5] mb-2 xs:mb-3 italic text-center">Motivasi, Fiksi</div>
-        <div
-          class="px-3 py-[2px] xs:px-4 xs:py-[4px] bg-[#EEF3F7] text-[#394867] rounded-full font-semibold text-xs xs:text-sm shadow text-center w-min whitespace-nowrap">
-          2009</div>
-      </div>
-      <!-- Card 3 -->
-      <div
-        class="bg-white/90 backdrop-blur-md rounded-2xl xs:rounded-3xl shadow-xl border-b-4 border-[#638ECB] dark:border-[#9BA4B5] px-3 xs:px-5 sm:px-7 py-6 flex flex-col items-center group hover:scale-[1.02] hover:shadow-[0_8px_48px_0_rgba(99,142,203,0.12)] transition-all duration-300 cursor-pointer">
-        <div class="relative w-full flex justify-center">
-          <img src="https://picsum.photos/seed/book3/500/700" alt="Cover Buku 3"
-            class="w-[130px] xs:w-[150px] sm:w-[170px] md:w-[200px] h-[180px] xs:h-[200px] sm:h-[240px] md:h-[280px] object-cover rounded-lg xs:rounded-xl mb-4 xs:mb-5 shadow-md group-hover:ring-4 group-hover:ring-[#9BA4B5]/40 transition-all duration-300" />
-          <span
-            class="absolute -top-3 xs:-top-4 left-1/2 -translate-x-1/2 bg-linear-to-r from-[#394867] to-[#638ECB] text-white px-2 xs:px-3 py-0.5 xs:py-1 rounded-full text-xs font-bold drop-shadow-lg shadow-lg">Baru!</span>
-        </div>
-        <div
-          class="font-bold text-base xs:text-lg sm:text-xl text-[#394867] mb-1 text-center group-hover:text-[#638ECB] transition-colors duration-300">
-          Bumi Manusia</div>
-        <div class="text-[#638ECB] font-medium text-xs xs:text-sm sm:text-[15px] mb-1 text-center">
-          Pramoedya Ananta Toer</div>
-        <div class="text-xs text-[#9BA4B5] mb-2 xs:mb-3 italic text-center">Sejarah, Sastra</div>
-        <div
-          class="px-3 py-[2px] xs:px-4 xs:py-[4px] bg-[#EEF3F7] text-[#394867] rounded-full font-semibold text-xs xs:text-sm shadow text-center w-min whitespace-nowrap">
-          1980</div>
-      </div>
+      @endforeach
     </div>
     <div class="flex justify-center mt-8 sm:mt-10 md:mt-12">
       <a href="/koleksi-buku"

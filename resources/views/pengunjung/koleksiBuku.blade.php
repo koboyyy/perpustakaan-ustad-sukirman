@@ -7,7 +7,8 @@
       <div class="absolute inset-0 b z-10 bg-[rgb(57,72,103,0.7)]">
 
       </div>
-      <img src="img/library3.jpg" alt="" class="object-cover object-center absolute inset-0">
+      <img src="{{ asset('img/library3.jpg') }}" alt=""
+        class="object-cover object-center absolute inset-0">
 
       <div class="mx-auto max-w-3xl text-center z-30 relative">
         <h1 class="text-2xl md:text-4xl sm:text-5xl xl:text-6xl font-extrabold"
